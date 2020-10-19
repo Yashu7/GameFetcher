@@ -15,13 +15,17 @@ namespace APIapp
         static async Task Main(string[] args)
         {
             GamesApiCalls apiCalls = new GamesApiCalls();
-            await apiCalls.ConnectToApi();
+            await apiCalls.CallApi();
             //TwitchAuth loggedToken = await TwitchApiCalls.GetAuth();
             //Console.WriteLine(loggedToken.token);
 
 
 
         }
+
+        
+
+
 
        
         

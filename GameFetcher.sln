@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIapp", "APIapp\APIapp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFetcherUI", "GameFetcherUI\GameFetcherUI.csproj", "{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopUI_Logic", "DesktopUI_Logic\DesktopUI_Logic.csproj", "{48CD19C0-778B-4283-974A-42E912EFC034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

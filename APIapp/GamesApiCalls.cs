@@ -11,7 +11,11 @@ namespace APIapp
 {
     public class GamesApiCalls
     {
-        public async Task ConnectToApi()
+        public async Task<string> CallApi()
+        {
+            return await ConnectToApi();
+        }
+        private async Task<string> ConnectToApi()
         {
             var apiCall = new HttpClient();
             apiCall.BaseAddress = new Uri("https://api.igdb.com/v4/games");
@@ -28,7 +32,7 @@ namespace APIapp
             var result = await apiCall.PostAsync("https://api.igdb.com/v4/games", null);
 
             var a = response.Content.ReadAsStringAsync();
-            Console.WriteLine(a.Result);
+            return a.Result;
 
             }
     }

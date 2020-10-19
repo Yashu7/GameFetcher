@@ -6,12 +6,29 @@
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ListBox Name="peopleListBox" Grid.Column="0" Grid.Row="1">
-            <ListBoxItem>Mike</ListBoxItem>
-            <ListBoxItem>Lisa</ListBoxItem>
-            <ListBoxItem>John</ListBoxItem>
-            <ListBoxItem>Mary</ListBoxItem>
-        </ListBox>
+    
+   
+    <Grid x:Name = "FormLayoutGrid" Background = "AliceBlue">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "*" />
+            <RowDefinition Height = "*" />
+            <RowDefinition Height = "*" />
+        </Grid.RowDefinitions>
+        <Button Grid.Row = "0" Grid.Column = "0"  Margin = "10"  
+         HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" 
+            Content="Update" Click="Button_Click"/>
+        <TextBox    Text = "{Binding GameTitle, Mode = OneWay}" Grid.Row = "0" Grid.Column = "1" Margin = "10" />
+        <TextBlock Grid.Row = "1" Grid.Column = "0" Text = "ID" Margin = "10"  
+         HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" />
+        <TextBox Grid.Row = "1" Grid.Column = "1" Margin = "10" />
+        <TextBlock Grid.Row = "2" Grid.Column = "0" Text = "Age" Margin = "10"  
+         HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" />
+        <TextBox Grid.Row = "2" Grid.Column = "1" Margin = "10" />
     </Grid>
 </Window>

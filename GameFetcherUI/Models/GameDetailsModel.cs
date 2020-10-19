@@ -8,6 +8,6 @@ namespace GameFetcherUI.Models
 {
     public class GameDetailsModel
     {
-        public string Name { get; set; }
+        public string GameTitle { get; set; }
     }
 }
