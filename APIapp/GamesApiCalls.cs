@@ -28,6 +28,7 @@ namespace APIapp
             var result = await apiCall.PostAsync("https://api.igdb.com/v4/games", null);
 
             var a = response.Content.ReadAsStringAsync();
+            Console.WriteLine(a.Result);
 
             }
     }
