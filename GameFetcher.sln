@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIapp", "APIapp\APIapp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFetcherUI", "GameFetcherUI\GameFetcherUI.csproj", "{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopUI_Logic", "DesktopUI_Logic\DesktopUI_Logic.csproj", "{48CD19C0-778B-4283-974A-42E912EFC034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI_Logic", "DesktopUI_Logic\DesktopUI_Logic.csproj", "{48CD19C0-778B-4283-974A-42E912EFC034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

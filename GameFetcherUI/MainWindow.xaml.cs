@@ -1,4 +1,4 @@
-﻿using GameFetcherUI.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DesktopUI_Logic;
+using DesktopUI_Logic.Models;
 
 namespace GameFetcherUI
 {
@@ -22,7 +23,7 @@ namespace GameFetcherUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string GameTitle;
+       
         private DataGetter dataGetter = new DataGetter();
         public MainWindow()
         {
@@ -32,16 +33,14 @@ namespace GameFetcherUI
             
         }
 
-        public async Task GetData()
-        {
-            GameDetailsModel gameModel = new GameDetailsModel { GameTitle = GameTitle };
-            GameTitle = await dataGetter.GetData();
-            this.DataContext = gameModel;
-        }
+        
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-           await GetData();
+
+            List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text);
+            GameTitleString.Text = gameList.First().Summary;
+          // await GetData();
         }
     }   
 }

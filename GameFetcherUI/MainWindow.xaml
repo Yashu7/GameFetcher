@@ -23,12 +23,7 @@
         <Button Grid.Row = "0" Grid.Column = "0"  Margin = "10"  
          HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" 
             Content="Update" Click="Button_Click"/>
-        <TextBox    Text = "{Binding GameTitle, Mode = OneWay}" Grid.Row = "0" Grid.Column = "1" Margin = "10" />
-        <TextBlock Grid.Row = "1" Grid.Column = "0" Text = "ID" Margin = "10"  
-         HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" />
-        <TextBox Grid.Row = "1" Grid.Column = "1" Margin = "10" />
-        <TextBlock Grid.Row = "2" Grid.Column = "0" Text = "Age" Margin = "10"  
-         HorizontalAlignment = "Left" VerticalAlignment = "Center" Width = "100" />
-        <TextBox Grid.Row = "2" Grid.Column = "1" Margin = "10" />
+        <TextBox  Name="GameTitleString" Text = "Insert Game Title" Grid.Row = "0" Grid.Column = "1" Margin = "10" />
+    
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,29 +12,44 @@ namespace APIapp
 {
     public class GamesApiCalls
     {
-        public async Task<string> CallApi()
+        
+        private HttpClient ConnectToApi()
         {
-            return await ConnectToApi();
-        }
-        private async Task<string> ConnectToApi()
-        {
-            var apiCall = new HttpClient();
-            apiCall.BaseAddress = new Uri("https://api.igdb.com/v4/games");
+            var apiCall = new HttpClient
+            {
+                BaseAddress = new Uri("https://api.igdb.com/v4/games")
+            };
             apiCall.DefaultRequestHeaders.Accept.Clear();
             apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             apiCall.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
             apiCall.DefaultRequestHeaders.Add("Authorization", "Bearer rghpew8l8lkpd122qar5i3x5fz32nc");
-            HttpContent requestMessage;
-            requestMessage = new StringContent("fields name;  where id = 1942;", Encoding.UTF8, "application/json");
+            return apiCall;
+
+
+        }
+        private async Task<string> GetGamesByTitle(string title)
+        {
+            
+            HttpClient call = ConnectToApi();
+                HttpContent requestMessage;
+            requestMessage = new StringContent(($"fields *;  where name=\"{title}\";"), Encoding.UTF8, "application/json");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-            HttpResponseMessage response = await apiCall.PostAsync("https://api.igdb.com/v4/games",requestMessage);
-            var result = await apiCall.PostAsync("https://api.igdb.com/v4/games", null);
+            HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/games", requestMessage);
+            var result = await call.PostAsync("https://api.igdb.com/v4/games", null);
+            List<GameModel> game = new List<GameModel>();
+            //game = await response.Content.ReadAsAsync<GameModel>();
+            var a = response.Content.ReadAsStringAsync().Result;
+            
 
-            var a = response.Content.ReadAsStringAsync();
-            return a.Result;
+            return a;
+            
 
-            }
+        }
+        public async Task<string> GetGameByTitle(string title)
+        {
+            return await GetGamesByTitle(title);
+        }
     }
 }

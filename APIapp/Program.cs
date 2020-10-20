@@ -12,10 +12,10 @@ namespace APIapp
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void  Main(string[] args)
         {
-            GamesApiCalls apiCalls = new GamesApiCalls();
-            await apiCalls.CallApi();
+            
+           
             //TwitchAuth loggedToken = await TwitchApiCalls.GetAuth();
             //Console.WriteLine(loggedToken.token);
 
