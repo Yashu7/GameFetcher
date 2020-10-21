@@ -24,7 +24,7 @@ namespace GameFetcherUI
     public partial class MainWindow : Window
     {
        
-        private DataGetter dataGetter = new DataGetter();
+        
         public MainWindow()
         {
             
@@ -35,12 +35,6 @@ namespace GameFetcherUI
 
         
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text);
-            GameTitleString.Text = gameList.First().Summary;
-          // await GetData();
-        }
+       
     }   
 }
