@@ -35,7 +35,7 @@ namespace GameFetcherUI
 
 
         }
-      
+        
         public DateTime UnixTimeToDateTime(long unixtime)
         {
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
@@ -46,7 +46,16 @@ namespace GameFetcherUI
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (GameList.SelectedItem == null) return;
-            MessageBox.Show((GameList.SelectedItem as GameDetailsModel).Id.ToString());
+            GameDetails main = new GameDetails(GameList.SelectedItem as GameDetailsModel);
+            main.Show();
+            //this.Close();
+            
+            
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

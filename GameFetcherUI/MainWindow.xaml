@@ -10,17 +10,6 @@
    
     <Grid x:Name = "FormLayoutGrid" Background = "AliceBlue">
         
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width = "Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "*" />
-        </Grid.RowDefinitions>
-       
         
     
     </Grid>

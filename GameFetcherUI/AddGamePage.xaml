@@ -5,26 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
-        Title="AddGamePage" Height="269.591" Width="404.442">
+        Title="AddGamePage" Height="400.591" Width="404.442">
     <Grid>
-        
+
 
         <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "*" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
             <RowDefinition Height = "*" />
         </Grid.RowDefinitions>
 
 
-        <Button Grid.Row="1" Click="Button_Click_1"/>
-        <Button Grid.Row = "3" Grid.Column = "0"  
+        <Button Content="Details" Grid.Row="1" Click="Button_Click_1" Height="20" Margin="89,29,257,22" Width="50"/>
+        <Button Content="Add" Grid.Row="1" Height="20" Margin="264,29,82,22" Width="50" Click="Button_Click_2"/>
+        <Button MinHeight="20" Grid.Row = "3" Grid.Column = "0"  
          HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "100" 
             Content="Find Game" Click="Button_Click" Margin="80,-80"/>
-        
-            <TextBox MaxHeight="20" MinWidth="200" MaxWidth="200"  HorizontalAlignment="Center" TextWrapping="Wrap"
+
+        <TextBox MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  HorizontalAlignment="Center" TextWrapping="Wrap"
                      Name="GameTitleString" Text = "Insert Game Title" Grid.Row = "2" Grid.Column = "0" />
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer MinHeight="100" MaxHeight="150" Grid.Row="0">
             <ListView  Grid.Row="0" Margin="10" Name="GameList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -34,7 +35,7 @@
                             <TextBlock Text=", " />
                             <TextBlock Text="Release Date: " />
                             <TextBlock Text="{Binding  FirstReleaseDate}" FontWeight="Bold" />
-                           
+
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

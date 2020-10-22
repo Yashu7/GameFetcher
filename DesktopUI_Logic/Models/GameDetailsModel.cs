@@ -42,7 +42,7 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("first_release_date")]
         public long FirstReleaseDate { get; set; }
 
-        
+        public string ReleaseDate { get; set; }
 
         [JsonProperty("franchises")]
         public List<long> Franchises { get; set; }
