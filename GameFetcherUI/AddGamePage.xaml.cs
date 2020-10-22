@@ -46,8 +46,8 @@ namespace GameFetcherUI
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (GameList.SelectedItem == null) return;
-            GameDetails main = new GameDetails(GameList.SelectedItem as GameDetailsModel);
-            main.Show();
+            GameDetails details = new GameDetails(GameList.SelectedItem as GameDetailsModel);
+            details.Show();
             //this.Close();
             
             
@@ -55,7 +55,11 @@ namespace GameFetcherUI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            if (GameList.SelectedItem == null) return;
+            Main main = new Main(GameList.SelectedItem as GameDetailsModel);
+            main.Show();
+            this.Close();
+            
         }
     }
 }
