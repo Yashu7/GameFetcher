@@ -1,4 +1,5 @@
-﻿using DesktopUI_Logic.Models;
+﻿using DesktopUI_Logic;
+using DesktopUI_Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,12 @@ namespace GameFetcherUI
         private void QuitApp (object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            sqlConn.PostCommand(MyGamesList.SelectedItem as GameDetailsModel);
         }
     }
 }

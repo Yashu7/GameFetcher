@@ -40,7 +40,7 @@
         <Button Content="Search" Grid.Column="3" Grid.Row="1" Click="SearchGame" Margin="21,261,21,55"/>
         <Button Content="Details" Grid.Column="3" Grid.Row="1" Margin="21,11,21,314" Click="GameDetails"/>
         <Button Content="Delete" Grid.Column="3" Grid.Row="1" Margin="21,58,21,266" Click="DeleteGame" />
-        <Button Content="Create Notification" Grid.Column="3" Grid.Row="1" Margin="21,107,21,217" />
+        <Button Content="Create Notification" Grid.Column="3" Grid.Row="1" Margin="21,107,21,217" Click="Button_Click" />
         <Button Content="Send Email" Grid.Column="3" Grid.Row="1" Margin="21,156,21,168" />
         <Button Content="Exit" Grid.Column="3" Grid.Row="1" Margin="21,206,21,118" Click="QuitApp" />
     </Grid>
