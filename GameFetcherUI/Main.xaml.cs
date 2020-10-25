@@ -20,6 +20,7 @@ namespace GameFetcherUI
     /// </summary>
     public partial class Main : Window
     {
+        
         public Main(GameDetailsModel gm)
         {
             InitializeComponent();
@@ -31,15 +32,17 @@ namespace GameFetcherUI
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        // Opens up windows for adding new game.
+        private void SearchGame(object sender, RoutedEventArgs e)
         {
             AddGamePage addGamePage = new AddGamePage();
             addGamePage.Show();
             this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        // Delete button.
+        private void DeleteGame(object sender, RoutedEventArgs e)
         {
             if (MyGamesList.SelectedItem == null) return;
             Games.gameModels.Remove(MyGamesList.SelectedItem as GameDetailsModel);
@@ -48,6 +51,19 @@ namespace GameFetcherUI
             
             
 
+        }
+        // Details window button
+        private void GameDetails(object sender, RoutedEventArgs e)
+        {
+            if (MyGamesList.SelectedItem == null) return;
+            GameDetails gameDetails = new GameDetails(MyGamesList.SelectedItem as GameDetailsModel);
+            gameDetails.Show();
+
+        }
+        //Close App
+        private void QuitApp (object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

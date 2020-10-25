@@ -36,12 +36,7 @@ namespace GameFetcherUI
 
         }
         
-        public DateTime UnixTimeToDateTime(long unixtime)
-        {
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddMilliseconds(unixtime).ToLocalTime();
-            return dtDateTime;
-        }
+      
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
