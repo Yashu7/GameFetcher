@@ -34,10 +34,42 @@ namespace DesktopUI_Logic
                 comm.ExecuteReader();
                 comm.Dispose();
                 cnn.Close();
-              
-                
-
+        }
+        public void RemoveCommand(GameDetailsModel game)
+        {
+            SqlConnection cnn = Connect();
+            SqlCommand comm;
+            cnn.Open();
+            comm = new SqlCommand("RemoveGame", cnn);
+            comm.CommandType = CommandType.StoredProcedure;
+            comm.Parameters.Add(new SqlParameter("@id", game.Id));
            
+            comm.ExecuteReader();
+            comm.Dispose();
+            cnn.Close();
+        }
+        public List<GameDetailsModel> ReadCommand()
+        {
+            List<GameDetailsModel> models = new List<GameDetailsModel>();
+            SqlConnection cnn = Connect();
+            SqlCommand comm;
+            cnn.Open();
+            string query = "SELECT * FROM Games";
+            comm = new SqlCommand(query, cnn);
+            SqlDataReader reader;
+            reader = comm.ExecuteReader();
+            while(reader.Read())
+            {
+                GameDetailsModel model = new GameDetailsModel();
+                model.Id = reader.GetInt32(0);
+                model.Name = reader.GetString(1);
+                model.FirstReleaseDate = reader.GetInt32(2);
+                model.Summary = reader.GetString(3);
+                models.Add(model);
+
+
+            }
+            return models;
         }
     }
 }

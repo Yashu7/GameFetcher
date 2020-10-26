@@ -60,5 +60,7 @@
   <ItemGroup>
     <Build Include="Games.sql" />
     <Build Include="InsertGame.sql" />
+    <Build Include="RemoveGame.sql" />
+    <Build Include="PlayingStatus.sql" />
   </ItemGroup>
 </Project>

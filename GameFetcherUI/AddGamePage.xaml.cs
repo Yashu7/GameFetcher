@@ -51,7 +51,9 @@ namespace GameFetcherUI
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (GameList.SelectedItem == null) return;
-            Main main = new Main(GameList.SelectedItem as GameDetailsModel);
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
+            Main main = new Main();
             main.Show();
             this.Close();
             

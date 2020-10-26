@@ -21,17 +21,14 @@ namespace GameFetcherUI
     /// </summary>
     public partial class Main : Window
     {
-        
-        public Main(GameDetailsModel gm)
-        {
-            InitializeComponent();
-            Games.gameModels.Add(gm);
-            MyGamesList.ItemsSource = Games.gameModels;
-            
-        }
+        public ToSqlConnection sqlConn;
+      
         public Main()
         {
+            sqlConn = new ToSqlConnection();
+           
             InitializeComponent();
+            MyGamesList.ItemsSource = sqlConn.ReadCommand();
         }
         
         // Opens up windows for adding new game.
@@ -46,11 +43,12 @@ namespace GameFetcherUI
         private void DeleteGame(object sender, RoutedEventArgs e)
         {
             if (MyGamesList.SelectedItem == null) return;
-            Games.gameModels.Remove(MyGamesList.SelectedItem as GameDetailsModel);
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            sqlConn.RemoveCommand(MyGamesList.SelectedItem as GameDetailsModel);
             MyGamesList.ItemsSource = null;
-            MyGamesList.ItemsSource = Games.gameModels;
-            
-            
+            MyGamesList.ItemsSource = sqlConn.ReadCommand();
+
+
 
         }
         // Details window button
@@ -69,8 +67,8 @@ namespace GameFetcherUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.PostCommand(MyGamesList.SelectedItem as GameDetailsModel);
+           
+            
         }
     }
 }
