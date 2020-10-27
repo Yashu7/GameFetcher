@@ -35,6 +35,22 @@ namespace DesktopUI_Logic
                 comm.Dispose();
                 cnn.Close();
         }
+        public void UpdateCommand(GameDetailsModel game)
+        {
+            SqlConnection cnn = Connect();
+            SqlCommand comm;
+            cnn.Open();
+            comm = new SqlCommand("UpdateGameProcedure", cnn);
+            comm.CommandType = CommandType.StoredProcedure;
+            comm.Parameters.Add(new SqlParameter("@id", game.Id));
+            comm.Parameters.Add(new SqlParameter("@title", game.Name));
+            comm.Parameters.Add(new SqlParameter("@date", game.FirstReleaseDate));
+            comm.Parameters.Add(new SqlParameter("@summary", game.Summary));
+            comm.Parameters.Add(new SqlParameter("@status", Convert.ToInt32(game.GetStatus)));
+            comm.ExecuteReader();
+            comm.Dispose();
+            cnn.Close();
+        }
         public void RemoveCommand(GameDetailsModel game)
         {
             SqlConnection cnn = Connect();

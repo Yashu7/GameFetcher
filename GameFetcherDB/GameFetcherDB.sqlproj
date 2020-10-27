@@ -62,5 +62,6 @@
     <Build Include="InsertGame.sql" />
     <Build Include="RemoveGame.sql" />
     <Build Include="PlayingStatus.sql" />
+    <Build Include="UpdateGameProcedure.sql" />
   </ItemGroup>
 </Project>

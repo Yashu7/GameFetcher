@@ -8,10 +8,25 @@
         Title="GameStatus" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="10">
-            <Label FontWeight="Bold">Are you ready?</Label>
-            <RadioButton>Yes</RadioButton>
-            <RadioButton>No</RadioButton>
-            <RadioButton IsChecked="True">Maybe</RadioButton>
+            <Label FontWeight="Bold">Game Status:</Label>
+            <RadioButton Checked="ChangeStatus" Name="a">Not Played</RadioButton>
+            <RadioButton Checked="ChangeStatus" Name="aa">Played</RadioButton>
+            <RadioButton Checked="ChangeStatus" Name="aaa">Playing Now</RadioButton>
+            <WrapPanel>
+                <TextBlock Text="Title: "/>
+                <TextBlock Text="{Binding Name}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <TextBlock Text="Status: "/>
+                <TextBlock Text="{Binding GetStatus}"/>
+            </WrapPanel>
+            <WrapPanel>
+                <TextBlock Text="Summary: "/>
+                <TextBlock Text="{Binding Summary}"/>
+            </WrapPanel>
+
+            <Button Content="Apply Changes" Click="ApplyChanges"></Button>
         </StackPanel>
+        
     </Grid>
 </Window>

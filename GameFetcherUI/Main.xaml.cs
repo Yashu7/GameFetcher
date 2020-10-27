@@ -72,7 +72,8 @@ namespace GameFetcherUI
         }
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Clicked");
+            GameStatus gameStatus = new GameStatus(MyGamesList.SelectedItem as GameDetailsModel);
+            gameStatus.Show();
         }
     }
 }

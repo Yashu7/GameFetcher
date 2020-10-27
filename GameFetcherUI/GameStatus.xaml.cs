@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DesktopUI_Logic;
+using DesktopUI_Logic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,26 @@ namespace GameFetcherUI
     /// </summary>
     public partial class GameStatus : Window
     {
-        public GameStatus()
+        public GameDetailsModel _game;
+        public GameStatus(GameDetailsModel game)
         {
+            _game = game;
+            this.DataContext = game;
             InitializeComponent();
+        }
+
+        private void ChangeStatus(object sender, RoutedEventArgs e)
+        {
+            RadioButton ck = sender as RadioButton;
+            _game.playingStatus = ((GameDetailsModel.Status)ck.Name.Length - 1);
+            MessageBox.Show(_game.playingStatus.ToString());
+                
+        }
+
+        private void ApplyChanges(object sender, RoutedEventArgs e)
+        {
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            sqlConn.UpdateCommand(_game);
         }
     }
 }
