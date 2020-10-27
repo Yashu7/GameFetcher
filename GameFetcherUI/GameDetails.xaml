@@ -26,7 +26,7 @@
                     Grid.Row="1" Margin="20 0">
             <TextBlock Text="Title:" Margin="0 20 0 20"/>
             <TextBlock Text="Release Date:" Margin="0 20 0 20"/>
-            <TextBlock Text="Platforms:" Margin="0 20 0 20"/>
+            <TextBlock Text="Status:" Margin="0 20 0 20"/>
             <TextBlock Text="Summary:" Margin="0 20 0 20"/>
 
 
@@ -35,7 +35,7 @@
                     Grid.Row="1" Margin="20 0">
             <TextBlock Text="{Binding Name, Mode =OneWay}"  Margin="0 20 0 20"/>
             <TextBlock Text="{Binding ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
-            <TextBlock Text="{Binding Platforms, Mode =OneWay}"  Margin="0 20 0 20"/>
+            <TextBlock Text="{Binding GetStatus, Mode =OneWay}"  Margin="0 20 0 20"/>
             <TextBlock TextWrapping="Wrap" MaxWidth ="300" Text="{Binding Summary, Mode =OneWay}"  Margin="0 20 0 20"/>
         </StackPanel>
 

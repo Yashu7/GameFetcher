@@ -15,6 +15,10 @@ namespace APIapp
         [JsonProperty("id")]
         public long Id { get; set; }
 
+        public enum Status { NotPlayed, Played, Playing };
+        public Status playingStatus = Status.NotPlayed;
+        
+
         [JsonProperty("age_ratings")]
         public List<long> AgeRatings { get; set; }
 

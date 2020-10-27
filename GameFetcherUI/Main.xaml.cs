@@ -22,15 +22,15 @@ namespace GameFetcherUI
     public partial class Main : Window
     {
         public ToSqlConnection sqlConn;
-      
+
         public Main()
         {
             sqlConn = new ToSqlConnection();
-           
+
             InitializeComponent();
             MyGamesList.ItemsSource = sqlConn.ReadCommand();
         }
-        
+
         // Opens up windows for adding new game.
         private void SearchGame(object sender, RoutedEventArgs e)
         {
@@ -60,15 +60,19 @@ namespace GameFetcherUI
 
         }
         //Close App
-        private void QuitApp (object sender, RoutedEventArgs e)
+        private void QuitApp(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+
+
+        }
+        void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Clicked");
         }
     }
 }

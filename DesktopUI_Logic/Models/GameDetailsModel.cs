@@ -14,6 +14,22 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("id")]
         public long Id { get; set; }
 
+        public enum Status { Not_Played, Played, Playing };
+        public Status playingStatus = 0;
+
+        public Status GetStatus 
+        {
+            get
+            {
+                return playingStatus;
+            }
+            set 
+            {
+                playingStatus = GetStatus;
+            }
+        }
+
+
         [JsonProperty("age_ratings")]
         public List<long> AgeRatings { get; set; }
 

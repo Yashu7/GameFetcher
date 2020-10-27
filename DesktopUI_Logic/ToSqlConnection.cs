@@ -65,6 +65,7 @@ namespace DesktopUI_Logic
                 model.Name = reader.GetString(1);
                 model.FirstReleaseDate = reader.GetInt32(2);
                 model.Summary = reader.GetString(3);
+                
                 models.Add(model);
 
 

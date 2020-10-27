@@ -1,4 +1,5 @@
 ﻿CREATE TABLE [dbo].[PlayingStatus]
 (
-	[Id] INT NOT NULL PRIMARY KEY
+	[id] INT NOT NULL PRIMARY KEY,
+	[Status] varchar(20) NOT NULL UNIQUE
 )

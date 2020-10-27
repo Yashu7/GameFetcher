@@ -2,7 +2,7 @@
 	
 	@title VARCHAR(100),
 	@date INT,
-	@summary VARCHAR(250)
+	@summary NVARCHAR(4000)
 AS
 	INSERT INTO Games
 	(
