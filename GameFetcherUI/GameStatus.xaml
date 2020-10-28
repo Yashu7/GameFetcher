@@ -5,28 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
-        Title="GameStatus" Height="450" Width="800">
+        Title="{Binding Name}" Height="148.171" Width="215.549">
     <Grid>
         <StackPanel Margin="10">
             <Label FontWeight="Bold">Game Status:</Label>
             <RadioButton Checked="ChangeStatus" Name="a">Not Played</RadioButton>
             <RadioButton Checked="ChangeStatus" Name="aa">Played</RadioButton>
             <RadioButton Checked="ChangeStatus" Name="aaa">Playing Now</RadioButton>
-            <WrapPanel>
-                <TextBlock Text="Title: "/>
-                <TextBlock Text="{Binding Name}"/>
-            </WrapPanel>
-            <WrapPanel>
-                <TextBlock Text="Status: "/>
-                <TextBlock Text="{Binding GetStatus}"/>
-            </WrapPanel>
-            <WrapPanel>
-                <TextBlock Text="Summary: "/>
-                <TextBlock Text="{Binding Summary}"/>
-            </WrapPanel>
+
 
             <Button Content="Apply Changes" Click="ApplyChanges"></Button>
         </StackPanel>
-        
+
     </Grid>
 </Window>

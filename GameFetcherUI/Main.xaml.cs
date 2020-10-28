@@ -74,6 +74,7 @@ namespace GameFetcherUI
         {
             GameStatus gameStatus = new GameStatus(MyGamesList.SelectedItem as GameDetailsModel);
             gameStatus.Show();
+            this.Close();
         }
     }
 }

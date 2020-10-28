@@ -33,7 +33,7 @@ namespace GameFetcherUI
         {
             RadioButton ck = sender as RadioButton;
             _game.playingStatus = ((GameDetailsModel.Status)ck.Name.Length - 1);
-            MessageBox.Show(_game.playingStatus.ToString());
+           
                 
         }
 
@@ -41,6 +41,10 @@ namespace GameFetcherUI
         {
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.UpdateCommand(_game);
+            Main main = new Main();
+            main.Activate();
+            this.Close();
+            
         }
     }
 }
