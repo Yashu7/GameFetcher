@@ -18,7 +18,7 @@ namespace DesktopUI_Logic.Models
         public int MyScore { get; set; }
         
         public enum Status { Not_Played, Played, Playing };
-        public Status playingStatus = 0;
+        public Status playingStatus;
 
         public Status GetStatus 
         {

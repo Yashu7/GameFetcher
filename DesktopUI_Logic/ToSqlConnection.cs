@@ -83,7 +83,9 @@ namespace DesktopUI_Logic
                 model.FirstReleaseDate = reader.GetInt32(2);
                 model.Summary = reader.GetString(3);
                 model.MyScore = reader.GetInt32(4);
-                model.GetStatus = (GameDetailsModel.Status)reader.GetInt32(5);
+
+                GameDetailsModel.Status s = (GameDetailsModel.Status)reader.GetInt32(5);
+                model.playingStatus = s;
                 models.Add(model);
 
 

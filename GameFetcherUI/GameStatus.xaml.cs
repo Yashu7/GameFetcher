@@ -31,13 +31,22 @@ namespace GameFetcherUI
            
             
             InitializeComponent();
-            foreach (var i in ratingList)
+            try
             {
-                Rating.Items.Add(i);
+                foreach (var i in ratingList)
+                {
+                    Rating.Items.Add(i);
+                }
+                Rating.Items.Add("None");
+                int s = Convert.ToInt32(_game.MyScore);
+                Rating.SelectedItem = s;
             }
-            Rating.Items.Add("None");
-            int s = Convert.ToInt32(_game.MyScore);
-            Rating.SelectedItem = s;
+            catch(Exception ex)
+            {
+                Main main = new Main();
+                main.Show();
+                this.Close();
+            }
         }
 
         private void ChangeStatus(object sender, RoutedEventArgs e)

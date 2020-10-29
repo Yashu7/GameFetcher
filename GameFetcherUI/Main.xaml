@@ -11,32 +11,37 @@
       
         >
     <Window.Resources>
-        <Style TargetType="ListViewItem">
-            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-        </Style>
 
 
-       
+
+
     </Window.Resources>
 
 
     <Grid>
-        
+        <!-- Grid Deifinitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto" MinWidth="258"></ColumnDefinition>
-            <ColumnDefinition Width="Auto" MinWidth="200"></ColumnDefinition>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto" ></ColumnDefinition>
+            <ColumnDefinition Width="Auto" ></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="79"></RowDefinition>
-            <RowDefinition Height="Auto" MinHeight="345"></RowDefinition>
-            <RowDefinition Height="0*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">Games:</Label>
-        <ScrollViewer MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="2" MaxHeight="150" Grid.Column="2">
-            <ListView  Grid.Row="0" Name="AllGames" Height="148">
+        <!-- All Games -->
+        <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="23" Margin="110,0" Width="48">Games:</Label>
+        <ScrollViewer Margin="0,20,0,0" VerticalAlignment="Top" MaxWidth="150" MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="1" MaxHeight="150" Grid.Column="2" Height="148">
+            <ListView   Grid.Row="1" Name="AllGames" Height="148">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
@@ -46,7 +51,10 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        <ScrollViewer MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="2" MaxHeight="150" Grid.Column="1">
+
+        <!-- Played Games -->
+        <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="23" Margin="88,0" Width="82">Played Games:</Label>
+        <ScrollViewer Margin="0,20,0,0" VerticalAlignment="Top" MaxWidth="150" MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="1" MaxHeight="150" Grid.Column="1" Height="148">
             <ListView  Grid.Row="0" Name="PlayedGames" Height="148">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -58,17 +66,46 @@
             </ListView>
         </ScrollViewer>
 
+        <!-- Unplayed Games -->
+        <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="23" Margin="78,0" Width="102">Not Played Games:</Label>
+        <ScrollViewer Margin="0,20,0,0" VerticalAlignment="Top" MaxWidth="150" MinWidth="200" MinHeight="100" Grid.Row="1" Grid.RowSpan="1" MaxHeight="150" Grid.Column="1" Height="148">
+            <ListView  Grid.Row="0" Name="NotPlayedGames" Height="148">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+        <!-- Unplayed Games -->
+        <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="23" Margin="78,0" Width="102">Playing Now:</Label>
+        <ScrollViewer Margin="0,20,0,0" VerticalAlignment="Top" MaxWidth="150" MinWidth="200" MinHeight="100" Grid.Row="1" Grid.RowSpan="1" MaxHeight="150" Grid.Column="2" Height="148">
+            <ListView  Grid.Row="0" Name="PlayingNow" Height="148">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
 
 
 
 
 
-        <Button Content="Search" Grid.Column="3" Grid.Row="1" Click="SearchGame" Margin="21,261,21,55"/>
-        <Button Content="Details" Grid.Column="3" Grid.Row="1" Margin="21,11,21,314" Click="GameDetails"/>
-        <Button Content="Delete" Grid.Column="3" Grid.Row="1" Margin="21,58,21,266" Click="DeleteGame" />
-        <Button Content="Create Notification" Grid.Column="3" Grid.Row="1" Margin="21,107,21,217" Click="Button_Click" />
-        <Button Content="Send Email" Grid.Column="3" Grid.Row="1" Margin="21,156,21,168" />
-        <Button Content="Exit" Grid.Column="3" Grid.Row="1" Margin="21,206,21,118" Click="QuitApp" />
-       
+
+        
+        <StackPanel Grid.Row="0" Grid.Column="3" Margin="5 5 5 5" >
+            <Button Content="Search"  Click="SearchGame" Margin="0 10"/>
+            <Button Content="Details"  Click="GameDetails" Margin="0 10"/>
+            <Button Content="Delete"   Click="DeleteGame"  Margin="0 10"/>
+            <Button Content="Exit"  Click="QuitApp" Margin="0 10" />
+        </StackPanel>
+
     </Grid>
 </Window>

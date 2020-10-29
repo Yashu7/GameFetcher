@@ -29,6 +29,9 @@ namespace GameFetcherUI
 
             InitializeComponent();
             AllGames.ItemsSource = sqlConn.ReadCommand();
+            PlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
+            NotPlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
+            PlayingNow.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
         }
 
         // Opens up windows for adding new game.
@@ -72,9 +75,12 @@ namespace GameFetcherUI
         }
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
             GameStatus gameStatus = new GameStatus(AllGames.SelectedItem as GameDetailsModel);
-            gameStatus.Show();
+                gameStatus.Show();
             this.Close();
+
+
         }
     }
 }
