@@ -32,6 +32,7 @@ namespace GameFetcherUI
             PlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
             NotPlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
             PlayingNow.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
+            UpcomingGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
         }
 
         // Opens up windows for adding new game.
@@ -80,6 +81,11 @@ namespace GameFetcherUI
                 gameStatus.Show();
             this.Close();
 
+
+        }
+
+        void GetUpcomingGames()
+        {
 
         }
     }
