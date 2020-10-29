@@ -28,7 +28,7 @@ namespace GameFetcherUI
             sqlConn = new ToSqlConnection();
 
             InitializeComponent();
-            MyGamesList.ItemsSource = sqlConn.ReadCommand();
+            AllGames.ItemsSource = sqlConn.ReadCommand();
         }
 
         // Opens up windows for adding new game.
@@ -42,11 +42,11 @@ namespace GameFetcherUI
         // Delete button.
         private void DeleteGame(object sender, RoutedEventArgs e)
         {
-            if (MyGamesList.SelectedItem == null) return;
+            if (AllGames.SelectedItem == null) return;
             ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.RemoveCommand(MyGamesList.SelectedItem as GameDetailsModel);
-            MyGamesList.ItemsSource = null;
-            MyGamesList.ItemsSource = sqlConn.ReadCommand();
+            sqlConn.RemoveCommand(AllGames.SelectedItem as GameDetailsModel);
+            AllGames.ItemsSource = null;
+            AllGames.ItemsSource = sqlConn.ReadCommand();
 
 
 
@@ -54,8 +54,8 @@ namespace GameFetcherUI
         // Details window button
         private void GameDetails(object sender, RoutedEventArgs e)
         {
-            if (MyGamesList.SelectedItem == null) return;
-            GameDetails gameDetails = new GameDetails(MyGamesList.SelectedItem as GameDetailsModel);
+            if (AllGames.SelectedItem == null) return;
+            GameDetails gameDetails = new GameDetails(AllGames.SelectedItem as GameDetailsModel);
             gameDetails.Show();
 
         }
@@ -72,7 +72,7 @@ namespace GameFetcherUI
         }
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            GameStatus gameStatus = new GameStatus(MyGamesList.SelectedItem as GameDetailsModel);
+            GameStatus gameStatus = new GameStatus(AllGames.SelectedItem as GameDetailsModel);
             gameStatus.Show();
             this.Close();
         }

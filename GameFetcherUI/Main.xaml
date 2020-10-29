@@ -1,19 +1,27 @@
 ﻿<Window x:Class="GameFetcherUI.Main"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
-        Title="Game Fetcher" Height="450" Width="800">
+        Title="Game Fetcher" Height="450" Width="800"
+        ResizeMode="NoResize"
+      
+        >
     <Window.Resources>
         <Style TargetType="ListViewItem">
             <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
         </Style>
+
+
+       
     </Window.Resources>
 
-    
-    <Grid >
+
+    <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto" MinWidth="258"></ColumnDefinition>
@@ -26,14 +34,23 @@
             <RowDefinition Height="0*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        
-        
-        <ScrollViewer MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="2" MaxHeight="150" Grid.Column="2" >
-            <ListView  Grid.Row="0" Margin="10,0" Name="MyGamesList" Height="148">
+        <Label Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center">Games:</Label>
+        <ScrollViewer MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="2" MaxHeight="150" Grid.Column="2">
+            <ListView  Grid.Row="0" Name="AllGames" Height="148">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-                           
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+        <ScrollViewer MinWidth="200" MinHeight="100" Grid.Row="0" Grid.RowSpan="2" MaxHeight="150" Grid.Column="1">
+            <ListView  Grid.Row="0" Name="PlayedGames" Height="148">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
                         </WrapPanel>
                     </DataTemplate>
@@ -52,5 +69,6 @@
         <Button Content="Create Notification" Grid.Column="3" Grid.Row="1" Margin="21,107,21,217" Click="Button_Click" />
         <Button Content="Send Email" Grid.Column="3" Grid.Row="1" Margin="21,156,21,168" />
         <Button Content="Exit" Grid.Column="3" Grid.Row="1" Margin="21,206,21,118" Click="QuitApp" />
+       
     </Grid>
 </Window>

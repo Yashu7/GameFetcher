@@ -47,6 +47,7 @@ namespace DesktopUI_Logic
             comm.Parameters.Add(new SqlParameter("@date", game.FirstReleaseDate));
             comm.Parameters.Add(new SqlParameter("@summary", game.Summary));
             comm.Parameters.Add(new SqlParameter("@status", Convert.ToInt32(game.GetStatus)));
+            comm.Parameters.Add(new SqlParameter("@rating", game.MyScore));
             comm.ExecuteReader();
             comm.Dispose();
             cnn.Close();
@@ -81,7 +82,8 @@ namespace DesktopUI_Logic
                 model.Name = reader.GetString(1);
                 model.FirstReleaseDate = reader.GetInt32(2);
                 model.Summary = reader.GetString(3);
-                
+                model.MyScore = reader.GetInt32(4);
+                model.GetStatus = (GameDetailsModel.Status)reader.GetInt32(5);
                 models.Add(model);
 
 

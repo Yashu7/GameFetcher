@@ -4,6 +4,7 @@
 	Title VARCHAR (100) NOT NULL,
 	ReleaseDate INT,
 	Summary NVARCHAR (4000),
+	Rating INT DEFAULT NULL,
 	Status INT NOT NULL DEFAULT 0,
 	CONSTRAINT fk_PlayingStatus FOREIGN KEY (Status) REFERENCES PlayingStatus (id)
 )

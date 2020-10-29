@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace GameFetcherUI
 {
     /// <summary>
@@ -21,12 +22,22 @@ namespace GameFetcherUI
     /// </summary>
     public partial class GameStatus : Window
     {
+        public List<int> ratingList = new List<int>() {1,2,3,4,5,6,7,8,9,10};
         public GameDetailsModel _game;
         public GameStatus(GameDetailsModel game)
         {
             _game = game;
             this.DataContext = game;
+           
+            
             InitializeComponent();
+            foreach (var i in ratingList)
+            {
+                Rating.Items.Add(i);
+            }
+            Rating.Items.Add("None");
+            int s = Convert.ToInt32(_game.MyScore);
+            Rating.SelectedItem = s;
         }
 
         private void ChangeStatus(object sender, RoutedEventArgs e)
@@ -39,12 +50,18 @@ namespace GameFetcherUI
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
+            _game.MyScore = Convert.ToInt32(Rating.SelectedItem);
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.UpdateCommand(_game);
             Main main = new Main();
-            main.Activate();
+            main.Show();
             this.Close();
             
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(e.GetPosition(this).ToString());
         }
     }
 }

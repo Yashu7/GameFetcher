@@ -5,17 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
-        Title="{Binding Name}" Height="148.171" Width="215.549">
-    <Grid>
-        <StackPanel Margin="10">
+        Title="{Binding Name}" Height="200" Width="300"
+        ResizeMode="NoResize">
+    <Grid MouseDown="Grid_MouseDown">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
             <Label FontWeight="Bold">Game Status:</Label>
             <RadioButton Checked="ChangeStatus" Name="a">Not Played</RadioButton>
             <RadioButton Checked="ChangeStatus" Name="aa">Played</RadioButton>
             <RadioButton Checked="ChangeStatus" Name="aaa">Playing Now</RadioButton>
 
 
-            <Button Content="Apply Changes" Click="ApplyChanges"></Button>
+            
         </StackPanel>
-
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Label>Rating:</Label>
+            <ComboBox IsSynchronizedWithCurrentItem="True" Name="Rating" Height="20"/>
+        </StackPanel>
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="Apply Changes" Click="ApplyChanges"></Button>
     </Grid>
 </Window>

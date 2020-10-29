@@ -13,7 +13,10 @@ namespace DesktopUI_Logic.Models
     {
         [JsonProperty("id")]
         public long Id { get; set; }
-
+        
+        //My game score I gave in application.
+        public int MyScore { get; set; }
+        
         public enum Status { Not_Played, Played, Playing };
         public Status playingStatus = 0;
 
