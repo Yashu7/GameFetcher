@@ -33,8 +33,7 @@ namespace GameFetcherUI
             NotPlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
             PlayingNow.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
             UpcomingGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
-            SeleniumLogic seleniumLogic = new SeleniumLogic();
-            seleniumLogic.SetUpSelenium(new GameDetailsModel { Name= "dOoM" });
+            
         
         }
 
@@ -72,11 +71,7 @@ namespace GameFetcherUI
             this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-
-        }
+      
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             
@@ -90,6 +85,21 @@ namespace GameFetcherUI
         void GetUpcomingGames()
         {
 
+        }
+
+        private void Sales(object sender, RoutedEventArgs e)
+        {
+            GameDetailsModel game = AllGames.SelectedItem as GameDetailsModel;
+            SalesChecker sales = new SalesChecker();
+            try
+            {
+                string[] prices = sales.CheckSteamSale(game);
+                MessageBox.Show(game.Name + " Normal Price: " + prices[0] + " Discount Price " + prices[1]);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Game is not on sale");
+            }
         }
     }
 }
