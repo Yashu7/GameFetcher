@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace DesktopUI_Logic
 {
     public class SalesChecker
     {
-        public string[] CheckSteamSale(GameDetailsModel game)
+        public string CheckSteamSale(GameDetailsModel game)
         {
            
             ServicePointManager.Expect100Continue = true;
@@ -36,18 +38,33 @@ namespace DesktopUI_Logic
                             outputPrice = p.InnerText;
                         }
                     }
+
+
+
                     
+                  
+                    string pattern = "ł";
+                    string sentence = outputPrice;
+                    List<int> indexes = new List<int>();
+                    foreach(Match match in Regex.Matches(sentence,pattern))
+                    {
+                        indexes.Add(match.Index);
+                           
+                    }
+
                     
+                    string discountPrice = outputPrice.Substring((indexes[0]+1),((indexes[1] - indexes[0])+1));
+
+
+
                    
-                    
-                    string[] bothPrices = outputPrice.Split('ł');
-                    return bothPrices;
+                    return discountPrice;
 
 
                 }
             }
-            
-            return new string[] {""};
+
+            return "No sale";
 
         } 
     }

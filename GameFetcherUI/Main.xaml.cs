@@ -82,10 +82,7 @@ namespace GameFetcherUI
 
         }
 
-        void GetUpcomingGames()
-        {
-
-        }
+        
 
         private void Sales(object sender, RoutedEventArgs e)
         {
@@ -93,10 +90,10 @@ namespace GameFetcherUI
             SalesChecker sales = new SalesChecker();
             try
             {
-                string[] prices = sales.CheckSteamSale(game);
-                MessageBox.Show(game.Name + " Normal Price: " + prices[0] + " Discount Price " + prices[1]);
+                
+                MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 MessageBox.Show("Game is not on sale");
             }
