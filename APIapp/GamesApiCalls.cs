@@ -33,7 +33,7 @@ namespace APIapp
             HttpClient call = ConnectToApi();
                 HttpContent requestMessage;
              
-            requestMessage = new StringContent(($"fields *; where name = *\"{title}\"*;limit 500;"), Encoding.UTF8, "application/json");
+            requestMessage = new StringContent(($"fields *; where name = *\"{title}\"* & version_parent = null; limit 500;"), Encoding.UTF8, "application/json");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;

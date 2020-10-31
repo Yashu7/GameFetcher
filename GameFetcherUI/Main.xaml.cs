@@ -88,6 +88,7 @@ namespace GameFetcherUI
         {
             GameDetailsModel game = AllGames.SelectedItem as GameDetailsModel;
             SalesChecker sales = new SalesChecker();
+
             try
             {
                 
@@ -97,6 +98,7 @@ namespace GameFetcherUI
             {
                 MessageBox.Show("Game is not on sale");
             }
+
         }
     }
 }
