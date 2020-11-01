@@ -32,8 +32,14 @@ namespace APIapp
             
             HttpClient call = ConnectToApi();
                 HttpContent requestMessage;
-             
-            requestMessage = new StringContent(($"fields *; where name = *\"{title}\"* & version_parent = null; limit 500;"), Encoding.UTF8, "application/json");
+            String[] separator = title.Split(' ');
+            string queryName = "";
+            foreach(String s in separator)
+            {
+                queryName += s + "% ";
+            }
+            queryName = queryName.Remove(queryName.Length - 1);
+            requestMessage = new StringContent(($"fields *; where name ~ \"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
