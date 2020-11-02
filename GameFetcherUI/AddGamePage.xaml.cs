@@ -22,16 +22,33 @@ namespace GameFetcherUI
     public partial class AddGamePage : Window
     {
         private DataGetter dataGetter = new DataGetter();
+        List<PlatformModel> platforms;
         public AddGamePage()
         {
+            GetPlatforms();
             InitializeComponent();
+           
+
+        }
+
+        public async void GetPlatforms()
+        {
+            platforms = await dataGetter.GetAllPlatforms();
+            platforms.Add(new PlatformModel { Id = 0, platformId = 0, name ="All Platforms" });
+            platforms.Reverse();
+            PlatformsDropDown.ItemsSource = platforms;
+            PlatformsDropDown.DisplayMemberPath = "name";
+           
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text);
+            PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
+            List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
+            
             GameList.ItemsSource = gameList;
             
+
 
 
         }

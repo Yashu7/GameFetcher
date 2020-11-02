@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace APIapp
 {
     public class GamesApiCalls
@@ -31,7 +32,7 @@ namespace APIapp
         {
             
             HttpClient call = ConnectToApi();
-                HttpContent requestMessage;
+                HttpContent requestMessage = null;
             String[] separator = title.Split(' ');
             string queryName = "";
             foreach(String s in separator)
@@ -39,7 +40,10 @@ namespace APIapp
                 queryName += s + "% ";
             }
             queryName = queryName.Remove(queryName.Length - 1);
-            requestMessage = new StringContent(($"fields *; where name ~ \"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
+            
+                requestMessage = new StringContent(($"fields *; where name ~ \"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
+            
+            
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
@@ -57,6 +61,26 @@ namespace APIapp
         public async Task<string> GetGameByTitle(string title)
         {
             return await GetGamesByTitle(title);
+        }
+
+        public async Task<string> GetAllPlatforms()
+        {
+            HttpClient call = ConnectToApi();
+            HttpContent requestMessage;
+            requestMessage = new StringContent(($"fields id,name; limit 500;"), Encoding.UTF8, "application/json");
+           
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+            
+            HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/platforms", requestMessage);
+            var result = await call.PostAsync("https://api.igdb.com/v4/platforms", null);
+            List<PlatformModel> game = new List<PlatformModel>();
+            //game = await response.Content.ReadAsAsync<GameModel>();
+            var a = response.Content.ReadAsStringAsync().Result;
+
+
+            return a;
         }
     }
 }

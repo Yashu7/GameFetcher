@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="GameModel.cs" />
     <Compile Include="GamesApiCalls.cs" />
+    <Compile Include="PlatformModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TwitchApiCalls.cs" />
