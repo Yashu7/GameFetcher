@@ -74,8 +74,11 @@ namespace GameFetcherUI
       
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            ListViewItem v = new ListViewItem();
+            v = (ListViewItem)sender;
             
-            GameStatus gameStatus = new GameStatus(AllGames.SelectedItem as GameDetailsModel);
+            GameDetailsModel model = (GameDetailsModel)v.Content;
+            GameStatus gameStatus = new GameStatus(model);
                 gameStatus.Show();
             this.Close();
 

@@ -13,7 +13,9 @@
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
 
-
+        <Style TargetType="ListViewItem">
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+        </Style>
 
     </Window.Resources>
 
@@ -38,16 +40,13 @@
         <ScrollViewer Margin="0,20,0,0" VerticalAlignment="Top" MaxWidth="150" MinWidth="200" MinHeight="100"
                       Grid.Row="0" Grid.RowSpan="1" MaxHeight="150" Grid.Column="2" Height="148">
             <ListView   Grid.Row="1" Name="AllGames" Height="148">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                            <TextBlock Text="{Binding AllPlatforms, Converter={StaticResource platformConverter}}"/>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding PlatformPlaying}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -62,6 +61,8 @@
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding PlatformPlaying}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -76,6 +77,8 @@
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding PlatformPlaying}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -91,6 +94,8 @@
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding PlatformPlaying}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -106,6 +111,8 @@
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text=" "/>
+                            <TextBlock Text="{Binding PlatformPlaying}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
