@@ -21,18 +21,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
-            <Label FontWeight="Bold">Game Status:</Label>
-            <RadioButton Checked="ChangeStatus" Name="a">Not Played</RadioButton>
-            <RadioButton Checked="ChangeStatus" Name="aa">Played</RadioButton>
-            <RadioButton Checked="ChangeStatus" Name="aaa">Playing Now</RadioButton>
-
-
-            
-        </StackPanel>
+        
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label>Rating:</Label>
             <ComboBox IsSynchronizedWithCurrentItem="True" Name="Rating" Height="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label>Playing Status:</Label>
+            <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlayingStatus" Height="20"/>
         </StackPanel>
 
         
@@ -42,6 +38,8 @@
             <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlatList"  Height="20"/>
         </StackPanel>
         
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="Apply Changes" Click="ApplyChanges"></Button>
+        
+        
+        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="Apply Changes" Click="ApplyChanges" Margin="107,57,108,10"></Button>
     </Grid>
 </Window>

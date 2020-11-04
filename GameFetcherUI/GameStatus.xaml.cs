@@ -32,6 +32,9 @@ namespace GameFetcherUI
             
             InitializeComponent();
             PlatList.ItemsSource = game.AllPlatforms;
+            PlatList.SelectedItem = _game.PlatformPlaying;
+            PlayingStatus.ItemsSource = game.Enums;
+            PlayingStatus.SelectedItem = game.GetStatus;
             try
             {
                 foreach (var i in ratingList)
@@ -52,18 +55,13 @@ namespace GameFetcherUI
             
         }
 
-        private void ChangeStatus(object sender, RoutedEventArgs e)
-        {
-            RadioButton ck = sender as RadioButton;
-            _game.playingStatus = ((GameDetailsModel.Status)ck.Name.Length - 1);
-           
-                
-        }
+       
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
             _game.MyScore = Convert.ToInt32(Rating.SelectedItem);
             _game.PlatformPlaying = PlatList.SelectedItem.ToString();
+            _game.playingStatus = (GameDetailsModel.Status)PlayingStatus.SelectedItem;
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.UpdateCommand(_game);
             Main main = new Main();

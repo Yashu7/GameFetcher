@@ -60,6 +60,7 @@ namespace GameFetcherUI
         // Details window button
         private void GameDetails(object sender, RoutedEventArgs e)
         {
+
             if (AllGames.SelectedItem == null) return;
             GameDetails gameDetails = new GameDetails(AllGames.SelectedItem as GameDetailsModel);
             gameDetails.Show();

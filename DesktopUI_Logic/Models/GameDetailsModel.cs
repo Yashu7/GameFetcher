@@ -19,6 +19,7 @@ namespace DesktopUI_Logic.Models
         
         public enum Status { Not_Played, Played, Playing };
         public Status playingStatus;
+        public List<Enum> Enums = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
 
         public List<string> AllPlatforms { get; set; } = new List<string>();
         public string PlatformsGames { get; set; }
