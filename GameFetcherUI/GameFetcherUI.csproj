@@ -135,6 +135,7 @@
     <Compile Include="GameStatus.xaml.cs">
       <DependentUpon>GameStatus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListStringConverter.cs" />
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>

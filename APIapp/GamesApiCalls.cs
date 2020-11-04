@@ -41,7 +41,7 @@ namespace APIapp
             }
             queryName = queryName.Remove(queryName.Length - 1);
             
-                requestMessage = new StringContent(($"fields *; where name ~ \"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
+                requestMessage = new StringContent(($"fields *; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
             
             
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;

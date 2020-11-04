@@ -63,5 +63,9 @@
     <Build Include="RemoveGame.sql" />
     <Build Include="PlayingStatus.sql" />
     <Build Include="UpdateGameProcedure.sql" />
+    <Build Include="Platforms.sql" />
+    <Build Include="InsertPlatform.sql" />
+    <Build Include="GamePlatforms.sql" />
+    <Build Include="GamePlatformJunction.sql" />
   </ItemGroup>
 </Project>

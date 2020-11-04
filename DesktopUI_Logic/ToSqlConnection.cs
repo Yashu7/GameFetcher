@@ -21,6 +21,27 @@ namespace DesktopUI_Logic
             return cnn;
             
         }
+        public void PostPlatforms(List<PlatformModel> platforms)
+        {
+            
+            foreach(PlatformModel model in platforms)
+            {
+                SqlConnection cnn = Connect();
+                SqlCommand comm;
+                cnn.Open();
+                comm = new SqlCommand("InsertPlatform", cnn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                comm.Parameters.Add(new SqlParameter("@Id", model.platformId));
+                comm.Parameters.Add(new SqlParameter("@Name", model.name));
+               
+                comm.ExecuteReader();
+                comm.Dispose();
+                cnn.Close();
+            }
+           
+        }
         public void PostCommand(GameDetailsModel game)
         {
             SqlConnection cnn = Connect();
@@ -34,6 +55,21 @@ namespace DesktopUI_Logic
                 comm.ExecuteReader();
                 comm.Dispose();
                 cnn.Close();
+
+            foreach (int a in game.Platforms)
+            {
+                cnn = Connect();
+                cnn.Open();
+                comm = new SqlCommand("GamePlatformJunction", cnn);
+                comm.CommandType = CommandType.StoredProcedure;
+                comm.Parameters.Add(new SqlParameter("@gameID", 1));
+                comm.Parameters.Add(new SqlParameter("@platformID", a));
+                comm.ExecuteReader();
+                comm.Dispose();
+                cnn.Close();
+            }
+
+
         }
         public void UpdateCommand(GameDetailsModel game)
         {
@@ -48,6 +84,7 @@ namespace DesktopUI_Logic
             comm.Parameters.Add(new SqlParameter("@summary", game.Summary));
             comm.Parameters.Add(new SqlParameter("@status", Convert.ToInt32(game.GetStatus)));
             comm.Parameters.Add(new SqlParameter("@rating", game.MyScore));
+            comm.Parameters.Add(new SqlParameter("@PlatformPlaying", game.PlatformPlaying));
             comm.ExecuteReader();
             comm.Dispose();
             cnn.Close();
@@ -77,15 +114,78 @@ namespace DesktopUI_Logic
             reader = comm.ExecuteReader();
             while(reader.Read())
             {
-                GameDetailsModel model = new GameDetailsModel();
-                model.Id = reader.GetInt32(0);
-                model.Name = reader.GetString(1);
-                model.FirstReleaseDate = reader.GetInt32(2);
-                model.Summary = reader.GetString(3);
-                model.MyScore = reader.GetInt32(4);
+                GameDetailsModel model = new GameDetailsModel
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1),
+                    FirstReleaseDate = reader.GetInt32(2),
+                    Summary = reader.GetString(3),
+                    MyScore = reader.GetInt32(4)
 
-                GameDetailsModel.Status s = (GameDetailsModel.Status)reader.GetInt32(5);
+
+                    
+                };
+                if(reader.GetString(5) != null)
+                {
+                    model.PlatformPlaying = reader.GetString(5);
+                }
+
+
+
+
+                GameDetailsModel.Status s = (GameDetailsModel.Status)reader.GetInt32(6);
                 model.playingStatus = s;
+                models.Add(model);
+
+
+            }
+
+
+            return AddPlatformsToGames(models);
+        }
+        public List<GameDetailsModel> AddPlatformsToGames(List<GameDetailsModel> games)
+        {
+           
+            SqlConnection cnn = Connect();
+            SqlCommand comm;
+            cnn.Open();
+            string query = "SELECT Games.Title, Platforms.PlatformName FROM((Games INNER JOIN GamePlatforms ON Games.Id = GamePlatforms.GameId) INNER JOIN Platforms ON GamePlatforms.PlatformId = Platforms.PlatformID);";
+            comm = new SqlCommand(query, cnn);
+            SqlDataReader reader;
+            reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                // MessageBox.Show(reader.GetString(1));
+
+                foreach (GameDetailsModel game in games)
+                {
+                    if (reader.GetString(0).Contains(game.Name))
+                    {
+                        game.AllPlatforms.Add(reader.GetString(1));
+                    }
+                
+                }
+
+
+            }
+            return games;
+        }
+        public List<PlatformModel> GetPlatformModels()
+        {
+            List<PlatformModel> models = new List<PlatformModel>();
+            SqlConnection cnn = Connect();
+            SqlCommand comm;
+            cnn.Open();
+            string query = "SELECT * FROM Platforms";
+            comm = new SqlCommand(query, cnn);
+            SqlDataReader reader;
+            reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                PlatformModel model = new PlatformModel();
+                model.platformId = reader.GetInt32(1);
+                model.name = reader.GetString(2);
+                
                 models.Add(model);
 
 

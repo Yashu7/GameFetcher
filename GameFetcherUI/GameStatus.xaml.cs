@@ -28,9 +28,10 @@ namespace GameFetcherUI
         {
             _game = game;
             this.DataContext = game;
-           
+
             
             InitializeComponent();
+            PlatList.ItemsSource = game.AllPlatforms;
             try
             {
                 foreach (var i in ratingList)
@@ -40,6 +41,7 @@ namespace GameFetcherUI
                 Rating.Items.Add("None");
                 int s = Convert.ToInt32(_game.MyScore);
                 Rating.SelectedItem = s;
+                
             }
             catch(Exception ex)
             {
@@ -47,6 +49,7 @@ namespace GameFetcherUI
                 main.Show();
                 this.Close();
             }
+            
         }
 
         private void ChangeStatus(object sender, RoutedEventArgs e)
@@ -60,6 +63,7 @@ namespace GameFetcherUI
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
             _game.MyScore = Convert.ToInt32(Rating.SelectedItem);
+            _game.PlatformPlaying = PlatList.SelectedItem.ToString();
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.UpdateCommand(_game);
             Main main = new Main();

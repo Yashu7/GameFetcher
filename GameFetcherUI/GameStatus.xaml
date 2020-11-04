@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="{Binding Name}" Height="200" Width="300"
         ResizeMode="NoResize">
+    <Window.Resources>
+        <local:ListStringConverter x:Key="platformConverter"/>
+
+    </Window.Resources>
     <Grid MouseDown="Grid_MouseDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -30,6 +34,14 @@
             <Label>Rating:</Label>
             <ComboBox IsSynchronizedWithCurrentItem="True" Name="Rating" Height="20"/>
         </StackPanel>
+
+        
+        <StackPanel VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
+            <Label>Platform:</Label>
+
+            <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlatList"  Height="20"/>
+        </StackPanel>
+        
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="Apply Changes" Click="ApplyChanges"></Button>
     </Grid>
 </Window>

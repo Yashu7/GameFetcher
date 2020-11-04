@@ -5,12 +5,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
+        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic"
         mc:Ignorable="d"
         Title="Game Fetcher" Height="450" Width="800"
         ResizeMode="NoResize" 
         >
     <Window.Resources>
-
+        <local:ListStringConverter x:Key="platformConverter"/>
 
 
 
@@ -46,6 +47,7 @@
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Text="{Binding AllPlatforms, Converter={StaticResource platformConverter}}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

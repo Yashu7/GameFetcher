@@ -25,17 +25,18 @@ namespace GameFetcherUI
         List<PlatformModel> platforms;
         public AddGamePage()
         {
-            GetPlatforms();
+            
             InitializeComponent();
-           
+            GetPlatforms();
+
 
         }
 
-        public async void GetPlatforms()
+        public void GetPlatforms()
         {
-            platforms = await dataGetter.GetAllPlatforms();
-            platforms.Add(new PlatformModel { Id = 0, platformId = 0, name ="All Platforms" });
-            platforms.Reverse();
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            platforms = sqlConn.GetPlatformModels();
+           
             PlatformsDropDown.ItemsSource = platforms;
             PlatformsDropDown.DisplayMemberPath = "name";
            
@@ -70,6 +71,7 @@ namespace GameFetcherUI
             if (GameList.SelectedItem == null) return;
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
+           
             Main main = new Main();
             main.Show();
             this.Close();

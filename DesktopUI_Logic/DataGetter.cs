@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using APIapp;
@@ -31,7 +32,7 @@ namespace DesktopUI_Logic
                 }
             }
            
-
+            
             return games;
         }
         public async Task<List<Models.PlatformModel>> GetAllPlatforms()
@@ -39,6 +40,7 @@ namespace DesktopUI_Logic
             GamesApiCalls platformData = new GamesApiCalls();
             string output = await platformData.GetAllPlatforms();
             List<Models.PlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.PlatformModel>>(output);
+            platformModels = platformModels.OrderByDescending(x => x.name).ToList();
             return platformModels;
         }
     }

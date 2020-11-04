@@ -7,7 +7,7 @@ namespace DesktopUI_Logic.Models
 {
     public class PlatformModel
     {
-        public int Id { get; set; }
+        
         [JsonProperty("id")]
         public int platformId { get; set; }
         [JsonProperty("name")]
