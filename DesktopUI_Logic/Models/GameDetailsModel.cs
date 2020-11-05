@@ -11,6 +11,15 @@ namespace DesktopUI_Logic.Models
 {
     public class GameDetailsModel
     {
+
+        public string ConvertTime(long time)
+        {
+            if (time <= 0) return "Release Date Unknown";
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(time).ToLocalTime();
+            return dtDateTime.ToString("dd/MM/yyyy");
+        }
+
         [JsonProperty("id")]
         public long Id { get; set; }
         
@@ -67,7 +76,18 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("first_release_date")]
         public long FirstReleaseDate { get; set; }
 
-        public string ReleaseDate { get; set; }
+        public string ReleaseDate
+        {
+            get
+            {
+                return ConvertTime(FirstReleaseDate);
+            }
+
+            set
+            {
+                ReleaseDate = ConvertTime(FirstReleaseDate);
+            }
+        }
 
         [JsonProperty("franchises")]
         public List<long> Franchises { get; set; }

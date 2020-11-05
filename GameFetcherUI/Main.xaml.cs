@@ -29,10 +29,10 @@ namespace GameFetcherUI
 
             InitializeComponent();
             AllGames.ItemsSource = sqlConn.ReadCommand();
-            PlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
-            NotPlayedGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
-            PlayingNow.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
-            UpcomingGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
+            
+            
+            
+            
            
         
         }
@@ -56,6 +56,36 @@ namespace GameFetcherUI
 
 
 
+        }
+        private void Lists_DropDownClosed(object sender, EventArgs e)
+        {
+
+            switch(Lists.Text)
+            {
+                case "All Games":
+                    ListsLabel.Content = "All Games";
+                    AllGames.ItemsSource = sqlConn.ReadCommand();
+                    break;
+                case "Played Games":
+                    ListsLabel.Content = "Played Games";
+                    AllGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
+                    break;
+                case "Playing Games":
+                    ListsLabel.Content = "Playing Games";
+                    AllGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
+                    break;
+                case "Not Played Games":
+                    ListsLabel.Content = "Not Played Games";
+                    AllGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
+                    break;
+                case "Upcoming Games":
+                    ListsLabel.Content = "Upcoming Games";
+                    AllGames.ItemsSource = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
+                    break;
+                default:
+                    MessageBox.Show(Lists.Text);
+                    break;
+            }
         }
         // Details window button
         private void GameDetails(object sender, RoutedEventArgs e)

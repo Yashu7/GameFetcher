@@ -37,11 +37,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>
-                            <TextBlock Text="Name: " />
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                            <TextBlock Text=", " />
-                            <TextBlock Text="Release Date: " />
-                            <TextBlock Text="{Binding  FirstReleaseDate}" FontWeight="Bold" />
+                            <TextBlock Margin="2 4" Text="Name: " />
+                            <TextBlock Margin="2 4" Text="{Binding Name}" FontWeight="Bold" />
+                            <TextBlock Margin="2 4" Text=", " />
+                            <TextBlock Margin="2 4" Text="Release Date: " />
+                            <TextBlock Margin="2 4" Text="{Binding ReleaseDate}" FontWeight="Bold" />
 
                         </WrapPanel>
                     </DataTemplate>

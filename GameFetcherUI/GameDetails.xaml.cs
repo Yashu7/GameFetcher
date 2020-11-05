@@ -23,17 +23,12 @@ namespace GameFetcherUI
         public GameDetails(GameDetailsModel model)
         {
             InitializeComponent();
-            model.ReleaseDate = ConvertTime(model.FirstReleaseDate);
+            
             this.DataContext = model;
             
         }
 
-        public string ConvertTime(long time)
-        {
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(time).ToLocalTime();
-            return dtDateTime.ToString("dd/MM/yyyy");
-        }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
