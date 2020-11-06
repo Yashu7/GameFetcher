@@ -44,6 +44,7 @@ namespace GameFetcherUI
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+           
             PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
             List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
             

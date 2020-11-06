@@ -7,63 +7,69 @@ using DesktopUI_Logic.Models;
 using System.Linq;
 using System.Windows;
 using System.Data;
+using System.Data.SQLite;
 
 namespace DesktopUI_Logic
 {
     public class ToSqlConnection
     {
-        private SqlConnection Connect()
+        private SQLiteConnection Connect()
         {
             string connectionString = null;
-            SqlConnection cnn;
-            connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GameFetcherDatabase;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
-            cnn = new SqlConnection(connectionString);
-            return cnn;
+            SQLiteConnection cnn = new SQLiteConnection();
+            //connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GameFetcherDatabase;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
+            connectionString = "Data Source=.\\GameFetcherDBlite222.db;";
+            cnn = new SQLiteConnection(connectionString);
+            
+            return (SQLiteConnection)cnn;
             
         }
         public void PostPlatforms(List<PlatformModel> platforms)
         {
-            
-            foreach(PlatformModel model in platforms)
+
+            foreach (PlatformModel model in platforms)
             {
-                SqlConnection cnn = Connect();
-                SqlCommand comm;
+                SQLiteConnection cnn = Connect();
+                SQLiteCommand comm;
                 cnn.Open();
-                comm = new SqlCommand("InsertPlatform", cnn)
-                {
-                    CommandType = CommandType.StoredProcedure
-                };
-                comm.Parameters.Add(new SqlParameter("@Id", model.platformId));
-                comm.Parameters.Add(new SqlParameter("@Name", model.name));
-               
+              //  comm = new SQLiteCommand("InsertPlatform", cnn)
+              //  {
+                   // CommandType = CommandType.StoredProcedure
+               // };
+                string query = "INSERT INTO Platforms ( PlatformID,PlatformName ) VALUES ( @Id, @Name )";
+                comm = new SQLiteCommand(query, cnn);
+                comm.Parameters.Add(new SQLiteParameter("@Id", model.platformId));
+                comm.Parameters.Add(new SQLiteParameter("@Name", model.name));
+
                 comm.ExecuteReader();
                 comm.Dispose();
                 cnn.Close();
             }
-           
+
         }
         public void PostCommand(GameDetailsModel game)
         {
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
-                cnn.Open();
-                 comm = new SqlCommand("InsertGame", cnn);
-                comm.CommandType = CommandType.StoredProcedure;
-                comm.Parameters.Add(new SqlParameter("@title", game.Name));
-                comm.Parameters.Add(new SqlParameter("@date", game.FirstReleaseDate));
-                comm.Parameters.Add(new SqlParameter("@summary", game.Summary));
-                comm.ExecuteReader();
-                comm.Dispose();
-                cnn.Close();
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
+            cnn.Open();
+            comm = new SQLiteCommand("InsertGame", cnn);
+            comm.CommandType = CommandType.StoredProcedure;
+           
+            comm.Parameters.Add(new SQLiteParameter("@title", game.Name));
+            comm.Parameters.Add(new SQLiteParameter("@date", game.FirstReleaseDate));
+            comm.Parameters.Add(new SQLiteParameter("@summary", game.Summary));
+            comm.ExecuteReader();
+            comm.Dispose();
+            cnn.Close();
 
             foreach (int a in game.Platforms)
             {
                 cnn = Connect();
                 cnn.Open();
-                comm = new SqlCommand("GamePlatformJunction", cnn);
+                comm = new SQLiteCommand("GamePlatformJunction", cnn);
                 comm.CommandType = CommandType.StoredProcedure;
-                comm.Parameters.Add(new SqlParameter("@gameID", 1));
-                comm.Parameters.Add(new SqlParameter("@platformID", a));
+                comm.Parameters.Add(new SQLiteParameter("@gameID", 1));
+                comm.Parameters.Add(new SQLiteParameter("@platformID", a));
                 comm.ExecuteReader();
                 comm.Dispose();
                 cnn.Close();
@@ -73,31 +79,31 @@ namespace DesktopUI_Logic
         }
         public void UpdateCommand(GameDetailsModel game)
         {
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
             cnn.Open();
-            comm = new SqlCommand("UpdateGameProcedure", cnn);
+            comm = new SQLiteCommand("UpdateGameProcedure", cnn);
             comm.CommandType = CommandType.StoredProcedure;
-            comm.Parameters.Add(new SqlParameter("@id", game.Id));
-            comm.Parameters.Add(new SqlParameter("@title", game.Name));
-            comm.Parameters.Add(new SqlParameter("@date", game.FirstReleaseDate));
-            comm.Parameters.Add(new SqlParameter("@summary", game.Summary));
-            comm.Parameters.Add(new SqlParameter("@status", Convert.ToInt32(game.GetStatus)));
-            comm.Parameters.Add(new SqlParameter("@rating", game.MyScore));
-            comm.Parameters.Add(new SqlParameter("@PlatformPlaying", game.PlatformPlaying));
+            comm.Parameters.Add(new SQLiteParameter("@id", game.Id));
+            comm.Parameters.Add(new SQLiteParameter("@title", game.Name));
+            comm.Parameters.Add(new SQLiteParameter("@date", game.FirstReleaseDate));
+            comm.Parameters.Add(new SQLiteParameter("@summary", game.Summary));
+            comm.Parameters.Add(new SQLiteParameter("@status", Convert.ToInt32(game.GetStatus)));
+            comm.Parameters.Add(new SQLiteParameter("@rating", game.MyScore));
+            comm.Parameters.Add(new SQLiteParameter("@PlatformPlaying", game.PlatformPlaying));
             comm.ExecuteReader();
             comm.Dispose();
             cnn.Close();
         }
         public void RemoveCommand(GameDetailsModel game)
         {
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
             cnn.Open();
-            comm = new SqlCommand("RemoveGame", cnn);
+            comm = new SQLiteCommand("RemoveGame", cnn);
             comm.CommandType = CommandType.StoredProcedure;
-            comm.Parameters.Add(new SqlParameter("@id", game.Id));
-           
+            comm.Parameters.Add(new SQLiteParameter("@id", game.Id));
+
             comm.ExecuteReader();
             comm.Dispose();
             cnn.Close();
@@ -105,14 +111,14 @@ namespace DesktopUI_Logic
         public List<GameDetailsModel> ReadCommand()
         {
             List<GameDetailsModel> models = new List<GameDetailsModel>();
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
             cnn.Open();
             string query = "SELECT * FROM Games";
-            comm = new SqlCommand(query, cnn);
-            SqlDataReader reader;
+            comm = new SQLiteCommand(query, cnn);
+            SQLiteDataReader reader;
             reader = comm.ExecuteReader();
-            while(reader.Read())
+            while (reader.Read())
             {
                 GameDetailsModel model = new GameDetailsModel
                 {
@@ -123,9 +129,9 @@ namespace DesktopUI_Logic
                     MyScore = reader.GetInt32(4)
 
 
-                    
+
                 };
-                if(reader.GetString(5) != null)
+                if (reader.GetString(5) != null)
                 {
                     model.PlatformPlaying = reader.GetString(5);
                 }
@@ -145,13 +151,13 @@ namespace DesktopUI_Logic
         }
         public List<GameDetailsModel> AddPlatformsToGames(List<GameDetailsModel> games)
         {
-           
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
+
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
             cnn.Open();
             string query = "SELECT Games.Title, Platforms.PlatformName FROM((Games INNER JOIN GamePlatforms ON Games.Id = GamePlatforms.GameId) INNER JOIN Platforms ON GamePlatforms.PlatformId = Platforms.PlatformID);";
-            comm = new SqlCommand(query, cnn);
-            SqlDataReader reader;
+            comm = new SQLiteCommand(query, cnn);
+            SQLiteDataReader reader;
             reader = comm.ExecuteReader();
             while (reader.Read())
             {
@@ -163,7 +169,7 @@ namespace DesktopUI_Logic
                     {
                         game.AllPlatforms.Add(reader.GetString(1));
                     }
-                
+
                 }
 
 
@@ -173,19 +179,19 @@ namespace DesktopUI_Logic
         public List<PlatformModel> GetPlatformModels()
         {
             List<PlatformModel> models = new List<PlatformModel>();
-            SqlConnection cnn = Connect();
-            SqlCommand comm;
+            SQLiteConnection cnn = Connect();
+            SQLiteCommand comm;
             cnn.Open();
             string query = "SELECT * FROM Platforms";
-            comm = new SqlCommand(query, cnn);
-            SqlDataReader reader;
+            comm = new SQLiteCommand(query, cnn);
+            SQLiteDataReader reader;
             reader = comm.ExecuteReader();
             while (reader.Read())
             {
                 PlatformModel model = new PlatformModel();
                 model.platformId = reader.GetInt32(1);
                 model.name = reader.GetString(2);
-                
+
                 models.Add(model);
 
 

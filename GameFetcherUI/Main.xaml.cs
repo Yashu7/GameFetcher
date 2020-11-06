@@ -26,9 +26,11 @@ namespace GameFetcherUI
         public Main()
         {
             sqlConn = new ToSqlConnection();
+            
 
             InitializeComponent();
             AllGames.ItemsSource = sqlConn.ReadCommand();
+           
             
             
             
