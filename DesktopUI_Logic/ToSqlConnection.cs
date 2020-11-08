@@ -52,9 +52,10 @@ namespace DesktopUI_Logic
             SQLiteConnection cnn = Connect();
             SQLiteCommand comm;
             cnn.Open();
-            comm = new SQLiteCommand("InsertGame", cnn);
-            comm.CommandType = CommandType.StoredProcedure;
-           
+            //comm = new SQLiteCommand("InsertGame", cnn);
+            //comm.CommandType = CommandType.StoredProcedure;
+            string query = "INSERT INTO Games(Title,ReleaseDate,Summary)VALUES(@title,@date,@summary)";
+            comm = new SQLiteCommand(query, cnn);
             comm.Parameters.Add(new SQLiteParameter("@title", game.Name));
             comm.Parameters.Add(new SQLiteParameter("@date", game.FirstReleaseDate));
             comm.Parameters.Add(new SQLiteParameter("@summary", game.Summary));
@@ -66,8 +67,10 @@ namespace DesktopUI_Logic
             {
                 cnn = Connect();
                 cnn.Open();
-                comm = new SQLiteCommand("GamePlatformJunction", cnn);
-                comm.CommandType = CommandType.StoredProcedure;
+                //comm = new SQLiteCommand("GamePlatformJunction", cnn);
+                //comm.CommandType = CommandType.StoredProcedure;
+                string secondQuery = "INSERT INTO GamePlatforms(GameId,PlatformId)VALUES((SELECT MAX(Id) FROM Games),@platformID)";
+                comm = new SQLiteCommand(secondQuery, cnn);
                 comm.Parameters.Add(new SQLiteParameter("@gameID", 1));
                 comm.Parameters.Add(new SQLiteParameter("@platformID", a));
                 comm.ExecuteReader();
@@ -82,8 +85,10 @@ namespace DesktopUI_Logic
             SQLiteConnection cnn = Connect();
             SQLiteCommand comm;
             cnn.Open();
-            comm = new SQLiteCommand("UpdateGameProcedure", cnn);
-            comm.CommandType = CommandType.StoredProcedure;
+            //comm = new SQLiteCommand("UpdateGameProcedure", cnn);
+            //comm.CommandType = CommandType.StoredProcedure;
+            string query = "UPDATE Games SET Title = @title, ReleaseDate = @date, Summary = @summary, Status = @status, Rating = @rating, PlatformPlaying = @PlatformPlaying WHERE Id = @id;";
+            comm = new SQLiteCommand(query, cnn);
             comm.Parameters.Add(new SQLiteParameter("@id", game.Id));
             comm.Parameters.Add(new SQLiteParameter("@title", game.Name));
             comm.Parameters.Add(new SQLiteParameter("@date", game.FirstReleaseDate));
@@ -100,8 +105,10 @@ namespace DesktopUI_Logic
             SQLiteConnection cnn = Connect();
             SQLiteCommand comm;
             cnn.Open();
-            comm = new SQLiteCommand("RemoveGame", cnn);
-            comm.CommandType = CommandType.StoredProcedure;
+            // comm = new SQLiteCommand("RemoveGame", cnn);
+            // comm.CommandType = CommandType.StoredProcedure;
+            string query = "DELETE FROM Games WHERE Id = @id;";
+            comm = new SQLiteCommand(query, cnn);
             comm.Parameters.Add(new SQLiteParameter("@id", game.Id));
 
             comm.ExecuteReader();

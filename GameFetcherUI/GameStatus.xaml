@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
         mc:Ignorable="d"
-        Title="{Binding Name}" Height="200" Width="300"
+        Title="{Binding Name}" Height="300" Width="400"
         ResizeMode="NoResize">
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
@@ -20,13 +20,16 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
-        
+        <ListView  Grid.Row="0" Grid.RowSpan="2">
+            <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200" Text="{Binding Summary, Mode =OneWay}"
+                   />
+        </ListView>
+
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label>Rating:</Label>
             <ComboBox IsSynchronizedWithCurrentItem="True" Name="Rating" Height="20"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Playing Status:</Label>
             <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlayingStatus" Height="20"/>
         </StackPanel>
@@ -40,6 +43,6 @@
         
         
         
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Content="Apply Changes" Click="ApplyChanges" Margin="107,57,108,10"></Button>
+        <Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"  Content="Apply Changes" Click="ApplyChanges" ></Button>
     </Grid>
 </Window>

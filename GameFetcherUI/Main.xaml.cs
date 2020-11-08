@@ -27,9 +27,12 @@ namespace GameFetcherUI
         {
             sqlConn = new ToSqlConnection();
             
+            
 
             InitializeComponent();
             AllGames.ItemsSource = sqlConn.ReadCommand();
+
+            
            
             
             
@@ -94,8 +97,8 @@ namespace GameFetcherUI
         {
 
             if (AllGames.SelectedItem == null) return;
-            GameDetails gameDetails = new GameDetails(AllGames.SelectedItem as GameDetailsModel);
-            gameDetails.Show();
+            GameStatus gameStatus = new GameStatus(AllGames.SelectedItem as GameDetailsModel);
+            gameStatus.Show();
 
         }
         //Close App

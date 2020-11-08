@@ -51,6 +51,8 @@
                             <TextBlock  Margin="2 4"  Text="{Binding Name}" FontWeight="Bold"/>
                             <TextBlock Text=" "/>
                             <TextBlock  Margin="2 4" Text="{Binding PlatformPlaying}"/>
+                            <TextBlock  Margin="2 4" Text="My Score: " FontWeight="Bold"/>
+                            <TextBlock  Margin="2 4" Text="{Binding MyScore}"/>
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

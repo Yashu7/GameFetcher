@@ -44,7 +44,7 @@ namespace GameFetcherUI
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-           
+            
             PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
             List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
             
@@ -67,12 +67,13 @@ namespace GameFetcherUI
             
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private  void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (GameList.SelectedItem == null) return;
             ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
            
+            sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
+            
             Main main = new Main();
             main.Show();
             this.Close();
