@@ -162,42 +162,44 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="View\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AddGamePage.xaml">
+    <Page Include="View\AddGamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameDetails.xaml">
+    <Page Include="View\GameDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GameStatus.xaml">
+    <Page Include="View\GameStatus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Main.xaml">
+    <Page Include="View\Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="AddGamePage.xaml.cs">
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\AddGamePage.xaml.cs">
       <DependentUpon>AddGamePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameDetails.xaml.cs">
+    <Compile Include="View\GameDetails.xaml.cs">
       <DependentUpon>GameDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Games.cs" />
-    <Compile Include="GameStatus.xaml.cs">
+    <Compile Include="View\GameStatus.xaml.cs">
       <DependentUpon>GameStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="ListStringConverter.cs" />
-    <Compile Include="Main.xaml.cs">
+    <Compile Include="View\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

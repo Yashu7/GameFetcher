@@ -5,14 +5,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI"
-        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic"
+        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
         Title="Game Fetcher" Height="500" Width="500"
         ResizeMode="CanResize"
         >
+    <Window.DataContext>
+        <local1:MainViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
-
+        <local1:MainViewModel x:Key="MainViewModel"/>
         <Style TargetType="ListViewItem">
             <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
         </Style>
@@ -20,7 +23,7 @@
     </Window.Resources>
 
 
-    <Grid>
+    <Grid DataContext="{Binding Source={StaticResource MainViewModel}}">
         <!-- Grid Deifinitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -36,6 +39,7 @@
 
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
             <ComboBox Margin="10 10" Name='Lists' DropDownClosed="Lists_DropDownClosed">
+                <ComboBoxItem></ComboBoxItem>
                 <ComboBoxItem>All Games</ComboBoxItem>
                 <ComboBoxItem>Played Games</ComboBoxItem>
                 <ComboBoxItem>Playing Games</ComboBoxItem>
@@ -72,11 +76,11 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="1"   Margin="100,0,-100,0" >
-            <Button Content="Search"  Click="SearchGame" Margin="0 10"/>
-            <Button Content="Check Sales"  Click="Sales" Margin="0 10" />
-            <Button Content="Details"  Click="GameDetails" Margin="0 10"/>
-            <Button Content="Delete"   Click="DeleteGame"  Margin="0 10"/>
-            <Button Content="Exit"  Click="QuitApp" Margin="0 10" />
+            <Button Content="Search"  Command="{Binding SearchCommand}"  Margin="0 10"/>
+            <Button Content="Check Sales"  Command="{Binding SalesCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10" />
+            <Button Content="Details"  Command="{Binding GameDetailsCommand}"  Margin="0 10"/>
+            <Button Content="Delete"  Command="{Binding DeleteGameCommand}"    Margin="0 10"/>
+            <Button Content="Exit"  Command="{Binding QuitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"  Margin="0 10" />
         </StackPanel>
 
     </Grid>

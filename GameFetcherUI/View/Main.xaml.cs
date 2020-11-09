@@ -43,12 +43,12 @@ namespace GameFetcherUI
         }
 
         // Opens up windows for adding new game.
-        private void SearchGame(object sender, RoutedEventArgs e)
-        {
-            AddGamePage addGamePage = new AddGamePage();
-            addGamePage.Show();
-            this.Close();
-        }
+        //private void SearchGame(object sender, RoutedEventArgs e)
+        //{
+        //    AddGamePage addGamePage = new AddGamePage();
+        //    addGamePage.Show();
+        //    this.Close();
+        //}
 
         // Delete button.
         private void DeleteGame(object sender, RoutedEventArgs e)
@@ -123,21 +123,6 @@ namespace GameFetcherUI
 
         
 
-        private void Sales(object sender, RoutedEventArgs e)
-        {
-            GameDetailsModel game = AllGames.SelectedItem as GameDetailsModel;
-            SalesChecker sales = new SalesChecker();
-
-            try
-            {
-                
-                MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
-            }
-            catch(Exception)
-            {
-                MessageBox.Show("Game is not on sale");
-            }
-
-        }
+      
     }
 }
