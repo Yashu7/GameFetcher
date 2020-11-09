@@ -64,8 +64,7 @@ namespace GameFetcherUI
             _game.playingStatus = (GameDetailsModel.Status)PlayingStatus.SelectedItem;
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.UpdateCommand(_game);
-            Main main = new Main();
-            main.Show();
+           
             this.Close();
             
         }

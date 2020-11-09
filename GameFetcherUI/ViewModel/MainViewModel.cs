@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows;
 using DesktopUI_Logic.Models;
 using DesktopUI_Logic;
+using System.Windows.Controls;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -18,6 +19,8 @@ namespace GameFetcherUI.ViewModel
             SalesCommand = new RelayCommand(new Action<object>(Sales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
+            GameDetailsCommand = new RelayCommand(new Action<object>(GameDetails));
+            DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
         }
 
 
@@ -59,6 +62,19 @@ namespace GameFetcherUI.ViewModel
         {
             (sender as Window).Close();
         }
-        
+        private void GameDetails(object sender)
+        {
+            if (sender == null) return;
+            GameStatus gameStatus = new GameStatus(sender as GameDetailsModel);
+            gameStatus.Show();
+        }
+        private void DeleteGame(object sender)
+        {
+            
+            if (sender == null) return;
+            ToSqlConnection sqlConn = new ToSqlConnection();
+            sqlConn.RemoveCommand(sender as GameDetailsModel);
+          
+        }
     }
 }

@@ -51,17 +51,7 @@ namespace GameFetcherUI
         //}
 
         // Delete button.
-        private void DeleteGame(object sender, RoutedEventArgs e)
-        {
-            if (AllGames.SelectedItem == null) return;
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.RemoveCommand(AllGames.SelectedItem as GameDetailsModel);
-            AllGames.ItemsSource = null;
-            AllGames.ItemsSource = sqlConn.ReadCommand();
-
-
-
-        }
+       
         private void Lists_DropDownClosed(object sender, EventArgs e)
         {
 
@@ -92,20 +82,10 @@ namespace GameFetcherUI
                     break;
             }
         }
-        // Details window button
-        private void GameDetails(object sender, RoutedEventArgs e)
-        {
-
-            if (AllGames.SelectedItem == null) return;
-            GameStatus gameStatus = new GameStatus(AllGames.SelectedItem as GameDetailsModel);
-            gameStatus.Show();
-
-        }
-        //Close App
-        private void QuitApp(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        
+        
+      
+        
 
       
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -116,7 +96,7 @@ namespace GameFetcherUI
             GameDetailsModel model = (GameDetailsModel)v.Content;
             GameStatus gameStatus = new GameStatus(model);
                 gameStatus.Show();
-            this.Close();
+           
 
 
         }

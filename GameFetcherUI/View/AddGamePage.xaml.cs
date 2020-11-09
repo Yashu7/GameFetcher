@@ -74,8 +74,7 @@ namespace GameFetcherUI
            
             sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
             
-            Main main = new Main();
-            main.Show();
+           
             this.Close();
             
         }

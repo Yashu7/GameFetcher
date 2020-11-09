@@ -78,8 +78,8 @@
         <StackPanel Grid.Row="1"   Margin="100,0,-100,0" >
             <Button Content="Search"  Command="{Binding SearchCommand}"  Margin="0 10"/>
             <Button Content="Check Sales"  Command="{Binding SalesCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10" />
-            <Button Content="Details"  Command="{Binding GameDetailsCommand}"  Margin="0 10"/>
-            <Button Content="Delete"  Command="{Binding DeleteGameCommand}"    Margin="0 10"/>
+            <Button Content="Details"  Command="{Binding GameDetailsCommand}" CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
+            <Button Content="Delete"  Command="{Binding DeleteGameCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
             <Button Content="Exit"  Command="{Binding QuitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"  Margin="0 10" />
         </StackPanel>
 
