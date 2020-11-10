@@ -8,19 +8,57 @@ using System.Windows;
 using DesktopUI_Logic.Models;
 using DesktopUI_Logic;
 using System.Windows.Controls;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
-namespace GameFetcherUI.ViewModel
+namespace GameFetcherUI.ViewModel 
 {
-    public class MainViewModel
+    public class MainViewModel : UserControl, INotifyPropertyChanged
     {
-        
+
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+        private ObservableCollection<GameDetailsModel> _games = new ObservableCollection<GameDetailsModel>();
+        public ObservableCollection<GameDetailsModel> Games {
+            get { return _games; }
+            set { _games = value; NotifyPropertyChanged("Games"); } }
+        private string _choice = "";
+        private string _label = "All Games";
+        public string Label { get { return _label; } set { _label = value; NotifyPropertyChanged("Label"); } }
+        public string Choice
+        {
+            get { return _choice; }
+            set
+            {
+                ChooseList(value);
+                if (value != _choice)
+                {
+
+                    _choice = value;
+                    PropertyChanged?.Invoke(this,
+                new PropertyChangedEventArgs("Choice"));
+
+                }
+            }
+        }
+        public ToSqlConnection sqlConn;
         public MainViewModel()
         {
+            
+            sqlConn = new ToSqlConnection();
+            Games = new ObservableCollection<GameDetailsModel>(sqlConn.ReadCommand());
+            
+            
             SalesCommand = new RelayCommand(new Action<object>(Sales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
             GameDetailsCommand = new RelayCommand(new Action<object>(GameDetails));
             DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
+            DataContext = this;
+            
         }
 
 
@@ -30,6 +68,8 @@ namespace GameFetcherUI.ViewModel
         private ICommand _GameDetailsCommand;
         private ICommand _DeleteGameCommand;
         private ICommand _QuitAppCommand;
+
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region ICommandDefinitions
@@ -42,6 +82,7 @@ namespace GameFetcherUI.ViewModel
 
         private void SearchGame(object sender)
         {
+            
             AddGamePage addGamePage = new AddGamePage();
             addGamePage.Show();
         }
@@ -75,6 +116,42 @@ namespace GameFetcherUI.ViewModel
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.RemoveCommand(sender as GameDetailsModel);
           
+        }
+        private void ChooseList(object sender)
+        {
+
+            switch (sender)
+            {
+                case "0":
+                    Label = "All Games";
+                    var a = sqlConn.ReadCommand();
+                    Games = new ObservableCollection<GameDetailsModel>(a);
+                    break;
+                case "1":
+                    Label = "Played Games";
+                    var b = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
+                    Games = new ObservableCollection<GameDetailsModel>(b);
+                    
+                    break;
+                case "2":
+                    Label = "Playing Games";
+                    var c = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
+                    Games = new ObservableCollection<GameDetailsModel>(c);
+                    break;
+                case "3":
+                    Label = "Not Played Games";
+                    var d = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
+                    Games = new ObservableCollection<GameDetailsModel>(d);
+                    break;
+                case "4":
+                    Label = "Upcoming Games";
+                    var e = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
+                    Games = new ObservableCollection<GameDetailsModel>(e);
+                    break;
+                default:
+                    MessageBox.Show("Pick List");
+                    break;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using DesktopUI_Logic.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace GameFetcherUI
     public partial class AddGamePage : Window
     {
         private DataGetter dataGetter = new DataGetter();
-        List<PlatformModel> platforms;
+        ObservableCollection<PlatformModel> platforms;
         public AddGamePage()
         {
             
@@ -46,7 +47,7 @@ namespace GameFetcherUI
         {
             
             PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
-            List<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
+            ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
             
             GameList.ItemsSource = gameList;
             

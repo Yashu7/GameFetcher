@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,13 @@ using System.Threading.Tasks;
 
 namespace DesktopUI_Logic.Models
 {
-    public class GameDetailsModel
+    public class GameDetailsModel : INotifyPropertyChanged
     {
+        public void NotifyPropertyChanged(string propName)
+        {
+            if (PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
 
         public string ConvertTime(long time)
         {
@@ -22,13 +28,16 @@ namespace DesktopUI_Logic.Models
 
         [JsonProperty("id")]
         public long Id { get; set; }
-        
+
         //My game score I gave in application.
-        public int MyScore { get; set; }
+        private int _myScore;
+        public int MyScore { get { return _myScore; } set { _myScore = value; NotifyPropertyChanged("MyScore"); } }
         
         public enum Status { Not_Played, Played, Playing };
         public Status playingStatus;
         public List<Enum> Enums = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public List<string> AllPlatforms { get; set; } = new List<string>();
         public string PlatformsGames { get; set; }
@@ -110,8 +119,16 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("multiplayer_modes")]
         public List<long> MultiplayerModes { get; set; }
 
+        private string _name;
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set {
+                _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
 
         [JsonProperty("platforms")]
         public List<long> Platforms { get; set; }

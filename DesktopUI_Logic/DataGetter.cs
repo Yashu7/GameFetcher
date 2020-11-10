@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,13 @@ namespace DesktopUI_Logic
     public class DataGetter
     {
        
-        public async Task<List<GameDetailsModel>> GetGameByTitle(string title, int platId)
+        public async Task<ObservableCollection<GameDetailsModel>> GetGameByTitle(string title, int platId)
         {
             GamesApiCalls gameData = new GamesApiCalls();
             
             string output = await gameData.GetGameByTitle(title);
-            List<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<List<GameDetailsModel>>(output);
-            List<GameDetailsModel> games = new List<GameDetailsModel>();
+            ObservableCollection<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<ObservableCollection<GameDetailsModel>>(output);
+            ObservableCollection<GameDetailsModel> games = new ObservableCollection<GameDetailsModel>();
             if (platId == 0) return UImodel;
             foreach(GameDetailsModel game in UImodel)
             {
@@ -35,13 +36,14 @@ namespace DesktopUI_Logic
             
             return games;
         }
-        public async Task<List<Models.PlatformModel>> GetAllPlatforms()
+        public async Task<ObservableCollection<Models.PlatformModel>> GetAllPlatforms()
         {
             GamesApiCalls platformData = new GamesApiCalls();
             string output = await platformData.GetAllPlatforms();
             List<Models.PlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.PlatformModel>>(output);
             platformModels = platformModels.OrderByDescending(x => x.name).ToList();
-            return platformModels;
+            ObservableCollection<Models.PlatformModel> m = new ObservableCollection<Models.PlatformModel>(platformModels);
+            return m;
         }
     }
 }

@@ -4,11 +4,12 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:GameFetcherUI"
-        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
+        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
         mc:Ignorable="d"
         Title="Game Fetcher" Height="500" Width="500"
-        ResizeMode="CanResize"
+        ResizeMode="CanResize" 
         >
     <Window.DataContext>
         <local1:MainViewModel/>
@@ -38,16 +39,17 @@
 
 
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
-            <ComboBox Margin="10 10" Name='Lists' DropDownClosed="Lists_DropDownClosed">
-                <ComboBoxItem></ComboBoxItem>
+            <ComboBox SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" Margin="10 10" Name='Lists' >
+              
+              
                 <ComboBoxItem>All Games</ComboBoxItem>
                 <ComboBoxItem>Played Games</ComboBoxItem>
                 <ComboBoxItem>Playing Games</ComboBoxItem>
                 <ComboBoxItem>Not Played Games</ComboBoxItem>
                 <ComboBoxItem>Upcoming Games</ComboBoxItem>
             </ComboBox>
-            <Label Name="ListsLabel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" >All Games:</Label>
-            <ListView   Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="300" MinHeight="100"
+            <Label Name="ListsLabel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
+            <ListView  ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="300" MinHeight="100"
                        Grid.RowSpan="1" MaxHeight="150" Grid.Column="0"  Height="148">
                 <ListView.ItemTemplate>
                     <DataTemplate>

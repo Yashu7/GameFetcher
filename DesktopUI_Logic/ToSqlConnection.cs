@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Data;
 using System.Data.SQLite;
+using System.Collections.ObjectModel;
 
 namespace DesktopUI_Logic
 {
@@ -24,7 +25,7 @@ namespace DesktopUI_Logic
             return (SQLiteConnection)cnn;
             
         }
-        public void PostPlatforms(List<PlatformModel> platforms)
+        public void PostPlatforms(ObservableCollection<PlatformModel> platforms)
         {
 
             foreach (PlatformModel model in platforms)
@@ -183,9 +184,9 @@ namespace DesktopUI_Logic
             }
             return games;
         }
-        public List<PlatformModel> GetPlatformModels()
+        public ObservableCollection<PlatformModel> GetPlatformModels()
         {
-            List<PlatformModel> models = new List<PlatformModel>();
+            ObservableCollection<PlatformModel> models = new ObservableCollection<PlatformModel>();
             SQLiteConnection cnn = Connect();
             SQLiteCommand comm;
             cnn.Open();
