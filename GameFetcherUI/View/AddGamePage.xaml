@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameFetcherUI"
+        xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
         Title="AddGamePage" Height="400.591" Width="404.442">
-    <Grid>
+    <Window.DataContext>
+        <local1:AddGamePageViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local1:AddGamePageViewModel x:Key="AddGamePageViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource AddGamePageViewModel}}">
 
 
         <Grid.RowDefinitions>
@@ -18,22 +24,24 @@
 
 
         <StackPanel Grid.Row="4">
-            <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlatformsDropDown">
+            <ComboBox IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                
             </ComboBox>
         </StackPanel>
-        
 
-        <Button Content="Details" Grid.Row="1" Click="Button_Click_1" Height="20" Margin="89,29,257,22" Width="50"/>
-        <Button Content="Add" Grid.Row="1" Height="20" Margin="264,29,82,22" Width="50" Click="Button_Click_2"/>
-        <Button MinHeight="20" Grid.Row = "3" Grid.Column = "0"  
+
+        <Button Command="{Binding DetailsCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Details" Grid.Row="1" 
+                Height="20" Margin="89,29,257,22" Width="50"/>
+        <Button  Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Add"
+                 Grid.Row="1" Height="20" Margin="264,29,82,22" Width="50"/>
+        <Button  Command="{Binding SearchCommand}" MinHeight="20" Grid.Row = "3" Grid.Column = "0"  
          HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "100" 
             Content="Find Game" Click="Button_Click" Margin="80,-80"/>
 
         <TextBox MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  HorizontalAlignment="Center" TextWrapping="Wrap"
                      Name="GameTitleString" Text = "Insert Game Title" Grid.Row = "2" Grid.Column = "0" />
         <ScrollViewer MinHeight="100" MaxHeight="150" Grid.Row="0">
-            <ListView  Grid.Row="0" Margin="10" Name="GameList">
+            <ListView ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="0" Margin="10" Name="GameList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <WrapPanel>

@@ -183,6 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\AddGamePage.xaml.cs">
       <DependentUpon>AddGamePage.xaml</DependentUpon>

@@ -22,8 +22,7 @@ namespace GameFetcherUI
     /// </summary>
     public partial class AddGamePage : Window
     {
-        private DataGetter dataGetter = new DataGetter();
-        ObservableCollection<PlatformModel> platforms;
+       
         public AddGamePage()
         {
             
@@ -35,21 +34,19 @@ namespace GameFetcherUI
 
         public void GetPlatforms()
         {
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            platforms = sqlConn.GetPlatformModels();
            
-            PlatformsDropDown.ItemsSource = platforms;
-            PlatformsDropDown.DisplayMemberPath = "name";
+           
+            
            
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
-            ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
+            //PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
+            //ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
             
-            GameList.ItemsSource = gameList;
+           // GameList.ItemsSource = gameList;
             
 
 
@@ -58,26 +55,8 @@ namespace GameFetcherUI
         
       
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            if (GameList.SelectedItem == null) return;
-            GameDetails details = new GameDetails(GameList.SelectedItem as GameDetailsModel);
-            details.Show();
-            //this.Close();
-            
-            
-        }
+       
 
-        private  void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            if (GameList.SelectedItem == null) return;
-            ToSqlConnection sqlConn = new ToSqlConnection();
-           
-            sqlConn.PostCommand(GameList.SelectedItem as GameDetailsModel);
-            
-           
-            this.Close();
-            
-        }
+        
     }
 }

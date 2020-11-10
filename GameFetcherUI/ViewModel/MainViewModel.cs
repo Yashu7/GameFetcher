@@ -52,32 +52,27 @@ namespace GameFetcherUI.ViewModel
             Games = new ObservableCollection<GameDetailsModel>(sqlConn.ReadCommand());
             
             
-            SalesCommand = new RelayCommand(new Action<object>(Sales));
+            SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
-            GameDetailsCommand = new RelayCommand(new Action<object>(GameDetails));
+            GameDetailsCommand = new RelayCommand(new Action<object>(ShowGameDetails));
             DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
             DataContext = this;
             
         }
 
 
-        #region Commands
-        private ICommand _SearchCommand;
-        private ICommand _SalesCommand;
-        private ICommand _GameDetailsCommand;
-        private ICommand _DeleteGameCommand;
-        private ICommand _QuitAppCommand;
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
+       
 
         #region ICommandDefinitions
-        public ICommand SalesCommand { get { return _SalesCommand; } set { _SalesCommand = value; } }
-        public ICommand SearchCommand { get { return _SearchCommand; } set { _SearchCommand = value; } }
-        public ICommand GameDetailsCommand { get { return _GameDetailsCommand; } set { _GameDetailsCommand = value; } }
-        public ICommand DeleteGameCommand { get { return _DeleteGameCommand; } set { _DeleteGameCommand = value; } }
-        public ICommand QuitAppCommand { get { return _QuitAppCommand; } set { _QuitAppCommand = value; } }
+        public ICommand SalesCommand { get; private set; }
+        public ICommand SearchCommand { get; private set; }
+        public ICommand GameDetailsCommand { get; private set; }
+        public ICommand DeleteGameCommand { get; private set; }
+        public ICommand QuitAppCommand { get; private set; }
         #endregion
 
         private void SearchGame(object sender)
@@ -86,7 +81,7 @@ namespace GameFetcherUI.ViewModel
             AddGamePage addGamePage = new AddGamePage();
             addGamePage.Show();
         }
-        private void Sales(object sender)
+        private void ShowSales(object sender)
         {
             GameDetailsModel game = sender as GameDetailsModel;
             SalesChecker sales = new SalesChecker();
@@ -103,7 +98,7 @@ namespace GameFetcherUI.ViewModel
         {
             (sender as Window).Close();
         }
-        private void GameDetails(object sender)
+        private void ShowGameDetails(object sender)
         {
             if (sender == null) return;
             GameStatus gameStatus = new GameStatus(sender as GameDetailsModel);

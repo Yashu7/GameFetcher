@@ -31,7 +31,17 @@ namespace DesktopUI_Logic.Models
 
         //My game score I gave in application.
         private int _myScore;
-        public int MyScore { get { return _myScore; } set { _myScore = value; NotifyPropertyChanged("MyScore"); } }
+        public int MyScore
+        { 
+            get 
+            { 
+                return _myScore;
+            }
+            set
+            {
+                _myScore = value; NotifyPropertyChanged("MyScore"); 
+            }
+        }
         
         public enum Status { Not_Played, Played, Playing };
         public Status playingStatus;
@@ -41,9 +51,19 @@ namespace DesktopUI_Logic.Models
 
         public List<string> AllPlatforms { get; set; } = new List<string>();
         public string PlatformsGames { get; set; }
-        public string PlatformPlaying { get; set; }
-
-
+        private string _platformPlaying;
+        public string PlatformPlaying
+        {
+            get
+            {
+                return _platformPlaying;
+            }
+            set
+            {
+                _platformPlaying = value;
+                NotifyPropertyChanged("PlatformPlaying");
+            }
+        }
         public Status GetStatus 
         {
             get
