@@ -20,16 +20,11 @@ namespace GameFetcherUI
     /// </summary>
     public partial class GameDetails : Window
     {
-        public GameDetails(GameDetailsModel model)
+        public GameDetails()
         {
             InitializeComponent();
             
-            this.DataContext = model;
-            
         }
-
-        
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

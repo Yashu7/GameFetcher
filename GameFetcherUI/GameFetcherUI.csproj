@@ -186,6 +186,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="StaticData.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
+    <Compile Include="ViewModel\GameDetailsViewModel.cs" />
     <Compile Include="ViewModel\GameStatusViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

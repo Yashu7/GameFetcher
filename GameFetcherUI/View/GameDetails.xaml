@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameFetcherUI"
+        xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
         Title="GameDetails" Height="450" Width="500">
-    <Grid>
+    <Window.DataContext>
+        <local1:GameDetailsViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local1:GameDetailsViewModel x:Key="GameDetailsViewModel"/>
+    </Window.Resources>
+    <Grid DataContext="{Binding Source={StaticResource GameDetailsViewModel}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -30,9 +36,9 @@
         </StackPanel>
         <StackPanel Orientation="Vertical" Grid.Column="1"
                     Grid.Row="1" Margin="20 0">
-            <TextBlock Text="{Binding Name, Mode =OneWay}"  Margin="0 20 0 20"/>
-            <TextBlock Text="{Binding ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
-            <TextBlock TextWrapping="Wrap" MaxWidth ="300" Text="{Binding Summary, Mode =OneWay}"  Margin="0 20 0 20"/>
+            <TextBlock Text="{Binding Game.Name, Mode =OneWay}"  Margin="0 20 0 20"/>
+            <TextBlock Text="{Binding Game.ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
+            <TextBlock TextWrapping="Wrap" MaxWidth ="300" Text="{Binding Game.Summary, Mode =OneWay}"  Margin="0 20 0 20"/>
         </StackPanel>
 
         <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Ok" Grid.Column="1" Grid.Row="2" Click="Button_Click"></Button>

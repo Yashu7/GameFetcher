@@ -86,7 +86,8 @@ namespace GameFetcherUI.ViewModel
         {
             GameDetailsModel game = sender as GameDetailsModel;
             if (game == null) return;
-            GameDetails details = new GameDetails(game);
+            StaticData.Instance.Model = game;
+            GameDetails details = new GameDetails();
             details.Show();
         }
         /// <summary>
