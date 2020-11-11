@@ -148,7 +148,7 @@ namespace DesktopUI_Logic
 
 
                 GameDetailsModel.Status s = (GameDetailsModel.Status)reader.GetInt32(6);
-                model.playingStatus = s;
+                model.GetStatus = s;
                 models.Add(model);
 
 

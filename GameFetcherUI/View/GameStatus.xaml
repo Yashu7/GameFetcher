@@ -30,7 +30,9 @@
         
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label>Rating:</Label>
-            <ComboBox Name="Rating" SelectedItem="{Binding Game.MyScore, Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
+            <ComboBox Name="Rating" ItemsSource="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
+
+
         </StackPanel>
         <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Playing Status:</Label>
@@ -41,11 +43,12 @@
         <StackPanel VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
             <Label>Platform:</Label>
 
-            <ComboBox  ItemsSource="{Binding Game.AllPlatforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"   Height="20"/>
+            <ComboBox  SelectedItem="{Binding Game.PlatformPlaying}" ItemsSource="{Binding Game.AllPlatforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"   Height="20"/>
         </StackPanel>
-        
-        
-        
-        <Button Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"  Content="Apply Changes" Click="ApplyChanges" ></Button>
+
+
+
+        <Button Grid.Column="1" VerticalAlignment="Center"  Command="{Binding UpdateCommand}" CommandParameter="{Binding Game}"
+                HorizontalAlignment="Center" Grid.Row="1"  Content="Apply Changes" ></Button>
     </Grid>
 </Window>

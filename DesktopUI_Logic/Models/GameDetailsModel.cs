@@ -40,14 +40,29 @@ namespace DesktopUI_Logic.Models
             }
             set
             {
-                _myScore = value; NotifyPropertyChanged("MyScore"); 
+                _myScore = value; 
+                NotifyPropertyChanged("MyScore"); 
             }
         }
         
         public enum Status { Not_Played, Played, Playing };
-        public Status playingStatus;
-        public List<Enum> Enums { get; set; } = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
+        private Status playingStatus;
 
+
+        public List<Enum> _enums = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
+        public List<Enum> Enums
+        {
+            get
+            {
+                return _enums;
+            }
+            set
+            {
+                _enums = value;
+                NotifyPropertyChanged("Enums");
+            }
+        } 
+            
         public event PropertyChangedEventHandler PropertyChanged;
 
         public List<string> AllPlatforms { get; set; } = new List<string>();
@@ -73,7 +88,8 @@ namespace DesktopUI_Logic.Models
             }
             set 
             {
-                playingStatus = GetStatus;
+                playingStatus = value;
+                NotifyPropertyChanged("GetStatus");
             }
         }
 

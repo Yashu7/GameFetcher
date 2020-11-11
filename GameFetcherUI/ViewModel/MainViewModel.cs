@@ -104,8 +104,7 @@ namespace GameFetcherUI.ViewModel
             if (sender == null) return;
                      dataSource = StaticData.Instance;
             dataSource.Model = sender as GameDetailsModel;
-            GameStatus gameStatus = new GameStatus(sender as GameDetailsModel);
-           
+            GameStatus gameStatus = new GameStatus();
             gameStatus.Show();
         }
         private void DeleteGame(object sender)
@@ -128,18 +127,18 @@ namespace GameFetcherUI.ViewModel
                     break;
                 case "1":
                     Label = "Played Games";
-                    var b = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Played);
+                    var b = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Played);
                     Games = new ObservableCollection<GameDetailsModel>(b);
                     
                     break;
                 case "2":
                     Label = "Playing Games";
-                    var c = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Playing);
+                    var c = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Playing);
                     Games = new ObservableCollection<GameDetailsModel>(c);
                     break;
                 case "3":
                     Label = "Not Played Games";
-                    var d = sqlConn.ReadCommand().Where(x => x.playingStatus == GameDetailsModel.Status.Not_Played);
+                    var d = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Not_Played);
                     Games = new ObservableCollection<GameDetailsModel>(d);
                     break;
                 case "4":
