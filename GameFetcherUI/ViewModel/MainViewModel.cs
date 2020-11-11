@@ -10,24 +10,21 @@ using DesktopUI_Logic;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GameFetcherUI.ViewModel 
 {
-    public class MainViewModel : UserControl, INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
 
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
+        public StaticData dataSource;
         private ObservableCollection<GameDetailsModel> _games = new ObservableCollection<GameDetailsModel>();
         public ObservableCollection<GameDetailsModel> Games {
             get { return _games; }
-            set { _games = value; NotifyPropertyChanged("Games"); } }
+            set { _games = value; OnPropertyChanged(); } }
         private string _choice = "";
         private string _label = "All Games";
-        public string Label { get { return _label; } set { _label = value; NotifyPropertyChanged("Label"); } }
+        public string Label { get { return _label; } set { _label = value; OnPropertyChanged(); } }
         public string Choice
         {
             get { return _choice; }
@@ -38,8 +35,7 @@ namespace GameFetcherUI.ViewModel
                 {
 
                     _choice = value;
-                    PropertyChanged?.Invoke(this,
-                new PropertyChangedEventArgs("Choice"));
+                    OnPropertyChanged();
 
                 }
             }
@@ -66,7 +62,7 @@ namespace GameFetcherUI.ViewModel
 
        
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        
        
 
         #region ICommandDefinitions
@@ -104,8 +100,12 @@ namespace GameFetcherUI.ViewModel
         }
         private void ShowGameDetails(object sender)
         {
+
             if (sender == null) return;
+                     dataSource = StaticData.Instance;
+            dataSource.Model = sender as GameDetailsModel;
             GameStatus gameStatus = new GameStatus(sender as GameDetailsModel);
+           
             gameStatus.Show();
         }
         private void DeleteGame(object sender)

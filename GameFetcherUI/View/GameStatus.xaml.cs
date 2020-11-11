@@ -1,5 +1,6 @@
 ﻿using DesktopUI_Logic;
 using DesktopUI_Logic.Models;
+using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,32 +27,25 @@ namespace GameFetcherUI
         public GameDetailsModel _game;
         public GameStatus(GameDetailsModel game)
         {
-            _game = game;
-            this.DataContext = game;
 
-            
+            //this.DataContext = game;
+
+            _game = game;
             InitializeComponent();
-            PlatList.ItemsSource = game.AllPlatforms;
-            PlatList.SelectedItem = _game.PlatformPlaying;
-            PlayingStatus.ItemsSource = game.Enums;
-            PlayingStatus.SelectedItem = game.GetStatus;
-            try
-            {
-                foreach (var i in ratingList)
-                {
+            
+            //((GameStatusViewModel)DataContext).Game = _game;
+           // MessageBox.Show(((GameStatusViewModel)this.DataContext).Game.Summary);
+            //PlatList.ItemsSource = game.AllPlatforms;
+            //PlatList.SelectedItem = _game.PlatformPlaying;
+            //PlayingStatus.ItemsSource = game.Enums;
+            //PlayingStatus.SelectedItem = game.GetStatus;
+            
+               foreach (var i in ratingList)
+               {
                     Rating.Items.Add(i);
                 }
                 Rating.Items.Add("None");
-                int s = Convert.ToInt32(_game.MyScore);
-                Rating.SelectedItem = s;
-                
-            }
-            catch(Exception ex)
-            {
-                Main main = new Main();
-                main.Show();
-                this.Close();
-            }
+           
             
         }
 
@@ -59,19 +53,16 @@ namespace GameFetcherUI
 
         private void ApplyChanges(object sender, RoutedEventArgs e)
         {
-            _game.MyScore = Convert.ToInt32(Rating.SelectedItem);
-            _game.PlatformPlaying = PlatList.SelectedItem.ToString();
-            _game.playingStatus = (GameDetailsModel.Status)PlayingStatus.SelectedItem;
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.UpdateCommand(_game);
+            //_game.MyScore = Convert.ToInt32(Rating.SelectedItem);
+            //_game.PlatformPlaying = PlatList.SelectedItem.ToString();
+            //_game.playingStatus = (GameDetailsModel.Status)PlayingStatus.SelectedItem;
+            //ToSqlConnection sqlConn = new ToSqlConnection();
+            //sqlConn.UpdateCommand(_game);
            
-            this.Close();
+            //this.Close();
             
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show(e.GetPosition(this).ToString());
-        }
+        
     }
 }

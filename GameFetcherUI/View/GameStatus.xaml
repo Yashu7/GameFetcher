@@ -3,15 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameFetcherUI"
+        xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        Title="{Binding Name}" Height="300" Width="400"
+        Title="{Binding Game.Name}" Height="300" Width="400"
         ResizeMode="NoResize">
+    <Window.DataContext>
+        <local1:GameStatusViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
-
+        <local1:GameStatusViewModel x:Key="GameStatusViewModel"/>
     </Window.Resources>
-    <Grid MouseDown="Grid_MouseDown">
+    <Grid DataContext="{Binding Source={StaticResource GameStatusViewModel}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -21,24 +24,24 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <ListView  Grid.Row="0" Grid.RowSpan="2">
-            <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200" Text="{Binding Summary, Mode =OneWay}"
+            <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200" Text="{Binding Game.Summary, Mode =TwoWay,UpdateSourceTrigger=PropertyChanged}"
                    />
         </ListView>
-
+        
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label>Rating:</Label>
-            <ComboBox IsSynchronizedWithCurrentItem="True" Name="Rating" Height="20"/>
+            <ComboBox Name="Rating" SelectedItem="{Binding Game.MyScore, Mode=OneTime,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Playing Status:</Label>
-            <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlayingStatus" Height="20"/>
+            <ComboBox SelectedItem="{Binding Game.GetStatus}" ItemsSource="{Binding Game.Enums, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
         </StackPanel>
 
         
         <StackPanel VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
             <Label>Platform:</Label>
 
-            <ComboBox IsSynchronizedWithCurrentItem="True" Name="PlatList"  Height="20"/>
+            <ComboBox  ItemsSource="{Binding Game.AllPlatforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"   Height="20"/>
         </StackPanel>
         
         

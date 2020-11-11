@@ -30,11 +30,12 @@ namespace DesktopUI_Logic.Models
         public long Id { get; set; }
 
         //My game score I gave in application.
-        private int _myScore;
+        private int _myScore = 0;
         public int MyScore
         { 
             get 
             { 
+                
                 return _myScore;
             }
             set
@@ -45,7 +46,7 @@ namespace DesktopUI_Logic.Models
         
         public enum Status { Not_Played, Played, Playing };
         public Status playingStatus;
-        public List<Enum> Enums = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
+        public List<Enum> Enums { get; set; } = new List<Enum>() { Status.Not_Played, Status.Played, Status.Playing };
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -173,8 +174,21 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("storyline")]
         public string Storyline { get; set; }
 
+        private string _summary;
         [JsonProperty("summary")]
-        public string Summary { get; set; }
+        public string Summary
+        {
+            get
+            {
+                return _summary;
+            }
+            set
+            {
+                _summary = value;
+                NotifyPropertyChanged("Summary");
+
+            }
+        }
 
         [JsonProperty("tags")]
         public List<long> Tags { get; set; }
