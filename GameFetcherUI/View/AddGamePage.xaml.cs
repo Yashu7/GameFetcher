@@ -17,46 +17,11 @@ using System.Windows.Shapes;
 
 namespace GameFetcherUI
 {
-    /// <summary>
-    /// Interaction logic for AddGamePage.xaml
-    /// </summary>
     public partial class AddGamePage : Window
     {
-       
         public AddGamePage()
         {
-            
             InitializeComponent();
-            GetPlatforms();
-
-
         }
-
-        public void GetPlatforms()
-        {
-           
-           
-            
-           
-        }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            //PlatformModel platform = PlatformsDropDown.SelectedItem as PlatformModel;
-            //ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
-            
-           // GameList.ItemsSource = gameList;
-            
-
-
-
-        }
-        
-      
-
-       
-
-        
     }
 }

@@ -57,6 +57,8 @@ namespace GameFetcherUI.ViewModel
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
             GameDetailsCommand = new RelayCommand(new Action<object>(ShowGameDetails));
             DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
+            MoveItemRightCommand = new RelayCommand(new Action<object>(ShowGameDetails));
+            EnterCommand = new RelayCommand(new Action<object>(ShowGameDetails));
             DataContext = this;
             
         }
@@ -73,6 +75,8 @@ namespace GameFetcherUI.ViewModel
         public ICommand GameDetailsCommand { get; private set; }
         public ICommand DeleteGameCommand { get; private set; }
         public ICommand QuitAppCommand { get; private set; }
+        public ICommand MoveItemRightCommand { get; private set; }
+        public ICommand EnterCommand { get; private set; }
         #endregion
 
         private void SearchGame(object sender)

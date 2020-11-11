@@ -15,8 +15,21 @@ namespace GameFetcherUI.ViewModel
 {
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged
     {
-
-
+        #region fields,properties, lists
+        private string _searchString = "Insert Game Title";
+        public string SearchString 
+        {
+            get
+            {
+                return _searchString;
+            }
+            set
+            {
+                _searchString = value;
+                NotifyPropertyChanged("SearchString");
+            }
+            
+        }
         private ObservableCollection<GameDetailsModel> _Games = new ObservableCollection<GameDetailsModel>();
         public ObservableCollection<GameDetailsModel> Games
         {
@@ -30,6 +43,11 @@ namespace GameFetcherUI.ViewModel
             get { return _Platforms; }
             set { _Platforms = value; NotifyPropertyChanged("Platforms"); }
         }
+        #endregion
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AddGamePageViewModel()
         {
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
@@ -42,7 +60,9 @@ namespace GameFetcherUI.ViewModel
         }
 
       
-
+        /// <summary>
+        /// INotifyPropertyChanged Methods
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
@@ -50,10 +70,18 @@ namespace GameFetcherUI.ViewModel
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
+        /// <summary>
+        /// ICommands
+        /// </summary>
         public ICommand DetailsCommand { get; private set; }
         public ICommand AddCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
-      
+
+        #region methods
+        /// <summary>
+        /// Opens window with details about picked game.
+        /// </summary>
+        /// <param name="sender"></param>
         private void ShowDetails(object sender)
         {
             GameDetailsModel game = sender as GameDetailsModel;
@@ -61,24 +89,39 @@ namespace GameFetcherUI.ViewModel
             GameDetails details = new GameDetails(game);
             details.Show();
         }
+        /// <summary>
+        /// Add picked game to the database source.
+        /// </summary>
+        /// <param name="sender"></param>
         private void AddGame(object sender)
         {
             if (!(sender is GameDetailsModel game)) return;
             ToSqlConnection sqlConn = new ToSqlConnection();
             sqlConn.PostCommand(game);
             MessageBox.Show("Game Added");
-            DataContext = null;
-            DataContext = this;
+            EmptyOutFields();
             //Close this window?
         }
+        /// <summary>
+        /// Based on chosen title and platform, searches API.
+        /// </summary>
+        /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
+            DataGetter dataGetter = new DataGetter();
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
-            ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(GameTitleString.Text, platform.platformId);
+            ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(SearchString, platform.platformId);
 
             Games = gameList;
         }
+
+        private void EmptyOutFields()
+        {
+            Games = null;
+            SearchString = "Insert Game Title";
+        }
+        #endregion
 
     }
 }

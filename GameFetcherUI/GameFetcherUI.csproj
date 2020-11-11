@@ -182,6 +182,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Converters\SearchGameConverter.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

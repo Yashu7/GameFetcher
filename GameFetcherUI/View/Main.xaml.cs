@@ -16,33 +16,13 @@ using System.Windows.Shapes;
 
 namespace GameFetcherUI
 {
-    /// <summary>
-    /// Interaction logic for Main.xaml
-    /// </summary>
     public partial class Main : Window
     {
-       
         public Main()
         {
              
             InitializeComponent();
             
         }
-
-       
-
-        void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ListViewItem v = new ListViewItem();
-            v = (ListViewItem)sender;
-            
-            GameDetailsModel model = (GameDetailsModel)v.Content;
-            GameStatus gameStatus = new GameStatus(model);
-                gameStatus.Show();
-        }
-
-        
-
-      
     }
 }
