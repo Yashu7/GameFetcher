@@ -83,6 +83,7 @@ namespace GameFetcherUI.ViewModel
         }
         private void ShowSales(object sender)
         {
+            if (sender == null) return;
             GameDetailsModel game = sender as GameDetailsModel;
             SalesChecker sales = new SalesChecker();
             try

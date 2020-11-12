@@ -14,16 +14,19 @@ namespace APIapp
     public class GamesApiCalls
     {
         
-        private HttpClient ConnectToApi()
+        private async Task<HttpClient> ConnectToApi()
         {
+            TwitchApiCalls twitchCall = new TwitchApiCalls();
+            TwitchAuth bearer = await twitchCall.GetAuth();
             var apiCall = new HttpClient
             {
                 BaseAddress = new Uri("https://api.igdb.com/v4/games")
             };
+            
             apiCall.DefaultRequestHeaders.Accept.Clear();
             apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             apiCall.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
-            apiCall.DefaultRequestHeaders.Add("Authorization", "Bearer rghpew8l8lkpd122qar5i3x5fz32nc");
+            apiCall.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearer.Token);
             return apiCall;
 
 
@@ -31,7 +34,7 @@ namespace APIapp
         private async Task<string> GetGamesByTitle(string title)
         {
             
-            HttpClient call = ConnectToApi();
+            HttpClient call = await ConnectToApi();
                 HttpContent requestMessage = null;
             String[] separator = title.Split(' ');
             string queryName = "";
@@ -65,7 +68,7 @@ namespace APIapp
 
         public async Task<string> GetAllPlatforms()
         {
-            HttpClient call = ConnectToApi();
+            HttpClient call = await ConnectToApi();
             HttpContent requestMessage;
             requestMessage = new StringContent(($"fields id,name; limit 500;"), Encoding.UTF8, "application/json");
            

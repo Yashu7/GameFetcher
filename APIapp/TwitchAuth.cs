@@ -10,12 +10,12 @@ namespace APIapp
     public class TwitchAuth
     {
         [JsonProperty("access_token")]
-        public string token { get; set; }
+        public string Token { get; set; }
        
 
         public TwitchAuth(string id)
         {
-            token = id;
+            Token = id;
         }
     }
 
