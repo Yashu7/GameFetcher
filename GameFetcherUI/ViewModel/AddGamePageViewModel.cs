@@ -117,7 +117,7 @@ namespace GameFetcherUI.ViewModel
             Games = gameList;
         }
 
-        private void EmptyOutFields()
+        public void EmptyOutFields()
         {
             Games = null;
             SearchString = "Insert Game Title";
