@@ -5,6 +5,15 @@
              DispatcherUnhandledException="Application_DispatcherUnhandledException"
              Startup="Application_Startup">
     <Application.Resources>
-         
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="LightSlateGray"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="LightGray"/>
+        </Style>
+
     </Application.Resources>
 </Application>

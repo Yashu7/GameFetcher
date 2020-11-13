@@ -16,12 +16,16 @@ namespace APIapp
         
         private async Task<HttpClient> ConnectToApi()
         {
+            //Get bearer token
             TwitchApiCalls twitchCall = new TwitchApiCalls();
             TwitchAuth bearer = await twitchCall.GetAuth();
+
+            //call address
             var apiCall = new HttpClient
             {
                 BaseAddress = new Uri("https://api.igdb.com/v4/games")
             };
+            
             
             apiCall.DefaultRequestHeaders.Accept.Clear();
             apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -36,6 +40,9 @@ namespace APIapp
             
             HttpClient call = await ConnectToApi();
                 HttpContent requestMessage = null;
+
+            #region String converter.
+            //Convert string for proper search query.
             String[] separator = title.Split(' ');
             string queryName = "";
             foreach(String s in separator)
@@ -43,21 +50,26 @@ namespace APIapp
                 queryName += s + "% ";
             }
             queryName = queryName.Remove(queryName.Length - 1);
-            
-                requestMessage = new StringContent(($"fields *; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
-            
+            #endregion
+
+            requestMessage = new StringContent(($"fields *; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
             
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-            HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/games", requestMessage);
-            var result = await call.PostAsync("https://api.igdb.com/v4/games", null);
-            List<GameModel> game = new List<GameModel>();
-            //game = await response.Content.ReadAsAsync<GameModel>();
-            var a = response.Content.ReadAsStringAsync().Result;
+            try
+            {
+                HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/games", requestMessage);
+                var result = await call.PostAsync("https://api.igdb.com/v4/games", null);
+                List<GameModel> game = new List<GameModel>();
+                var a = response.Content.ReadAsStringAsync().Result;
+                return a;
+            }
+            catch(Exception)
+            {
+                return null;
+            }
             
-
-            return a;
             
 
         }
@@ -79,7 +91,7 @@ namespace APIapp
             HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/platforms", requestMessage);
             var result = await call.PostAsync("https://api.igdb.com/v4/platforms", null);
             List<PlatformModel> game = new List<PlatformModel>();
-            //game = await response.Content.ReadAsAsync<GameModel>();
+          
             var a = response.Content.ReadAsStringAsync().Result;
 
 

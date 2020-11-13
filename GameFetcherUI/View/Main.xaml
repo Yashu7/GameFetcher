@@ -9,7 +9,7 @@
         xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
         mc:Ignorable="d"
         Title="Game Fetcher" Height="500" Width="500"
-        ResizeMode="CanResize" 
+        ResizeMode="NoResize" Background="#FFA1B2EA" 
         >
     <Window.DataContext>
         <local1:MainViewModel/>
@@ -33,12 +33,14 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
 
-
+        <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
+            
             <ComboBox SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" Margin="10 10" Name='Lists' >
 
 
@@ -48,7 +50,8 @@
                 <ComboBoxItem>Not Played Games</ComboBoxItem>
                 <ComboBoxItem>Upcoming Games</ComboBoxItem>
             </ComboBox>
-            <Label Name="ListsLabel" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label  Name="ListsLabel" Grid.Row="1" Grid.Column="0" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
             <ListView  ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="300" MinHeight="100"
                        Grid.RowSpan="1" MaxHeight="150" Grid.Column="0"  Height="148">
                 <ListView.ItemTemplate>
@@ -85,6 +88,6 @@
             <Button Content="Delete"  Command="{Binding DeleteGameCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
             <Button Content="Exit"  Command="{Binding QuitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"  Margin="0 10" />
         </StackPanel>
-
+        <TextBlock Grid.Row="2" VerticalAlignment="Bottom">GameFetcher by Jan Malawski. Using API from Twitch and IGDB.</TextBlock>
     </Grid>
 </Window>

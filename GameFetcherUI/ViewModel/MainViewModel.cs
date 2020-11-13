@@ -16,7 +16,8 @@ namespace GameFetcherUI.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-
+        
+        #region fields and properties
         public StaticData dataSource;
         private ObservableCollection<GameDetailsModel> _games = new ObservableCollection<GameDetailsModel>();
         public ObservableCollection<GameDetailsModel> Games {
@@ -40,14 +41,15 @@ namespace GameFetcherUI.ViewModel
                 }
             }
         }
-        public ToSqlConnection sqlConn;
+        public SqlConnectionInjector GamesSource = new SqlConnectionInjector();
+        #endregion
+
+        #region Constructor
         public MainViewModel()
         {
             
-            sqlConn = new ToSqlConnection();
-            Games = new ObservableCollection<GameDetailsModel>(sqlConn.ReadCommand());
             
-            
+            Games = new ObservableCollection<GameDetailsModel>(GamesSource.GetAllGames());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
@@ -58,13 +60,8 @@ namespace GameFetcherUI.ViewModel
             DataContext = this;
             
         }
-
-
-       
-
-        
-       
-
+        #endregion
+      
         #region ICommandDefinitions
         public ICommand SalesCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
@@ -74,7 +71,8 @@ namespace GameFetcherUI.ViewModel
         public ICommand MoveItemRightCommand { get; private set; }
         public ICommand EnterCommand { get; private set; }
         #endregion
-
+       
+        #region Methods
         private void SearchGame(object sender)
         {
             
@@ -112,8 +110,8 @@ namespace GameFetcherUI.ViewModel
         {
             
             if (sender == null) return;
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.RemoveCommand(sender as GameDetailsModel);
+            GamesSource.RemoveGame(sender as GameDetailsModel);
+           
           
         }
         private void ChooseList(object sender)
@@ -123,28 +121,28 @@ namespace GameFetcherUI.ViewModel
             {
                 case "0":
                     Label = "All Games";
-                    var a = sqlConn.ReadCommand();
+                    var a = GamesSource.GetAllGames();
                     Games = new ObservableCollection<GameDetailsModel>(a);
                     break;
                 case "1":
                     Label = "Played Games";
-                    var b = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Played);
+                    var b = GamesSource.GetPlayedGames();
                     Games = new ObservableCollection<GameDetailsModel>(b);
                     
                     break;
                 case "2":
                     Label = "Playing Games";
-                    var c = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Playing);
+                    var c = GamesSource.GetPlayingNowGames();
                     Games = new ObservableCollection<GameDetailsModel>(c);
                     break;
                 case "3":
                     Label = "Not Played Games";
-                    var d = sqlConn.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Not_Played);
+                    var d = GamesSource.GetNotPlayedGames();
                     Games = new ObservableCollection<GameDetailsModel>(d);
                     break;
                 case "4":
                     Label = "Upcoming Games";
-                    var e = sqlConn.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds));
+                    var e = GamesSource.GetUpcomingGames();
                     Games = new ObservableCollection<GameDetailsModel>(e);
                     break;
                 default:
@@ -152,5 +150,6 @@ namespace GameFetcherUI.ViewModel
                     break;
             }
         }
+        #endregion
     }
 }

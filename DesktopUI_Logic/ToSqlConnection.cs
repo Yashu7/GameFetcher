@@ -12,7 +12,7 @@ using System.Collections.ObjectModel;
 
 namespace DesktopUI_Logic
 {
-    public class ToSqlConnection
+    public class ToSqlConnection : ISqlConnection
     {
         private SQLiteConnection Connect()
         {
@@ -21,9 +21,9 @@ namespace DesktopUI_Logic
             //connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GameFetcherDatabase;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False";
             connectionString = "Data Source=.\\GameFetcherDBlite222.db;";
             cnn = new SQLiteConnection(connectionString);
-            
+
             return (SQLiteConnection)cnn;
-            
+
         }
         public void PostPlatforms(ObservableCollection<PlatformModel> platforms)
         {
