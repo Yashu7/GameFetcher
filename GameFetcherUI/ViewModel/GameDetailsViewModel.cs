@@ -10,8 +10,8 @@ namespace GameFetcherUI.ViewModel
 {
     public class GameDetailsViewModel : ViewModelBase
     {
-        private GameDetailsModel _game;
-        public GameDetailsModel Game
+        private IGameDetailsModel _game;
+        public IGameDetailsModel Game
         {
             get
             {

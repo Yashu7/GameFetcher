@@ -10,8 +10,8 @@ namespace GameFetcherUI
 {
     public sealed class StaticData
     {
-        private GameDetailsModel _model;
-        public GameDetailsModel Model { get; set; }
+        private IGameDetailsModel _model;
+        public IGameDetailsModel Model { get; set; }
         StaticData()
         {
             

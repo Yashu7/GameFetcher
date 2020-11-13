@@ -6,12 +6,12 @@ namespace DesktopUI_Logic
 {
     public interface ISqlConnection
     {
-        List<GameDetailsModel> AddPlatformsToGames(List<GameDetailsModel> games);
+        List<IGameDetailsModel> AddPlatformsToGames(List<IGameDetailsModel> games);
         ObservableCollection<PlatformModel> GetPlatformModels();
-        void PostCommand(GameDetailsModel game);
+        void PostCommand(IGameDetailsModel game);
         void PostPlatforms(ObservableCollection<PlatformModel> platforms);
-        List<GameDetailsModel> ReadCommand();
-        void RemoveCommand(GameDetailsModel game);
-        void UpdateCommand(GameDetailsModel game);
+        List<IGameDetailsModel> ReadCommand();
+        void RemoveCommand(IGameDetailsModel game);
+        void UpdateCommand(IGameDetailsModel game);
     }
 }

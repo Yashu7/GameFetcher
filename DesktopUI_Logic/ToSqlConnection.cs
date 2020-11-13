@@ -50,7 +50,7 @@ namespace DesktopUI_Logic
             }
 
         }
-        public void PostCommand(GameDetailsModel game)
+        public void PostCommand(IGameDetailsModel game)
         {
             using (SQLiteConnection cnn = Connect())
             {
@@ -87,7 +87,7 @@ namespace DesktopUI_Logic
 
 
         }
-        public void UpdateCommand(GameDetailsModel game)
+        public void UpdateCommand(IGameDetailsModel game)
         {
             using (SQLiteConnection cnn = Connect())
             {
@@ -109,7 +109,7 @@ namespace DesktopUI_Logic
                 cnn.Close();
             }
         }
-        public void RemoveCommand(GameDetailsModel game)
+        public void RemoveCommand(IGameDetailsModel game)
         {
             using (SQLiteConnection cnn = Connect())
             {
@@ -126,9 +126,9 @@ namespace DesktopUI_Logic
                 cnn.Close();
             }
         }
-        public List<GameDetailsModel> ReadCommand()
+        public List<IGameDetailsModel> ReadCommand()
         {
-            List<GameDetailsModel> models = new List<GameDetailsModel>();
+            List<IGameDetailsModel> models = new List<IGameDetailsModel>();
             using (SQLiteConnection cnn = Connect())
             {
                 SQLiteCommand comm;
@@ -139,7 +139,7 @@ namespace DesktopUI_Logic
                 reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    GameDetailsModel model = new GameDetailsModel
+                    IGameDetailsModel model = new GameDetailsModel
                     {
                         Id = reader.GetInt32(0),
                         Name = reader.GetString(1),
@@ -169,7 +169,7 @@ namespace DesktopUI_Logic
                 return AddPlatformsToGames(models);
             }
         }
-        public List<GameDetailsModel> AddPlatformsToGames(List<GameDetailsModel> games)
+        public List<IGameDetailsModel> AddPlatformsToGames(List<IGameDetailsModel> games)
         {
 
             using (SQLiteConnection cnn = Connect())
@@ -184,7 +184,7 @@ namespace DesktopUI_Logic
                 {
                     // MessageBox.Show(reader.GetString(1));
 
-                    foreach (GameDetailsModel game in games)
+                    foreach (IGameDetailsModel game in games)
                     {
                         if (reader.GetString(0).Contains(game.Name))
                         {

@@ -13,8 +13,8 @@ namespace GameFetcherUI.ViewModel
 {
     public class GameStatusViewModel : UserControl, INotifyPropertyChanged
     {
-        private GameDetailsModel _game = new GameDetailsModel();
-        public GameDetailsModel Game
+        private IGameDetailsModel _game = new GameDetailsModel();
+        public IGameDetailsModel Game
         {
             get
             {
@@ -35,9 +35,10 @@ namespace GameFetcherUI.ViewModel
 
         private void UpdateGame(object obj)
         {
-            GameDetailsModel newGame = obj as GameDetailsModel;
-            ToSqlConnection sqlConn = new ToSqlConnection();
-            sqlConn.UpdateCommand(newGame);
+            
+            SqlConnectionInjector GameSource = new SqlConnectionInjector();
+            GameSource.UpdateGame(obj as GameDetailsModel);
+            
         }
 
         public ICommand UpdateCommand { get; private set; }

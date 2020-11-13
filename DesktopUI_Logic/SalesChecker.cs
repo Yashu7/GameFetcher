@@ -12,7 +12,7 @@ namespace DesktopUI_Logic
 {
     public class SalesChecker
     {
-        public string CheckSteamSale(GameDetailsModel game)
+        public string CheckSteamSale(IGameDetailsModel game)
         {
            
             ServicePointManager.Expect100Continue = true;

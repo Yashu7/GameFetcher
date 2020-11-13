@@ -19,8 +19,8 @@ namespace GameFetcherUI.ViewModel
         
         #region fields and properties
         public StaticData dataSource;
-        private ObservableCollection<GameDetailsModel> _games = new ObservableCollection<GameDetailsModel>();
-        public ObservableCollection<GameDetailsModel> Games {
+        private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
+        public ObservableCollection<IGameDetailsModel> Games {
             get { return _games; }
             set { _games = value; OnPropertyChanged(); } }
         private string _choice = "";
@@ -49,7 +49,7 @@ namespace GameFetcherUI.ViewModel
         {
             
             
-            Games = new ObservableCollection<GameDetailsModel>(GamesSource.GetAllGames());
+            Games = new ObservableCollection<IGameDetailsModel>(GamesSource.GetAllGames());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
@@ -82,7 +82,7 @@ namespace GameFetcherUI.ViewModel
         private void ShowSales(object sender)
         {
             if (sender == null) return;
-            GameDetailsModel game = sender as GameDetailsModel;
+            IGameDetailsModel game = sender as IGameDetailsModel;
             SalesChecker sales = new SalesChecker();
             try
             {
@@ -102,7 +102,7 @@ namespace GameFetcherUI.ViewModel
 
             if (sender == null) return;
                      dataSource = StaticData.Instance;
-            dataSource.Model = sender as GameDetailsModel;
+            dataSource.Model = sender as IGameDetailsModel;
             GameStatus gameStatus = new GameStatus();
             gameStatus.Show();
         }
@@ -110,7 +110,7 @@ namespace GameFetcherUI.ViewModel
         {
             
             if (sender == null) return;
-            GamesSource.RemoveGame(sender as GameDetailsModel);
+            GamesSource.RemoveGame(sender as IGameDetailsModel);
            
           
         }
@@ -122,28 +122,28 @@ namespace GameFetcherUI.ViewModel
                 case "0":
                     Label = "All Games";
                     var a = GamesSource.GetAllGames();
-                    Games = new ObservableCollection<GameDetailsModel>(a);
+                    Games = new ObservableCollection<IGameDetailsModel>(a);
                     break;
                 case "1":
                     Label = "Played Games";
                     var b = GamesSource.GetPlayedGames();
-                    Games = new ObservableCollection<GameDetailsModel>(b);
+                    Games = new ObservableCollection<IGameDetailsModel>(b);
                     
                     break;
                 case "2":
                     Label = "Playing Games";
                     var c = GamesSource.GetPlayingNowGames();
-                    Games = new ObservableCollection<GameDetailsModel>(c);
+                    Games = new ObservableCollection<IGameDetailsModel>(c);
                     break;
                 case "3":
                     Label = "Not Played Games";
                     var d = GamesSource.GetNotPlayedGames();
-                    Games = new ObservableCollection<GameDetailsModel>(d);
+                    Games = new ObservableCollection<IGameDetailsModel>(d);
                     break;
                 case "4":
                     Label = "Upcoming Games";
                     var e = GamesSource.GetUpcomingGames();
-                    Games = new ObservableCollection<GameDetailsModel>(e);
+                    Games = new ObservableCollection<IGameDetailsModel>(e);
                     break;
                 default:
                     MessageBox.Show("Pick List");

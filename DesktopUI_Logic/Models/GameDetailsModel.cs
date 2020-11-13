@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DesktopUI_Logic.Models
 {
-    public class GameDetailsModel : INotifyPropertyChanged
+    public class GameDetailsModel : INotifyPropertyChanged, IGameDetailsModel
     {
         public void NotifyPropertyChanged(string propName)
         {
@@ -32,19 +32,19 @@ namespace DesktopUI_Logic.Models
         //My game score I gave in application.
         private int _myScore = 0;
         public int MyScore
-        { 
-            get 
-            { 
-                
+        {
+            get
+            {
+
                 return _myScore;
             }
             set
             {
-                _myScore = value; 
-                NotifyPropertyChanged("MyScore"); 
+                _myScore = value;
+                NotifyPropertyChanged("MyScore");
             }
         }
-        
+
         public enum Status { Not_Played, Played, Playing };
         private Status playingStatus;
 
@@ -61,8 +61,8 @@ namespace DesktopUI_Logic.Models
                 _enums = value;
                 NotifyPropertyChanged("Enums");
             }
-        } 
-            
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public List<string> AllPlatforms { get; set; } = new List<string>();
@@ -80,13 +80,13 @@ namespace DesktopUI_Logic.Models
                 NotifyPropertyChanged("PlatformPlaying");
             }
         }
-        public Status GetStatus 
+        public Status GetStatus
         {
             get
             {
                 return playingStatus;
             }
-            set 
+            set
             {
                 playingStatus = value;
                 NotifyPropertyChanged("GetStatus");
@@ -106,7 +106,7 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("category")]
         public long Category { get; set; }
 
-        
+
 
         [JsonProperty("created_at")]
         public long CreatedAt { get; set; }
@@ -117,7 +117,7 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("expansions")]
         public List<long> Expansions { get; set; }
 
-        
+
 
         [JsonProperty("first_release_date")]
         public long FirstReleaseDate { get; set; }
@@ -161,7 +161,8 @@ namespace DesktopUI_Logic.Models
         public string Name
         {
             get { return _name; }
-            set {
+            set
+            {
                 _name = value;
                 NotifyPropertyChanged("Name");
             }
@@ -170,22 +171,22 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("platforms")]
         public List<long> Platforms { get; set; }
 
-        
+
 
         [JsonProperty("rating")]
         public double Rating { get; set; }
 
-        
+
 
         [JsonProperty("release_dates")]
         public List<long> ReleaseDates { get; set; }
 
-        
+
 
         [JsonProperty("similar_games")]
         public List<long> SimilarGames { get; set; }
 
-        
+
 
         [JsonProperty("storyline")]
         public string Storyline { get; set; }
@@ -212,8 +213,8 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("themes")]
         public List<long> Themes { get; set; }
 
-       
 
-        
+
+
     }
 }
