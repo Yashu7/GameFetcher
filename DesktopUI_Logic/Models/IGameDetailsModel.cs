@@ -6,6 +6,7 @@ namespace DesktopUI_Logic.Models
 {
     public interface IGameDetailsModel
     {
+        
         List<long> AgeRatings { get; set; }
         List<string> AllPlatforms { get; set; }
         List<long> AlternativeNames { get; set; }

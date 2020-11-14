@@ -12,6 +12,19 @@ namespace DesktopUI_Logic.Models
 {
     public class GameDetailsModel : INotifyPropertyChanged, IGameDetailsModel
     {
+        [JsonConstructor]
+        public GameDetailsModel(int _id,string _name,long _firstReleaseDate,string _summary,List<long> _platforms)
+        {
+            Id = _id;
+            Name = _name;
+            FirstReleaseDate = _firstReleaseDate;
+            Summary = _summary;
+            Platforms = _platforms;
+        }
+        public GameDetailsModel()
+        {
+
+        }
         public void NotifyPropertyChanged(string propName)
         {
             if (PropertyChanged != null)

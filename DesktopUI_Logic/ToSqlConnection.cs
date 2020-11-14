@@ -25,10 +25,10 @@ namespace DesktopUI_Logic
             return (SQLiteConnection)cnn;
 
         }
-        public void PostPlatforms(ObservableCollection<PlatformModel> platforms)
+        public void PostPlatforms(ObservableCollection<IPlatformModel> platforms)
         {
 
-            foreach (PlatformModel model in platforms)
+            foreach (IPlatformModel model in platforms)
             {
                 using (SQLiteConnection cnn = Connect())
                 {
@@ -139,7 +139,7 @@ namespace DesktopUI_Logic
                 reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    IGameDetailsModel model = new GameDetailsModel
+                    IGameDetailsModel model = new GameDetailsModel()
                     {
                         Id = reader.GetInt32(0),
                         Name = reader.GetString(1),
@@ -198,9 +198,9 @@ namespace DesktopUI_Logic
                 return games;
             }
         }
-        public ObservableCollection<PlatformModel> GetPlatformModels()
+        public ObservableCollection<IPlatformModel> GetPlatformModels()
         {
-            ObservableCollection<PlatformModel> models = new ObservableCollection<PlatformModel>();
+            ObservableCollection<IPlatformModel> models = new ObservableCollection<IPlatformModel>();
             using (SQLiteConnection cnn = Connect())
             {
                 SQLiteCommand comm;
@@ -211,9 +211,11 @@ namespace DesktopUI_Logic
                 reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    PlatformModel model = new PlatformModel();
-                    model.platformId = reader.GetInt32(1);
-                    model.name = reader.GetString(2);
+                    IPlatformModel model = new PlatformModel
+                    {
+                        platformId = reader.GetInt32(1),
+                        name = reader.GetString(2)
+                    };
 
                     models.Add(model);
 

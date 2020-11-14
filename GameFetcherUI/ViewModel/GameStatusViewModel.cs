@@ -37,7 +37,7 @@ namespace GameFetcherUI.ViewModel
         {
             
             SqlConnectionInjector GameSource = new SqlConnectionInjector();
-            GameSource.UpdateGame(obj as GameDetailsModel);
+            GameSource.UpdateGame(obj as IGameDetailsModel);
             
         }
 

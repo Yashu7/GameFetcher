@@ -16,7 +16,8 @@ namespace GameFetcherUI.ViewModel
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged
     {
         #region fields,properties, lists
-        SqlConnectionInjector GamesSource = new SqlConnectionInjector();
+        readonly SqlConnectionInjector DatabaseSource = new SqlConnectionInjector();
+        readonly DataInjection ApiSource = new DataInjection();
         private string _searchString = "Insert Game Title";
         public string SearchString 
         {
@@ -31,15 +32,15 @@ namespace GameFetcherUI.ViewModel
             }
             
         }
-        private ObservableCollection<GameDetailsModel> _Games = new ObservableCollection<GameDetailsModel>();
-        public ObservableCollection<GameDetailsModel> Games
+        private ObservableCollection<IGameDetailsModel> _Games = new ObservableCollection<IGameDetailsModel>();
+        public ObservableCollection<IGameDetailsModel> Games
         {
             get { return _Games; }
             set { _Games = value; NotifyPropertyChanged("Games"); }
         }
 
-        private ObservableCollection<PlatformModel> _Platforms = new ObservableCollection<PlatformModel>();
-        public ObservableCollection<PlatformModel> Platforms
+        private ObservableCollection<IPlatformModel> _Platforms = new ObservableCollection<IPlatformModel>();
+        public ObservableCollection<IPlatformModel> Platforms
         {
             get { return _Platforms; }
             set { _Platforms = value; NotifyPropertyChanged("Platforms"); }
@@ -55,7 +56,7 @@ namespace GameFetcherUI.ViewModel
             AddCommand = new RelayCommand(new Action<object>(AddGame));
             SearchCommand = new RelayCommand(new Action<object>(SearchGames));
            
-            Platforms = GamesSource.GetAllPlatforms();
+            Platforms = DatabaseSource.GetAllPlatforms();
             DataContext = this;
             
         }
@@ -85,7 +86,7 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private void ShowDetails(object sender)
         {
-            GameDetailsModel game = sender as GameDetailsModel;
+            IGameDetailsModel game = sender as IGameDetailsModel;
             if (game == null) return;
             StaticData.Instance.Model = game;
             GameDetails details = new GameDetails();
@@ -97,8 +98,8 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private void AddGame(object sender)
         {
-            if (!(sender is GameDetailsModel game)) return;
-            GamesSource.InsertGame(game);
+            if (!(sender is IGameDetailsModel game)) return;
+            DatabaseSource.InsertGame(game);
             MessageBox.Show("Game Added");
             EmptyOutFields();
             //Close this window?
@@ -109,10 +110,10 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
-            DataGetter dataGetter = new DataGetter();
+            
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
-            ObservableCollection<GameDetailsModel> gameList = await dataGetter.GetGameByTitle(SearchString, platform.platformId);
+            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await ApiSource.GetAllGamesFromApi(SearchString, platform.platformId));
 
             Games = gameList;
         }

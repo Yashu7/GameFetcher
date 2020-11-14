@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace APIapp
 {
-    public class GamesApiCalls
+    public class GamesApiCalls : IGamesApiCalls
     {
-        
+
         private async Task<HttpClient> ConnectToApi()
         {
             //Get bearer token
@@ -25,8 +25,8 @@ namespace APIapp
             {
                 BaseAddress = new Uri("https://api.igdb.com/v4/games")
             };
-            
-            
+
+
             apiCall.DefaultRequestHeaders.Accept.Clear();
             apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             apiCall.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
@@ -37,23 +37,23 @@ namespace APIapp
         }
         private async Task<string> GetGamesByTitle(string title)
         {
-            
+
             HttpClient call = await ConnectToApi();
-                HttpContent requestMessage = null;
+            HttpContent requestMessage = null;
 
             #region String converter.
             //Convert string for proper search query.
             String[] separator = title.Split(' ');
             string queryName = "";
-            foreach(String s in separator)
+            foreach (String s in separator)
             {
                 queryName += s + "% ";
             }
             queryName = queryName.Remove(queryName.Length - 1);
             #endregion
 
-            requestMessage = new StringContent(($"fields *; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
-            
+            requestMessage = new StringContent(($"fields id,name,first_release_date,summary,platforms; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
@@ -65,12 +65,12 @@ namespace APIapp
                 var a = response.Content.ReadAsStringAsync().Result;
                 return a;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
-            
-            
+
+
 
         }
         public async Task<string> GetGameByTitle(string title)
@@ -83,15 +83,15 @@ namespace APIapp
             HttpClient call = await ConnectToApi();
             HttpContent requestMessage;
             requestMessage = new StringContent(($"fields id,name; limit 500;"), Encoding.UTF8, "application/json");
-           
+
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-            
+
             HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/platforms", requestMessage);
             var result = await call.PostAsync("https://api.igdb.com/v4/platforms", null);
             List<PlatformModel> game = new List<PlatformModel>();
-          
+
             var a = response.Content.ReadAsStringAsync().Result;
 
 

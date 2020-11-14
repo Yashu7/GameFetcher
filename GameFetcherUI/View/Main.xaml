@@ -41,7 +41,7 @@
         <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
             
-            <ComboBox SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" Margin="10 10" Name='Lists' >
+            <ComboBox   SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}"  Margin="10 10" Name='Lists' >
 
 
                 <ComboBoxItem>All Games</ComboBoxItem>

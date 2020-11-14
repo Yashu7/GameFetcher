@@ -11,18 +11,15 @@ using Newtonsoft.Json;
 
 namespace DesktopUI_Logic
 {
-    public class DataGetter
+    public class DataGetter : IDataGetter
     {
-       
-        public async Task<ObservableCollection<GameDetailsModel>> GetGameByTitle(string title, int platId)
+        private readonly GameApiCallInjector apiCall = new GameApiCallInjector();
+        public async Task<List<GameDetailsModel>> GetGameByTitle(string title, int platId)
         {
-            GamesApiCalls gameData = new GamesApiCalls();
-            
-            string output = await gameData.GetGameByTitle(title);
-            ObservableCollection<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<ObservableCollection<GameDetailsModel>>(output);
-            ObservableCollection<GameDetailsModel> games = new ObservableCollection<GameDetailsModel>();
+            List<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<List<GameDetailsModel>>(await apiCall.GetGamesByTitle(title));
+            List<GameDetailsModel> games = new List<GameDetailsModel>();
             if (platId == 0) return UImodel;
-            foreach(GameDetailsModel game in UImodel)
+            foreach (GameDetailsModel game in UImodel)
             {
                 if (game.Platforms != null)
                 {
@@ -32,17 +29,13 @@ namespace DesktopUI_Logic
                     }
                 }
             }
-           
-            
             return games;
         }
-        public async Task<ObservableCollection<Models.PlatformModel>> GetAllPlatforms()
+        public async Task<List<Models.IPlatformModel>> GetAllPlatforms()
         {
-            GamesApiCalls platformData = new GamesApiCalls();
-            string output = await platformData.GetAllPlatforms();
-            List<Models.PlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.PlatformModel>>(output);
+            List<Models.IPlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.IPlatformModel>>(await apiCall.GetAllPlatforms());
             platformModels = platformModels.OrderByDescending(x => x.name).ToList();
-            ObservableCollection<Models.PlatformModel> m = new ObservableCollection<Models.PlatformModel>(platformModels);
+            List<Models.IPlatformModel> m = new List<Models.IPlatformModel>(platformModels);
             return m;
         }
     }

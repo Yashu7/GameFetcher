@@ -112,8 +112,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameApiCallInjector.cs" />
     <Compile Include="GameModel.cs" />
     <Compile Include="GamesApiCalls.cs" />
+    <Compile Include="IGamesApiCalls.cs" />
     <Compile Include="PlatformModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

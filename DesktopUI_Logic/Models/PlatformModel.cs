@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DesktopUI_Logic.Models
 {
-    public class PlatformModel
+    public class PlatformModel : IPlatformModel
     {
-        
+
         [JsonProperty("id")]
         public int platformId { get; set; }
         [JsonProperty("name")]
