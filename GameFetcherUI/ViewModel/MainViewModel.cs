@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
+using SwitchEshopCrawler;
 
 namespace GameFetcherUI.ViewModel 
 {
@@ -47,8 +48,9 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public MainViewModel()
         {
-            
-            
+
+           
+           
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.GetAllGames());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
@@ -84,8 +86,10 @@ namespace GameFetcherUI.ViewModel
             if (sender == null) return;
             IGameDetailsModel game = sender as IGameDetailsModel;
             SalesChecker sales = new SalesChecker();
+            MessageBox.Show(sales.StartCrawlingAsync(game.Name));
             try
             {
+                
                 MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
             }
             catch (Exception)

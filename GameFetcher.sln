@@ -15,6 +15,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GameFetcherDB", "GameFetche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_ViewModels_Test", "UI_ViewModels_Test\UI_ViewModels_Test.csproj", "{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitchEshopCrawler", "SwitchEshopCrawler\SwitchEshopCrawler.csproj", "{1271921E-E8C5-4F2F-A890-293DA2495B62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,14 @@ Global
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|x86.Build.0 = Release|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Debug|x86.Build.0 = Debug|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Release|x86.ActiveCfg = Release|Any CPU
+		{1271921E-E8C5-4F2F-A890-293DA2495B62}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
