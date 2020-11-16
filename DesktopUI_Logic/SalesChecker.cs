@@ -72,8 +72,8 @@ namespace DesktopUI_Logic
             return "No sale";
 
         }
-
-        public string StartCrawlingAsync(string _title)
+        
+        public List<IDiscountedGamesModel> StartCrawlingAsync()
         {
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("--headless");
@@ -88,73 +88,95 @@ namespace DesktopUI_Logic
             chromeOptions.AddArgument("--allow-insecure-localhost");
             chromeOptions.AddAdditionalCapability("CapabilityType.AcceptSslCertificates",true, true);
             chromeOptions.AddAdditionalCapability("CapabilityType.AcceptInsecureCerts", true,true);
-            
-           
-           
-
-
-            List<Game> titles = new List<Game>();
-
-            var browser = new ChromeDriver(chromeOptions);
-            
-               string allGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81";
-            string discountedGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81-6956";
-            browser.Url = discountedGamesUrl;
-            
-
-           
-           
-            browser.FindElementByXPath("//a[@class='pla-btn pla-btn--region-store pla-btn--block plo-cookie-overlay__accept-btn']").Click();
 
 
 
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = true;
 
-            var goodList = browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']//p[@class='page-title']");
-            int count = 1;
-            do
+
+            List<DiscountedSwitchGames> titles = new List<DiscountedSwitchGames>();
+
+             using (var browser = new ChromeDriver(service, chromeOptions))
             {
-                
-                goodList = browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']");
-                foreach (var l in goodList)
-                {
 
-
-                    var _name = l.FindElement(By.XPath(".//p[@class='page-title']"));
-                    var _originalPrice = l.FindElement(By.XPath(".//span[@class='original-price']"));
-                    var _discountedPrice = l.FindElement(By.XPath(".//span[@class='discount']"));
-                    titles.Add(new Game
-                    {
-                        Title = _name.Text,
-                        OriginalPrice = _originalPrice.Text,
-                        DiscountPrice = _discountedPrice.Text
-
-                    });
-                    if (titles.Last().Title.Contains(_title)) return titles.Last().ReturnGame();
+                string allGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81";
+                string discountedGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81-6956";
+                browser.Url = discountedGamesUrl;
 
 
 
-                }
 
-               var buttons = browser.FindElementsByXPath("//button[@class='btn btn-primary']");
-               buttons[buttons.Count() - 1].Click();
+                browser.FindElementByXPath("//a[@class='pla-btn pla-btn--region-store pla-btn--block plo-cookie-overlay__accept-btn']").Click();
+
+
+
                 Thread.Sleep(2000);
-               
-            } while (browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']").Count() > 2);
+                var goodList = browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']//p[@class='page-title']");
+                int count = 1;
+                do
+                {
+                    
+                    goodList = browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']");
+                    foreach (var l in goodList)
+                    {
+                        IWebElement _name;
+                        IWebElement _originalPrice;
+                        IWebElement _discountedPrice;
+                        string ogPrice = "";
+                        string dcPrice = "";
+                        _name = l.FindElement(By.XPath(".//p[@class='page-title']"));
+                        try
+                        {
+                            _originalPrice = l.FindElement(By.XPath(".//span[@class='original-price']"));
+                            ogPrice = _originalPrice.Text;
+                        }
+                        catch(Exception)
+                        {
+                            _originalPrice = null;
+                        }
+
+                        try
+                        {
+                            _discountedPrice = l.FindElement(By.XPath(".//span[@class='discount']"));
+                            dcPrice = _discountedPrice.Text;
+                        }
+                        catch(Exception)
+                        {
+                            _discountedPrice = null;
+
+                        }
 
 
-            return "No Games";
+
+
+                        titles.Add(new DiscountedSwitchGames
+                        {
+                            Title = _name.Text,
+                            OriginalPrice = ogPrice,
+                            DiscountPrice = dcPrice
+
+                        }) ;
+                       
+
+
+
+                    }
+
+                    var buttons = browser.FindElementsByXPath("//button[@class='btn btn-primary']");
+                    buttons[buttons.Count() - 1].Click();
+                    count++;
+
+                    Thread.Sleep(2000);
+                } while (count <= 5);
             }
-        public class Game
-        {
-            public string Title { get; set; }
-            public string OriginalPrice { get; set; }
-            public string DiscountPrice { get; set; }
 
-            public string ReturnGame()
-            {
-                return Title + " original price is " + OriginalPrice + " and discounted is " + DiscountPrice;
+            List<IDiscountedGamesModel> m = titles.ToList<IDiscountedGamesModel>();
+
+
+            return m;
             }
-        }
+      
 
     }
 }

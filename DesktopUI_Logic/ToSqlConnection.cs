@@ -9,6 +9,7 @@ using System.Windows;
 using System.Data;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace DesktopUI_Logic
 {
@@ -222,6 +223,55 @@ namespace DesktopUI_Logic
 
                 }
                 return models;
+            }
+        }
+
+        public void PostDiscountedGames(List<IDiscountedGamesModel> games)
+        {
+           
+            foreach (IDiscountedGamesModel game in games)
+            {
+                using (SQLiteConnection cnn = Connect())
+                {
+                    SQLiteCommand comm;
+                    cnn.Open();
+                   
+                    string query = "INSERT INTO SwitchEshopGames ( Title,OriginalPrice,DiscountPrice,Platform ) VALUES ( @title, @ogPrice,@dcPrice,@plat)";
+                    comm = new SQLiteCommand(query, cnn);
+                    comm.Parameters.Add(new SQLiteParameter("@title", game.Title));
+                    comm.Parameters.Add(new SQLiteParameter("@ogPrice", game.OriginalPrice));
+                    comm.Parameters.Add(new SQLiteParameter("@dcPrice", game.DiscountPrice));
+                    comm.Parameters.Add(new SQLiteParameter("@plat", game.PlatformId));
+
+                    comm.ExecuteReader();
+                    comm.Dispose();
+                    cnn.Close();
+                    
+                }
+            }
+            
+
+        }
+
+        public string GetDiscount(IGameDetailsModel game)
+        {
+            
+            string output = "";
+            using (SQLiteConnection cnn = Connect())
+            {
+                SQLiteCommand comm;
+                cnn.Open();
+                string query = "SELECT OriginalPrice,DiscountPrice FROM SwitchEshopGames WHERE SwitchEshopGames.Title = \"" + game.Name + "\";";
+                comm = new SQLiteCommand(query, cnn);
+                SQLiteDataReader reader;
+                reader = comm.ExecuteReader();
+                while (reader.Read())
+                {
+                    output = "Normal Price: " + reader.GetString(0) + " Discount Price: " + reader.GetString(1);
+
+                }
+
+                return output;
             }
         }
     }

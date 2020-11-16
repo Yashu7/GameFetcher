@@ -49,8 +49,11 @@ namespace GameFetcherUI.ViewModel
         public MainViewModel()
         {
 
-           
-           
+
+            SalesChecker s = new SalesChecker();
+
+            //GamesSource.RefreshDiscounts(s.StartCrawlingAsync());
+
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.GetAllGames());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
@@ -85,17 +88,17 @@ namespace GameFetcherUI.ViewModel
         {
             if (sender == null) return;
             IGameDetailsModel game = sender as IGameDetailsModel;
-            SalesChecker sales = new SalesChecker();
-            MessageBox.Show(sales.StartCrawlingAsync(game.Name));
-            try
-            {
+           
+            MessageBox.Show(GamesSource.GetDiscount(game));
+            //try
+            //{
                 
-                MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Game is not on sale");
-            }
+            //    MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Game is not on sale");
+            //}
         }
         private void QuitApp(object sender)
         {

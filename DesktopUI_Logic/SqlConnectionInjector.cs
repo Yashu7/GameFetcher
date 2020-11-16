@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DesktopUI_Logic
 {
@@ -30,6 +31,9 @@ namespace DesktopUI_Logic
         public void InsertGame(IGameDetailsModel game) => sql.PostCommand(game);
 
         public ObservableCollection<IPlatformModel> GetAllPlatforms() => sql.GetPlatformModels();
+        
+        public void RefreshDiscounts(List<IDiscountedGamesModel> games) => sql.PostDiscountedGames(games);
+        public string GetDiscount(IGameDetailsModel game) => sql.GetDiscount(game);
 
     }
 }
