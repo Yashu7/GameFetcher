@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI.View" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        Title="CheckDiscounts" Height="450" Width="800">
+        Title="CheckDiscounts" Height="141" Width="366">
     <Window.DataContext>
         <local1:CheckDiscountsViewModel/>
     </Window.DataContext>
@@ -13,6 +13,28 @@
         <local1:CheckDiscountsViewModel x:Key="CheckDiscountsViewModel"/>
     </Window.Resources>
     <Grid DataContext="{Binding Source={StaticResource CheckDiscountsViewModel}}">
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock FontWeight="Bold"  Margin="25 0 25 0" Grid.Row="0" Grid.Column="1" Text="Original Price:"/>
+        <TextBlock FontWeight="Bold"  Margin="25 0 25 0" Grid.Row="0" Grid.Column="2" Text="Discount Price:"/>
+        <TextBlock FontWeight="Bold"  Margin="0 30 0 0" Grid.Row="1" Grid.Column="0" Text="Nintendo Eshop:"/>
+        <TextBlock FontWeight="ExtraLight"  Margin="0 20 0 0" Grid.Row="1" Grid.Column="0" Text="(European)"/>
+        <TextBlock FontWeight="Bold" Margin="0 30 0 0 " Grid.Row="2" Grid.Column="0" Text="Steam:"/>
+
+        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="1" Text="No Sale"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="2" Text="No Sale"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="1" Text="No Sale"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="2" Text="No Sale"/>
+
     </Grid>
 </Window>

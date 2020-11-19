@@ -22,5 +22,10 @@ namespace GameFetcherUI.ViewModel
                 OnPropertyChanged();
             }
         }
+        public CheckDiscountsViewModel()
+        {
+            Game = StaticData.Instance.Model;
+            DataContext = this;
+        }
     }
 }
