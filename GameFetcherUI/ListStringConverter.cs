@@ -12,6 +12,7 @@ namespace GameFetcherUI
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value is null) return null;
             if (targetType != typeof(string))
                 throw new InvalidOperationException("The target must be a String");
             string output = String.Join(", ", ((List<string>)value).ToArray());

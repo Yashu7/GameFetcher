@@ -8,11 +8,12 @@ namespace APIapp
 {
     public class GameApiCallInjector
     {
-        private readonly IGamesApiCalls gamesApiCalls;
-        public GameApiCallInjector(IGamesApiCalls _gamesApiCalls) => gamesApiCalls = _gamesApiCalls;
-        public GameApiCallInjector() => gamesApiCalls = new GamesApiCalls();
-        public async Task<string> GetGamesByTitle(string title) => await gamesApiCalls.GetGameByTitle(title);
-        public async Task<string> GetAllPlatforms() => await gamesApiCalls.GetAllPlatforms();
+        private readonly IGamesApiCalls GamesApiCalls;
+        public GameApiCallInjector(IGamesApiCalls gamesApiCalls) => GamesApiCalls = gamesApiCalls;
+        public GameApiCallInjector() => GamesApiCalls = new GamesApiCalls();
+        public async Task<string> GetGamesByTitle(string title) => await GamesApiCalls.GetGameByTitle(title);
+        public async Task<string> GetAllPlatforms() => await GamesApiCalls.GetAllPlatforms();
+        
 
     }
 }

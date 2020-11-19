@@ -33,6 +33,7 @@ namespace DesktopUI_Logic
         public ObservableCollection<IPlatformModel> GetAllPlatforms() => sql.GetPlatformModels();
         
         public void RefreshDiscounts(List<IDiscountedGamesModel> games) => sql.PostDiscountedGames(games);
+        
         public string GetDiscount(IGameDetailsModel game) => sql.GetDiscount(game);
 
     }

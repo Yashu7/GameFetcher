@@ -12,6 +12,8 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
 using SwitchEshopCrawler;
+using APIapp;
+using GameFetcherUI.View;
 
 namespace GameFetcherUI.ViewModel 
 {
@@ -19,7 +21,6 @@ namespace GameFetcherUI.ViewModel
     {
         
         #region fields and properties
-        public StaticData dataSource;
         private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
         public ObservableCollection<IGameDetailsModel> Games {
             get { return _games; }
@@ -35,14 +36,12 @@ namespace GameFetcherUI.ViewModel
                 ChooseList(value);
                 if (value != _choice)
                 {
-
                     _choice = value;
                     OnPropertyChanged();
-
                 }
             }
         }
-        public SqlConnectionInjector GamesSource = new SqlConnectionInjector();
+        private readonly SqlConnectionInjector GamesSource = new SqlConnectionInjector();
         #endregion
 
         #region Constructor
@@ -52,7 +51,7 @@ namespace GameFetcherUI.ViewModel
 
             SalesChecker s = new SalesChecker();
 
-            //GamesSource.RefreshDiscounts(s.StartCrawlingAsync());
+         
 
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.GetAllGames());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
@@ -87,18 +86,10 @@ namespace GameFetcherUI.ViewModel
         private void ShowSales(object sender)
         {
             if (sender == null) return;
-            IGameDetailsModel game = sender as IGameDetailsModel;
-           
-            MessageBox.Show(GamesSource.GetDiscount(game));
-            //try
-            //{
-                
-            //    MessageBox.Show("Discount price on steam is : " + sales.CheckSteamSale(game));
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Game is not on sale");
-            //}
+            StaticData.Instance.Model = sender as IGameDetailsModel;
+            CheckDiscounts checkDiscounts = new CheckDiscounts();
+            checkDiscounts.Show();
+        
         }
         private void QuitApp(object sender)
         {
@@ -106,10 +97,9 @@ namespace GameFetcherUI.ViewModel
         }
         private void ShowGameDetails(object sender)
         {
-
             if (sender == null) return;
-                     dataSource = StaticData.Instance;
-            dataSource.Model = sender as IGameDetailsModel;
+            
+            StaticData.Instance.Model = sender as IGameDetailsModel;
             GameStatus gameStatus = new GameStatus();
             gameStatus.Show();
         }

@@ -14,11 +14,11 @@ namespace APIapp
     public class GamesApiCalls : IGamesApiCalls
     {
 
-        private async Task<HttpClient> ConnectToApi()
+        private static async Task<HttpClient> ConnectToApi()
         {
             //Get bearer token
             TwitchApiCalls twitchCall = new TwitchApiCalls();
-            TwitchAuth bearer = await twitchCall.GetAuth();
+            TwitchAuth bearer = await twitchCall.GetAuth().ConfigureAwait(false);
 
             //call address
             var apiCall = new HttpClient
@@ -35,10 +35,10 @@ namespace APIapp
 
 
         }
-        private async Task<string> GetGamesByTitle(string title)
+        private static async Task<string> GetGamesByTitle(string title)
         {
 
-            HttpClient call = await ConnectToApi();
+            HttpClient call = await ConnectToApi().ConfigureAwait(false);
             HttpContent requestMessage = null;
 
             #region String converter.
@@ -55,46 +55,51 @@ namespace APIapp
             requestMessage = new StringContent(($"fields id,name,first_release_date,summary,platforms; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
             try
             {
-                HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/games", requestMessage);
-                var result = await call.PostAsync("https://api.igdb.com/v4/games", null);
+                HttpResponseMessage response = await call.PostAsync(call.BaseAddress, requestMessage).ConfigureAwait(false);
+                var result = await call.PostAsync(call.BaseAddress, null).ConfigureAwait(false);
                 List<GameModel> game = new List<GameModel>();
                 var a = response.Content.ReadAsStringAsync().Result;
                 return a;
             }
-            catch (Exception)
+            catch (HttpRequestException)
             {
+                
                 return null;
             }
-
-
-
         }
         public async Task<string> GetGameByTitle(string title)
         {
-            return await GetGamesByTitle(title);
-        }
+            try
+            {
+                if (title is null) return null;
+                return await GetGamesByTitle(title).ConfigureAwait(false);
 
+            }
+            catch(ArgumentNullException)
+            {
+                return null;
+            }
+        }
         public async Task<string> GetAllPlatforms()
         {
-            HttpClient call = await ConnectToApi();
+            HttpClient call = await ConnectToApi().ConfigureAwait(false);
             HttpContent requestMessage;
             requestMessage = new StringContent(($"fields id,name; limit 500;"), Encoding.UTF8, "application/json");
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-
-            HttpResponseMessage response = await call.PostAsync("https://api.igdb.com/v4/platforms", requestMessage);
-            var result = await call.PostAsync("https://api.igdb.com/v4/platforms", null);
+            Uri connection = new Uri("https://api.igdb.com/v4/platforms");
+            
+            HttpResponseMessage response = await call.PostAsync(connection, requestMessage).ConfigureAwait(false);
+            var result = await call.PostAsync(connection, null).ConfigureAwait(false);
             List<PlatformModel> game = new List<PlatformModel>();
 
             var a = response.Content.ReadAsStringAsync().Result;
-
-
             return a;
         }
     }

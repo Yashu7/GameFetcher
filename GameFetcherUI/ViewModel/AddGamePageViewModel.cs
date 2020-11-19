@@ -113,7 +113,7 @@ namespace GameFetcherUI.ViewModel
             
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
-            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await ApiSource.GetAllGamesFromApi(SearchString, platform.platformId));
+            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await ApiSource.GetAllGamesFromApi(SearchString, platform.platformId).ConfigureAwait(false));
 
             Games = gameList;
         }

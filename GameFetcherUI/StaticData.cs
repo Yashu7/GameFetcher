@@ -10,14 +10,14 @@ namespace GameFetcherUI
 {
     public sealed class StaticData
     {
-        private IGameDetailsModel _model;
+       
         public IGameDetailsModel Model { get; set; }
         StaticData()
         {
             
         }
         private static readonly object padlock = new object();
-        private static StaticData _instance = null;
+        private static StaticData _instance;
         public static StaticData Instance
         {
             get
