@@ -16,7 +16,8 @@ namespace GameFetcherUI.ViewModel
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged
     {
         #region fields,properties, lists
-        readonly SqlConnectionInjector DatabaseSource = new SqlConnectionInjector();
+        readonly SqlConnectionInjector<IGameDetailsModel> GameSource = new SqlConnectionInjector<IGameDetailsModel>();
+        readonly SqlConnectionInjector<IPlatformModel> PlatformSource = new SqlConnectionInjector<IPlatformModel>();
         readonly DataInjection ApiSource = new DataInjection();
         private string _searchString = "Insert Game Title";
         public string SearchString 
@@ -56,7 +57,7 @@ namespace GameFetcherUI.ViewModel
             AddCommand = new RelayCommand(new Action<object>(AddGame));
             SearchCommand = new RelayCommand(new Action<object>(SearchGames));
            
-            Platforms = DatabaseSource.GetAllPlatforms();
+            Platforms = new ObservableCollection<IPlatformModel>(PlatformSource.SelectAll());
             DataContext = this;
             
         }
@@ -99,7 +100,7 @@ namespace GameFetcherUI.ViewModel
         private void AddGame(object sender)
         {
             if (!(sender is IGameDetailsModel game)) return;
-            DatabaseSource.InsertGame(game);
+            GameSource.InsertGame(game);
             MessageBox.Show("Game Added");
             EmptyOutFields();
             //Close this window?

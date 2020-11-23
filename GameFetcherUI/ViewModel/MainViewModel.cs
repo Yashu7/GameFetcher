@@ -41,7 +41,7 @@ namespace GameFetcherUI.ViewModel
                 }
             }
         }
-        private readonly SqlConnectionInjector GamesSource = new SqlConnectionInjector();
+        private readonly SqlConnectionInjector<IGameDetailsModel> GamesSource = new SqlConnectionInjector<IGameDetailsModel>();
         #endregion
 
         #region Constructor
@@ -53,7 +53,7 @@ namespace GameFetcherUI.ViewModel
 
          
 
-            Games = new ObservableCollection<IGameDetailsModel>(GamesSource.GetAllGames());
+            Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));
             QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
@@ -107,7 +107,7 @@ namespace GameFetcherUI.ViewModel
         {
             
             if (sender == null) return;
-            GamesSource.RemoveGame(sender as IGameDetailsModel);
+            GamesSource.Delete(sender as IGameDetailsModel);
            
           
         }
@@ -118,28 +118,28 @@ namespace GameFetcherUI.ViewModel
             {
                 case "0":
                     Label = "All Games";
-                    var a = GamesSource.GetAllGames();
+                    var a = GamesSource.SelectAll();
                     Games = new ObservableCollection<IGameDetailsModel>(a);
                     break;
                 case "1":
                     Label = "Played Games";
-                    var b = GamesSource.GetPlayedGames();
+                    var b = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Played).ToList();
                     Games = new ObservableCollection<IGameDetailsModel>(b);
                     
                     break;
                 case "2":
                     Label = "Playing Games";
-                    var c = GamesSource.GetPlayingNowGames();
+                    var c = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Playing).ToList();
                     Games = new ObservableCollection<IGameDetailsModel>(c);
                     break;
                 case "3":
                     Label = "Not Played Games";
-                    var d = GamesSource.GetNotPlayedGames();
+                    var d = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Not_Played).ToList();
                     Games = new ObservableCollection<IGameDetailsModel>(d);
                     break;
                 case "4":
                     Label = "Upcoming Games";
-                    var e = GamesSource.GetUpcomingGames();
+                    var e = GamesSource.SelectAll().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
                     Games = new ObservableCollection<IGameDetailsModel>(e);
                     break;
                 default:

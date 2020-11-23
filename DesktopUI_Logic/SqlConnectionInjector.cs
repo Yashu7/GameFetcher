@@ -1,40 +1,48 @@
 ﻿using DesktopUI_Logic.Models;
+using DesktopUI_Logic.SqlServices;
+using DesktopUI_Logic.Unity;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace DesktopUI_Logic
 {
-    public class SqlConnectionInjector
+    public class SqlConnectionInjector<T>
     {
-        readonly ISqlConnection sql;
-        public SqlConnectionInjector(ISqlConnection _sql) => sql = _sql;
-        public SqlConnectionInjector() => sql = new ToSqlConnection();
        
-        public List<IGameDetailsModel> GetAllGames() => sql.ReadCommand();
+        readonly ISqlQueries<T> Sql;
+        public SqlConnectionInjector(ISqlQueries<T> sql) => Sql = sql;
+        public SqlConnectionInjector()
+        {
+            IUnityContainer container = new UnityContainer();
+            UnityRegister.Register(container);
+            Sql = container.Resolve<ISqlQueries<T>>();
+
+        }
         
-        public void RemoveGame(IGameDetailsModel game) => sql.RemoveCommand(game);
+
+
+        public List<T> SelectAll() => Sql.SelectAll();
         
-        public List<IGameDetailsModel> GetPlayedGames() => sql.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Played).ToList();
+        public void Delete(T model) => Sql.Delete(model);
+
+        public void DeleteAll() => Sql.DeleteAll();
+
+        public void InsertAll(List<T> models) => Sql.InsertAll(models);
        
-        public List<IGameDetailsModel> GetPlayingNowGames() =>  sql.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Playing).ToList();
-        
-        public List<IGameDetailsModel> GetNotPlayedGames() => sql.ReadCommand().Where(x => x.GetStatus == GameDetailsModel.Status.Not_Played).ToList();
+        //public List<T> GetUpcomingGames() => Sql.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
+
+        public void UpdateGame(T model) => Sql.Update(model);
+
+        public void InsertGame(T model) => Sql.Insert(model);
+
        
-        public List<IGameDetailsModel> GetUpcomingGames() => sql.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
 
-        public void UpdateGame(IGameDetailsModel game) => sql.UpdateCommand(game);
-
-        public void InsertGame(IGameDetailsModel game) => sql.PostCommand(game);
-
-        public ObservableCollection<IPlatformModel> GetAllPlatforms() => sql.GetPlatformModels();
         
-        public void RefreshDiscounts(List<IDiscountedGamesModel> games) => sql.PostDiscountedGames(games);
-        
-        public string GetDiscount(IGameDetailsModel game) => sql.GetDiscount(game);
 
     }
 }

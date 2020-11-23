@@ -117,6 +117,7 @@
     <Compile Include="GameApiCallInjector.cs" />
     <Compile Include="GameModel.cs" />
     <Compile Include="GamesApiCalls.cs" />
+    <Compile Include="IDiscountGameModel.cs" />
     <Compile Include="IGamesApiCalls.cs" />
     <Compile Include="PlatformModel.cs" />
     <Compile Include="Program.cs" />

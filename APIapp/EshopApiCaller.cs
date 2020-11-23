@@ -32,7 +32,10 @@ namespace APIapp
         }
         public Task<string> GetGameByTitle(string title)
         {
-            throw new NotImplementedException();
+            //HttpClient call = ConnectToApi();
+            //HttpResponseMessage response = await call.GetAsync(call.BaseAddress).ConfigureAwait(false);
+            //var a = 
+            return null;
         }
     }
 }
