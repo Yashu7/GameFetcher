@@ -16,7 +16,7 @@ namespace DesktopUI_Logic
         private readonly GameApiCallInjector apiCall = new GameApiCallInjector();
         public async Task<List<GameDetailsModel>> GetGameByTitle(string title, int platId)
         {
-            List<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<List<GameDetailsModel>>(await apiCall.GetGamesByTitle(title));
+            List<GameDetailsModel> UImodel = JsonConvert.DeserializeObject<List<GameDetailsModel>>(await apiCall.GetGamesByTitle(title).ConfigureAwait(false));
             List<GameDetailsModel> games = new List<GameDetailsModel>();
             if (platId == 0) return UImodel;
             foreach (GameDetailsModel game in UImodel)
@@ -33,7 +33,7 @@ namespace DesktopUI_Logic
         }
         public async Task<List<Models.IPlatformModel>> GetAllPlatforms()
         {
-            List<Models.IPlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.IPlatformModel>>(await apiCall.GetAllPlatforms());
+            List<Models.IPlatformModel> platformModels = JsonConvert.DeserializeObject<List<Models.IPlatformModel>>(await apiCall.GetAllPlatforms().ConfigureAwait(false));
             platformModels = platformModels.OrderByDescending(x => x.name).ToList();
             List<Models.IPlatformModel> m = new List<Models.IPlatformModel>(platformModels);
             return m;

@@ -113,6 +113,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\IApiClient.cs" />
+    <Compile Include="API\IGDBApiCall.cs" />
     <Compile Include="EshopApiCaller.cs" />
     <Compile Include="GameApiCallInjector.cs" />
     <Compile Include="GameModel.cs" />

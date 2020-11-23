@@ -14,6 +14,8 @@ using System.Security.Cryptography.X509Certificates;
 using SwitchEshopCrawler;
 using APIapp;
 using GameFetcherUI.View;
+using Unity;
+using DesktopUI_Logic.Unity;
 
 namespace GameFetcherUI.ViewModel 
 {
@@ -41,18 +43,18 @@ namespace GameFetcherUI.ViewModel
                 }
             }
         }
-        private readonly SqlConnectionInjector<IGameDetailsModel> GamesSource = new SqlConnectionInjector<IGameDetailsModel>();
+
+        private readonly ISqlConnectionInjector<IGameDetailsModel> GamesSource;
         #endregion
 
         #region Constructor
         public MainViewModel()
         {
-
-
+            //Unity Injection.
+            IUnityContainer container = new UnityContainer();
+            UnityRegister.Register(container);
+            GamesSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>(); 
             SalesChecker s = new SalesChecker();
-
-         
-
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
             SalesCommand = new RelayCommand(new Action<object>(ShowSales));
             SearchCommand = new RelayCommand(new Action<object>(SearchGame));

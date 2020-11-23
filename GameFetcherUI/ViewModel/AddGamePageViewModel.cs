@@ -10,14 +10,16 @@ using DesktopUI_Logic;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using DesktopUI_Logic.Unity;
+using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged
     {
         #region fields,properties, lists
-        readonly SqlConnectionInjector<IGameDetailsModel> GameSource = new SqlConnectionInjector<IGameDetailsModel>();
-        readonly SqlConnectionInjector<IPlatformModel> PlatformSource = new SqlConnectionInjector<IPlatformModel>();
+        readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
+        readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
         readonly DataInjection ApiSource = new DataInjection();
         private string _searchString = "Insert Game Title";
         public string SearchString 
@@ -53,6 +55,11 @@ namespace GameFetcherUI.ViewModel
         /// </summary>
         public AddGamePageViewModel()
         {
+            IUnityContainer container = new UnityContainer();
+            UnityRegister.Register(container);
+            GameSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
+            PlatformSource = container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
+
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
             AddCommand = new RelayCommand(new Action<object>(AddGame));
             SearchCommand = new RelayCommand(new Action<object>(SearchGames));
