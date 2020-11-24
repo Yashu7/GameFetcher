@@ -1,4 +1,5 @@
 ﻿using APIapp.API;
+using DesktopUI_Logic.ApiServices;
 using DesktopUI_Logic.Models;
 using DesktopUI_Logic.SqlServices;
 using System;
@@ -20,9 +21,11 @@ namespace DesktopUI_Logic.Unity
             container.RegisterType<ISqlConnectionInjector<IPlatformModel>, SqlConnectionInjector<IPlatformModel>>();
             container.RegisterType<ISqlConnectionInjector<IDiscountedGamesModel>, SqlConnectionInjector<IDiscountedGamesModel>>();
             container.RegisterType<IApiClient<string>, IGDBApiCall>("IGDBcall");
+            container.RegisterType<IApiClient<string>, EshopScraper>("EshopScraperCall");
+            container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>();
 
 
-            container.RegisterType<IApiClient<string>>(new InjectionConstructor(new ResolvedParameter<IApiClient<string>>("IGDBcall")));
+
         }
         
     }

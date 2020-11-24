@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using DesktopUI_Logic.Unity;
 using Unity;
+using DesktopUI_Logic.ApiServices;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -20,7 +21,7 @@ namespace GameFetcherUI.ViewModel
         #region fields,properties, lists
         readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
         readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
-        readonly DataInjection ApiSource = new DataInjection();
+        private IUnityContainer container;
         private string _searchString = "Insert Game Title";
         public string SearchString 
         {
@@ -55,10 +56,11 @@ namespace GameFetcherUI.ViewModel
         /// </summary>
         public AddGamePageViewModel()
         {
-            IUnityContainer container = new UnityContainer();
+             container = new UnityContainer();
             UnityRegister.Register(container);
             GameSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
             PlatformSource = container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
+           
 
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
             AddCommand = new RelayCommand(new Action<object>(AddGame));
@@ -118,10 +120,10 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
-            
+            var dataReciever = container.Resolve<IDataReciever<GameDetailsModel, string, int>>();
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
-            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await ApiSource.GetAllGamesFromApi(SearchString, platform.platformId).ConfigureAwait(false));
+            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await dataReciever.GetByValue(SearchString, platform.platformId).ConfigureAwait(false));
 
             Games = gameList;
         }
