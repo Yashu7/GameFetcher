@@ -116,12 +116,7 @@
     <Compile Include="API\EshopScraper.cs" />
     <Compile Include="API\IApiClient.cs" />
     <Compile Include="API\IGDBApiCall.cs" />
-    <Compile Include="EshopApiCaller.cs" />
-    <Compile Include="GameApiCallInjector.cs" />
     <Compile Include="GameModel.cs" />
-    <Compile Include="GamesApiCalls.cs" />
-    <Compile Include="IDiscountGameModel.cs" />
-    <Compile Include="IGamesApiCalls.cs" />
     <Compile Include="PlatformModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,12 +126,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ApiConsumer\ApiConsumer.csproj">
-      <Project>{c5a45521-65e0-4fad-9f31-90d8ca25acac}</Project>
-      <Name>ApiConsumer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.3.3.1\analyzers\dotnet\cs\Humanizer.dll" />

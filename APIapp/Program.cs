@@ -14,24 +14,7 @@ namespace APIapp
     {
         static void  Main(string[] args)
         {
-            
-           
-            //TwitchAuth loggedToken = await TwitchApiCalls.GetAuth();
-            //Console.WriteLine(loggedToken.token);
-
-
 
         }
-
-        
-
-
-
-       
-        
-
-
     }
-
-
 }

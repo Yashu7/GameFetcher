@@ -120,7 +120,7 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
-            var dataReciever = container.Resolve<IDataReciever<GameDetailsModel, string, int>>();
+            var dataReciever = container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
             ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await dataReciever.GetByValue(SearchString, platform.platformId).ConfigureAwait(false));

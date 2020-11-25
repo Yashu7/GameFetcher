@@ -264,10 +264,6 @@
       <Project>{48cd19c0-778b-4283-974a-42e912efc034}</Project>
       <Name>DesktopUI_Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SwitchEshopCrawler\SwitchEshopCrawler.csproj">
-      <Project>{1271921E-E8C5-4F2F-A890-293DA2495B62}</Project>
-      <Name>SwitchEshopCrawler</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

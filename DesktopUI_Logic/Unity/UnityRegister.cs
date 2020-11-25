@@ -22,7 +22,8 @@ namespace DesktopUI_Logic.Unity
             container.RegisterType<ISqlConnectionInjector<IDiscountedGamesModel>, SqlConnectionInjector<IDiscountedGamesModel>>();
             container.RegisterType<IApiClient<string>, IGDBApiCall>("IGDBcall");
             container.RegisterType<IApiClient<string>, EshopScraper>("EshopScraperCall");
-            container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>();
+            container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>("GameModelsReciever");
+            container.RegisterType<IDataReciever<DiscountedSwitchGames, string, int>, EshopSalesReciever>("EshopDealsReciever");
 
 
 

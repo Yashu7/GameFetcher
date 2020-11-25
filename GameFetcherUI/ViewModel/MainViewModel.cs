@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using DesktopUI_Logic.Models;
 using DesktopUI_Logic;
-using System.Windows.Controls;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
-using SwitchEshopCrawler;
-using APIapp;
 using GameFetcherUI.View;
 using Unity;
 using DesktopUI_Logic.Unity;
 
-namespace GameFetcherUI.ViewModel 
+namespace GameFetcherUI.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {

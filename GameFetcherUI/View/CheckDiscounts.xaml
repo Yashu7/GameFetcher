@@ -31,10 +31,10 @@
         <TextBlock FontWeight="ExtraLight"  Margin="0 20 0 0" Grid.Row="1" Grid.Column="0" Text="(European)"/>
         <TextBlock FontWeight="Bold" Margin="0 30 0 0 " Grid.Row="2" Grid.Column="0" Text="Steam:"/>
 
-        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="1" Text="No Sale"/>
-        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="2" Text="No Sale"/>
-        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="1" Text="No Sale"/>
-        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="2" Text="No Sale"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="1" Text="{Binding EshopPrice}"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="1" Grid.Column="2" Text="{Binding EshopDiscountPrice}"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="1" Text="{Binding SteamPrice}"/>
+        <TextBlock  Margin="25 30 25 0" Grid.Row="2" Grid.Column="2" Text="{Binding SteamDiscountPrice}"/>
 
     </Grid>
 </Window>
