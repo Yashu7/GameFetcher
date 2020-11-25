@@ -8,13 +8,16 @@ using System.Collections.ObjectModel;
 using GameFetcherUI.View;
 using Unity;
 using DesktopUI_Logic.Unity;
+using System.ComponentModel;
+using GameFetcherUI.Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, IView
     {
-        
+
         #region fields and properties
+        IUnityContainer viewContainer;
         private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
         public ObservableCollection<IGameDetailsModel> Games {
             get { return _games; }
@@ -42,9 +45,12 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public MainViewModel()
         {
+
             //Unity Injection.
             IUnityContainer container = new UnityContainer();
             UnityRegister.Register(container);
+            viewContainer = new UnityContainer();
+            UnityResolver.Register(viewContainer);
             GamesSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>(); 
             SalesChecker s = new SalesChecker();
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
@@ -73,16 +79,14 @@ namespace GameFetcherUI.ViewModel
         #region Methods
         private void SearchGame(object sender)
         {
-            
-            AddGamePage addGamePage = new AddGamePage();
-            addGamePage.Show();
+            viewContainer.Resolve<AddGamePage>().Show();
         }
         private void ShowSales(object sender)
         {
             if (sender == null) return;
             StaticData.Instance.Model = sender as IGameDetailsModel;
-            CheckDiscounts checkDiscounts = new CheckDiscounts();
-            checkDiscounts.Show();
+            viewContainer.Resolve<CheckDiscounts>().Show();
+            
         
         }
         private void QuitApp(object sender)
@@ -94,9 +98,10 @@ namespace GameFetcherUI.ViewModel
             if (sender == null) return;
             
             StaticData.Instance.Model = sender as IGameDetailsModel;
-            GameStatus gameStatus = new GameStatus();
-            gameStatus.Show();
+            viewContainer.Resolve<GameStatus>().Show();
+           
         }
+        
         private void DeleteGame(object sender)
         {
             

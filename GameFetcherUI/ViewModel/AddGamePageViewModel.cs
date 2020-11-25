@@ -13,10 +13,11 @@ using System.Collections.ObjectModel;
 using DesktopUI_Logic.Unity;
 using Unity;
 using DesktopUI_Logic.ApiServices;
+using GameFetcherUI.Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class AddGamePageViewModel : UserControl, INotifyPropertyChanged
+    public class AddGamePageViewModel : UserControl, INotifyPropertyChanged, IView
     {
         #region fields,properties, lists
         readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
@@ -99,8 +100,10 @@ namespace GameFetcherUI.ViewModel
             IGameDetailsModel game = sender as IGameDetailsModel;
             if (game == null) return;
             StaticData.Instance.Model = game;
-            GameDetails details = new GameDetails();
-            details.Show();
+            IUnityContainer viewContainer = new UnityContainer();
+            UnityResolver.Register(viewContainer);
+            viewContainer.Resolve<GameDetails>().Show();
+           
         }
         /// <summary>
         /// Add picked game to the database source.

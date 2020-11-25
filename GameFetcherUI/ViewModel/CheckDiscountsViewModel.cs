@@ -12,7 +12,7 @@ using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class CheckDiscountsViewModel : ViewModelBase, INotifyPropertyChanged
+    public class CheckDiscountsViewModel : ViewModelBase, INotifyPropertyChanged, IView
     {
         IUnityContainer container;
         private string _eshopDiscountPrice = "No sale";
@@ -66,7 +66,7 @@ namespace GameFetcherUI.ViewModel
         {
             var eshop = container.Resolve<IDataReciever<DiscountedSwitchGames, string, int>>("EshopDealsReciever");
             List<DiscountedSwitchGames> list = await eshop.GetByValue(Game.Name,1).ConfigureAwait(false);
-            if (list != null)
+            if (list.Count > 0)
             {
                 EshopDiscountPrice = list[0].DiscountPrice;
                 EshopPrice = list[0].OriginalPrice;

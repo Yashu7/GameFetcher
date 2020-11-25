@@ -1,4 +1,5 @@
 ﻿using DesktopUI_Logic.Models;
+using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,12 @@ namespace GameFetcherUI
     /// <summary>
     /// Interaction logic for GameDetails.xaml
     /// </summary>
-    public partial class GameDetails : Window
+    public partial class GameDetails : Window, IView
     {
-        public GameDetails()
+        public GameDetails(IView view)
         {
             InitializeComponent();
+            DataContext = view;
             
         }
         private void Button_Click(object sender, RoutedEventArgs e)

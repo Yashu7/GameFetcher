@@ -8,6 +8,8 @@ using System.Windows;
 
 using System.IO;
 using System.Text;
+using Unity;
+using GameFetcherUI.ViewModel;
 
 namespace GameFetcherUI
 {
@@ -18,9 +20,17 @@ namespace GameFetcherUI
     {
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-            Main main = new Main();
-            main.Show();
+            
+            
 		}
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            IUnityContainer container = new UnityContainer();
+            container.RegisterType<IView, Main>();
+            container.RegisterType<IView, MainViewModel>();
+            container.Resolve<Main>().Show();
+        }
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);

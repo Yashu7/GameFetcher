@@ -1,5 +1,6 @@
 ﻿using DesktopUI_Logic;
 using DesktopUI_Logic.Models;
+using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,13 @@ using System.Windows.Shapes;
 
 namespace GameFetcherUI
 {
-    public partial class Main : Window
+    public partial class Main : Window, IView
     {
-        public Main()
+        public Main(IView view)
         {
              
             InitializeComponent();
+            DataContext = view;
             
         }
     }

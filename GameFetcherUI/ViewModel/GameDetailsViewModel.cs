@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class GameDetailsViewModel : ViewModelBase
+    public class GameDetailsViewModel : ViewModelBase, IView
     {
         private IGameDetailsModel _game;
         public IGameDetailsModel Game

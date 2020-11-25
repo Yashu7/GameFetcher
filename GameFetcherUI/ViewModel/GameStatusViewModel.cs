@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class GameStatusViewModel : UserControl, INotifyPropertyChanged
+    public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView
     {
         private IGameDetailsModel _game = new GameDetailsModel();
         public IGameDetailsModel Game

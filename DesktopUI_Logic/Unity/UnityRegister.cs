@@ -12,6 +12,7 @@ namespace DesktopUI_Logic.Unity
 {
     public static class UnityRegister
     {
+       
         public static void Register(IUnityContainer container)
         {
             container.RegisterType<ISqlQueries<IGameDetailsModel>, GameQueries>();
@@ -24,6 +25,10 @@ namespace DesktopUI_Logic.Unity
             container.RegisterType<IApiClient<string>, EshopScraper>("EshopScraperCall");
             container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>("GameModelsReciever");
             container.RegisterType<IDataReciever<DiscountedSwitchGames, string, int>, EshopSalesReciever>("EshopDealsReciever");
+            IDataReciever<DiscountedSwitchGames, string, int> Reciever;
+        
+            
+            
 
 
 

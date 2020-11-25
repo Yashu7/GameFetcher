@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameFetcherUI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,12 @@ namespace GameFetcherUI.View
     /// <summary>
     /// Interaction logic for CheckDiscounts.xaml
     /// </summary>
-    public partial class CheckDiscounts : Window
+    public partial class CheckDiscounts : Window, IView
     {
-        public CheckDiscounts()
+        public CheckDiscounts(IView view)
         {
             InitializeComponent();
+            DataContext = view;
         }
     }
 }
