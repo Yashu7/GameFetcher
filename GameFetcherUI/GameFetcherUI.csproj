@@ -181,6 +181,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ExportImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\GameDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,6 +203,7 @@
     <Compile Include="Unity\UnityResolver.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\CheckDiscountsViewModel.cs" />
+    <Compile Include="ViewModel\ExportImportViewModel.cs" />
     <Compile Include="ViewModel\GameDetailsViewModel.cs" />
     <Compile Include="ViewModel\GameStatusViewModel.cs" />
     <Compile Include="ViewModel\IView.cs" />
@@ -213,6 +218,9 @@
     </Compile>
     <Compile Include="View\CheckDiscounts.xaml.cs">
       <DependentUpon>CheckDiscounts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ExportImportView.xaml.cs">
+      <DependentUpon>ExportImportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GameDetails.xaml.cs">
       <DependentUpon>GameDetails.xaml</DependentUpon>

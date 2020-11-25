@@ -10,6 +10,8 @@ using Unity;
 using DesktopUI_Logic.Unity;
 using System.ComponentModel;
 using GameFetcherUI.Unity;
+using DesktopUI_Logic.SerializationServices;
+using System.Collections.Generic;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -91,6 +93,9 @@ namespace GameFetcherUI.ViewModel
         }
         private void QuitApp(object sender)
         {
+            
+            GameDetailsModelToXmlSerializer serializer = new GameDetailsModelToXmlSerializer();
+            serializer.SerializeList(Games.ToList());
             (sender as Window).Close();
         }
         private void ShowGameDetails(object sender)
@@ -110,7 +115,7 @@ namespace GameFetcherUI.ViewModel
            
           
         }
-        private void ChooseList(object sender)
+        public void ChooseList(object sender)
         {
 
             switch (sender)
