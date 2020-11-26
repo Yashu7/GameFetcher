@@ -39,6 +39,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
+        <Button Grid.Row="0" Command="{Binding ExportList}" Margin="416,9,-168,183" Content="Export List"/>
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
             
             <ComboBox   SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}"  Margin="10 10" Name='Lists' >

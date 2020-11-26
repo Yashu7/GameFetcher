@@ -15,12 +15,12 @@ namespace DesktopUI_Logic.SerializationServices
             throw new NotImplementedException();
         }
 
-        public void Serialize(IGameDetailsModel obj)
+        public void Serialize(IGameDetailsModel obj, string path)
         {
             throw new NotImplementedException();  
         }
         
-        public void SerializeList(List<IGameDetailsModel> objs)
+        public void SerializeList(List<IGameDetailsModel> objs, string path)
         {
             List<GameDetailsModel> models = objs.Cast<GameDetailsModel>().ToList();
             List<GameInfoModel> xmlModels = new List<GameInfoModel>(); ;
@@ -30,8 +30,8 @@ namespace DesktopUI_Logic.SerializationServices
             }
             XmlSerializer serializer = new XmlSerializer(typeof(List<GameInfoModel>));
             string a = GameListCustomSerializer<GameInfoModel>.Serialize(xmlModels);
-          
-            using (TextWriter writer = new StreamWriter(@"C:\XmlFiles\Xml.txt"))
+
+            using (TextWriter writer = new StreamWriter(path + ".txt"))
             {
                 writer.Write(a);
                 

@@ -6,8 +6,8 @@ namespace DesktopUI_Logic.SerializationServices
 {
     public interface ISerializer<T>
     {
-        void SerializeList(List<T> objs);
-        void Serialize(T obj);
+        void SerializeList(List<T> objs, string path);
+        void Serialize(T obj, string path);
         T Deserialize();
     }
 }

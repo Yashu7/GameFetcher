@@ -1,6 +1,7 @@
 ﻿using APIapp.API;
 using DesktopUI_Logic.ApiServices;
 using DesktopUI_Logic.Models;
+using DesktopUI_Logic.SerializationServices;
 using DesktopUI_Logic.SqlServices;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace DesktopUI_Logic.Unity
             container.RegisterType<IApiClient<string>, EshopScraper>("EshopScraperCall");
             container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>("GameModelsReciever");
             container.RegisterType<IDataReciever<DiscountedSwitchGames, string, int>, EshopSalesReciever>("EshopDealsReciever");
+            container.RegisterType<ISerializer<IGameDetailsModel>, GameDetailsModelToXmlSerializer>();
             IDataReciever<DiscountedSwitchGames, string, int> Reciever;
         
             

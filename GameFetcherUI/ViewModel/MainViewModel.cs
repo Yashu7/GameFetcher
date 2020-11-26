@@ -12,6 +12,8 @@ using System.ComponentModel;
 using GameFetcherUI.Unity;
 using DesktopUI_Logic.SerializationServices;
 using System.Collections.Generic;
+using Microsoft.Win32;
+using System.IO;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -20,6 +22,7 @@ namespace GameFetcherUI.ViewModel
 
         #region fields and properties
         IUnityContainer viewContainer;
+        IUnityContainer container;
         private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
         public ObservableCollection<IGameDetailsModel> Games {
             get { return _games; }
@@ -49,7 +52,7 @@ namespace GameFetcherUI.ViewModel
         {
 
             //Unity Injection.
-            IUnityContainer container = new UnityContainer();
+             container = new UnityContainer();
             UnityRegister.Register(container);
             viewContainer = new UnityContainer();
             UnityResolver.Register(viewContainer);
@@ -63,11 +66,12 @@ namespace GameFetcherUI.ViewModel
             DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
             MoveItemRightCommand = new RelayCommand(new Action<object>(ShowGameDetails));
             EnterCommand = new RelayCommand(new Action<object>(ShowGameDetails));
+            ExportList = new RelayCommand(new Action<object>(ExportGameList));
             DataContext = this;
             
         }
         #endregion
-      
+
         #region ICommandDefinitions
         public ICommand SalesCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
@@ -76,12 +80,23 @@ namespace GameFetcherUI.ViewModel
         public ICommand QuitAppCommand { get; private set; }
         public ICommand MoveItemRightCommand { get; private set; }
         public ICommand EnterCommand { get; private set; }
+        public ICommand ExportList { get; private set; }
         #endregion
-       
+
         #region Methods
+        private void ExportGameList(object obj)
+        {
+            string path = "";
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+                path = saveFileDialog.FileName;
+            container.Resolve<ISerializer<IGameDetailsModel>>().SerializeList(Games.ToList(),path);
+
+        }
         private void SearchGame(object sender)
         {
-            viewContainer.Resolve<AddGamePage>().Show();
+            viewContainer.Resolve<AddGamePage>("AddGame").Show();
         }
         private void ShowSales(object sender)
         {
@@ -94,8 +109,7 @@ namespace GameFetcherUI.ViewModel
         private void QuitApp(object sender)
         {
             
-            GameDetailsModelToXmlSerializer serializer = new GameDetailsModelToXmlSerializer();
-            serializer.SerializeList(Games.ToList());
+           
             (sender as Window).Close();
         }
         private void ShowGameDetails(object sender)

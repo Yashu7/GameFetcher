@@ -26,5 +26,10 @@ namespace GameFetcherUI
             DataContext = view;
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

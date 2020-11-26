@@ -19,11 +19,11 @@ namespace GameFetcherUI.Unity
             container.RegisterType<IView, GameDetails>();
             container.RegisterType<IView, GameDetailsViewModel>();
 
-            container.RegisterType<IView, AddGamePage>();
-            container.RegisterType<IView, AddGamePageViewModel>();
+            container.RegisterType<IView, AddGamePage>("AddGame");
+            container.RegisterType<IView, AddGamePageViewModel>("AddGame");
 
-            container.RegisterType<IView, CheckDiscounts>();
-            container.RegisterType<IView, CheckDiscountsViewModel>();
+            container.RegisterType<IView, CheckDiscounts>("CheckDiscount");
+            container.RegisterType<IView, CheckDiscountsViewModel>("CheckDiscount");
         }
     }
 }
