@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[Platforms]
-(
-	[Id] INT IDENTITY(1,1) NOT NULL ,
-	PlatformID INT NOT NULL PRIMARY KEY,
-	PlatformName NVARCHAR(50) NOT NULL
-)
