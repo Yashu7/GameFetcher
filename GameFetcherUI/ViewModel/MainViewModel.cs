@@ -24,10 +24,26 @@ namespace GameFetcherUI.ViewModel
         IUnityContainer viewContainer;
         IUnityContainer container;
         private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
-        public ObservableCollection<IGameDetailsModel> Games {
+        public ObservableCollection<IGameDetailsModel> Games 
+        {
             get { return _games; }
-            set { _games = value; OnPropertyChanged(); } }
-        private string _choice = "";
+            set { _games = value; OnPropertyChanged(); } 
+        }
+        //Game List Inumerator
+        private string _choice = "0";
+        private IGameDetailsModel _selectedGame;
+        public IGameDetailsModel SelectedGame
+        {
+            get { return _selectedGame; }
+            set { _selectedGame = value;
+                OnPropertyChanged();
+                if (_selectedGame != null) IsGamePicked = true;
+                else
+                {
+                    IsGamePicked = false;
+                }
+                }
+        }
         private string _label = "All Games";
         public string Label { get { return _label; } set { _label = value; OnPropertyChanged(); } }
         public string Choice
@@ -43,6 +59,15 @@ namespace GameFetcherUI.ViewModel
                 }
             }
         }
+        // Enable/Disable Buttons
+        private bool _isGamePicked = false;
+        public bool IsGamePicked
+        {
+            get { return _isGamePicked; }
+            set { _isGamePicked = value;
+                OnPropertyChanged();
+            }
+        }
 
         private readonly ISqlConnectionInjector<IGameDetailsModel> GamesSource;
         #endregion
@@ -50,7 +75,7 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public MainViewModel()
         {
-
+          
             //Unity Injection.
              container = new UnityContainer();
             UnityRegister.Register(container);
@@ -68,7 +93,8 @@ namespace GameFetcherUI.ViewModel
             EnterCommand = new RelayCommand(new Action<object>(ShowGameDetails));
             ExportList = new RelayCommand(new Action<object>(ExportGameList));
             DataContext = this;
-            
+           
+           
         }
         #endregion
 
@@ -84,6 +110,7 @@ namespace GameFetcherUI.ViewModel
         #endregion
 
         #region Methods
+        //Export chosen list to text file
         private void ExportGameList(object obj)
         {
             string path = "";
@@ -94,24 +121,26 @@ namespace GameFetcherUI.ViewModel
             container.Resolve<ISerializer<IGameDetailsModel>>().SerializeList(Games.ToList(),path);
 
         }
+        //Open new window
         private void SearchGame(object sender)
         {
             viewContainer.Resolve<AddGamePage>("AddGame").Show();
         }
+        //Open new window
         private void ShowSales(object sender)
         {
             if (sender == null) return;
             StaticData.Instance.Model = sender as IGameDetailsModel;
             viewContainer.Resolve<CheckDiscounts>().Show();
-            
-        
         }
+        //Close app
         private void QuitApp(object sender)
         {
             
            
             (sender as Window).Close();
         }
+        //Open new window
         private void ShowGameDetails(object sender)
         {
             if (sender == null) return;
@@ -129,6 +158,7 @@ namespace GameFetcherUI.ViewModel
            
           
         }
+        //Gamelist updated depending on list option change
         public void ChooseList(object sender)
         {
 

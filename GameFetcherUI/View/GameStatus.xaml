@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="{Binding Game.Name}" Height="300" Width="400"
         ResizeMode="NoResize">
+    
     <Window.DataContext>
         <local1:GameStatusViewModel/>
     </Window.DataContext>
@@ -14,40 +15,48 @@
         <local:ListStringConverter x:Key="platformConverter"/>
         <local1:GameStatusViewModel x:Key="GameStatusViewModel"/>
     </Window.Resources>
+    
     <Grid DataContext="{Binding Source={StaticResource GameStatusViewModel}}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <ListView  Grid.Row="0" Grid.RowSpan="2">
-            <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200" Text="{Binding Game.Summary, Mode =TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                   />
-        </ListView>
         
+        <!-- GAME SUMMARY -->
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="2">
+            <ListView>
+                <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200" 
+                       Text="{Binding Game.Summary, Mode =TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            </ListView>
+        </ScrollViewer>
+
+        <!-- GAME SCORE -->
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label>Rating:</Label>
-            <ComboBox Name="Rating" ItemsSource="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
-
-
+            <ComboBox Name="Rating" ItemsSource="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Game.MyScore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                      IsSynchronizedWithCurrentItem="True" Height="20"/>
         </StackPanel>
+        
+        <!-- GAME STATUS -->
         <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Playing Status:</Label>
-            <ComboBox SelectedItem="{Binding Game.GetStatus}" ItemsSource="{Binding Game.Enums, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True" Height="20"/>
+            <ComboBox SelectedItem="{Binding Game.GetStatus}" 
+                      ItemsSource="{Binding Game.Enums, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                      IsSynchronizedWithCurrentItem="True" Height="20"/>
         </StackPanel>
 
-        
+        <!-- GAME PLATFORMS -->
         <StackPanel VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1">
             <Label>Platform:</Label>
-
-            <ComboBox  SelectedItem="{Binding Game.PlatformPlaying}" ItemsSource="{Binding Game.AllPlatforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"   Height="20"/>
+            <ComboBox  SelectedItem="{Binding Game.PlatformPlaying}" 
+                       ItemsSource="{Binding Game.AllPlatforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem="True"   Height="20"/>
         </StackPanel>
-
-
-
+        
+        <!-- SAVE BUTTON -->
         <Button Grid.Column="1" VerticalAlignment="Center"  Command="{Binding UpdateCommand}" CommandParameter="{Binding Game}"
                 HorizontalAlignment="Center" Grid.Row="1"  Content="Apply Changes" ></Button>
     </Grid>

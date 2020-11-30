@@ -10,7 +10,7 @@
     <ProjectGuid>{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>GameFetcherUI</RootNamespace>
-    <AssemblyName>GameFetcherUI</AssemblyName>
+    <AssemblyName>Game Fetcher</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -21,7 +21,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\GameFetcherPCFinalTestCrawler\</PublishUrl>
+    <PublishUrl>C:\GameFetcher\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -31,7 +31,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>20</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -94,6 +94,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>puzzle_expansion_icon_153871.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -181,10 +184,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ExportImportView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\GameDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,7 +202,6 @@
     <Compile Include="Unity\UnityResolver.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\CheckDiscountsViewModel.cs" />
-    <Compile Include="ViewModel\ExportImportViewModel.cs" />
     <Compile Include="ViewModel\GameDetailsViewModel.cs" />
     <Compile Include="ViewModel\GameStatusViewModel.cs" />
     <Compile Include="ViewModel\IView.cs" />
@@ -219,13 +217,9 @@
     <Compile Include="View\CheckDiscounts.xaml.cs">
       <DependentUpon>CheckDiscounts.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ExportImportView.xaml.cs">
-      <DependentUpon>ExportImportView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\GameDetails.xaml.cs">
       <DependentUpon>GameDetails.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Games.cs" />
     <Compile Include="View\GameStatus.xaml.cs">
       <DependentUpon>GameStatus.xaml</DependentUpon>
     </Compile>
@@ -248,6 +242,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="puzzle_expansion_icon_153871.ico" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

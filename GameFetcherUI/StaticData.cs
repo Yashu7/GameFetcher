@@ -10,7 +10,8 @@ namespace GameFetcherUI
 {
     public sealed class StaticData
     {
-       
+       //Static Singleton class that holds one game at a time.
+       //TODO: Later change for more proper way to pass game instance.
         public IGameDetailsModel Model { get; set; }
         StaticData()
         {

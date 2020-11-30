@@ -17,6 +17,8 @@ namespace DesktopUI_Logic
 {
     public class SalesChecker
     {
+        //Steam page webscraper
+        //TODO: REWORK WHOLE CLASS, DONE VERY EARLY AS WEBSCRAPING/SELENIUM TRAINING.
         public string CheckSteamSale(IGameDetailsModel game)
         {
            

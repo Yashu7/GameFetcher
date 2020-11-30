@@ -11,6 +11,7 @@ namespace GameFetcherUI.ViewModel
 {
     public class ViewModelBase : UserControl,INotifyPropertyChanged
     {
+        //INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

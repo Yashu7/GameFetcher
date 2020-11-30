@@ -10,6 +10,7 @@ namespace GameFetcherUI
 {
     public class ListStringConverter : IValueConverter
     {
+        // Joins string values into a string after validating its type and if its not null.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is null) return null;

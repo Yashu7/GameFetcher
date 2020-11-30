@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        Title="AddGamePage" Height="400.591" Width="404.442">
+        Title="AddGamePage" Height="357.591" Width="487.442">
     <Window.DataContext>
         <local1:AddGamePageViewModel/>
     </Window.DataContext>
@@ -23,10 +23,8 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="4">
-            <ComboBox Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-               
-            </ComboBox>
+        <StackPanel Margin="20" Grid.Row="4">
+            <ComboBox x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
 
@@ -37,9 +35,9 @@
         <Button  Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=PlatformBox,Path=SelectedItem}" MinHeight="20" Grid.Row = "3" Grid.Column = "0"  
          HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "100" 
             Content="Find Game"  Margin="80,-80">
-            
-        </Button>
 
+        </Button>
+        
         <TextBox Text="{Binding SearchString}" MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  HorizontalAlignment="Center" TextWrapping="Wrap"
                      Name="GameTitleString"  Grid.Row = "2" Grid.Column = "0" />
         <ScrollViewer MinHeight="100" MaxHeight="150" Grid.Row="0">

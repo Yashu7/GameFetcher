@@ -10,6 +10,7 @@ namespace GameFetcherUI.ViewModel
 {
     public class GameDetailsViewModel : ViewModelBase, IView
     {
+        #region  Fields, properites
         private IGameDetailsModel _game;
         public IGameDetailsModel Game
         {
@@ -23,11 +24,14 @@ namespace GameFetcherUI.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
+
+        #region Constructor
         public GameDetailsViewModel()
         {
             Game = StaticData.Instance.Model;
             DataContext = this;
-           
         }
+        #endregion
     }
 }

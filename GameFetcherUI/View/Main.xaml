@@ -17,46 +17,41 @@
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
         <local1:MainViewModel x:Key="MainViewModel"/>
-        <!--<Style TargetType="ListViewItem">
-            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-        </Style>-->
-
     </Window.Resources>
 
-
+    <!-- Grid Deifinitions Region -->
     <Grid DataContext="{Binding Source={StaticResource MainViewModel}}">
-        <!-- Grid Deifinitions -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-
-
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-
         </Grid.RowDefinitions>
-
+        <!-- End Region -->
+        
+       
+        <!-- Game Lists Region -->
         <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
         <Button Grid.Row="0" Command="{Binding ExportList}" Margin="416,9,-168,183" Content="Export List"/>
         <StackPanel  Margin="100,0,-100,0" Grid.Row="0" >
-            
-            <ComboBox   SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}"  Margin="10 10" Name='Lists' >
 
-
+            <ComboBox   SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" 
+                        Margin="10 10" Name='Lists' >
                 <ComboBoxItem>All Games</ComboBoxItem>
                 <ComboBoxItem>Played Games</ComboBoxItem>
                 <ComboBoxItem>Playing Games</ComboBoxItem>
                 <ComboBoxItem>Not Played Games</ComboBoxItem>
                 <ComboBoxItem>Upcoming Games</ComboBoxItem>
             </ComboBox>
+         <!-- End Region -->
             
+         <!-- Display Games Region -->
             <Label  Name="ListsLabel" Grid.Row="1" Grid.Column="0" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
-            <ListView  ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="300" MinHeight="100"
+            <ListView SelectedItem="{Binding SelectedGame}" ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="300" MinHeight="100"
                        Grid.RowSpan="1" MaxHeight="150" Grid.Column="0"  Height="148">
                 <ListView.ItemTemplate>
-                    
                     <DataTemplate>
                         <WrapPanel>
                             <TextBlock  Margin="2 4"  Text="{Binding Name}"    FontWeight="Bold">
@@ -75,20 +70,30 @@
                             <TextBlock  Margin="2 4" Text="{Binding PlatformPlaying}"/>
                             <TextBlock  Margin="2 4" Text="My Score: " FontWeight="Bold"/>
                             <TextBlock  Margin="2 4" Text="{Binding MyScore}"/>
-                            
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <!-- Buttons -->
-        <StackPanel Grid.Row="1"   Margin="100,0,-100,0" >
+        
+        <!-- End Region -->
+        
+        <!-- Option Buttons Region -->
+        <StackPanel Grid.Row="1"   Margin="100,30,-100,0" >
             <Button Content="Search"  Command="{Binding SearchCommand}"  Margin="0 10"/>
+            
+            <!-- My WebAPI app is not live right now so I'm commenting this out until I put it back on the server
             <Button Content="Check Sales"  Command="{Binding SalesCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10" />
-            <Button Content="Details"  Command="{Binding GameDetailsCommand}" CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
-            <Button Content="Delete"  Command="{Binding DeleteGameCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
+            -->
+            
+            <Button IsEnabled="{Binding IsGamePicked}" Content="Details"  Command="{Binding GameDetailsCommand}" CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
+            <Button IsEnabled="{Binding IsGamePicked}" Content="Delete"  Command="{Binding DeleteGameCommand}"  CommandParameter="{Binding ElementName=AllGames,Path=SelectedItem}" Margin="0 10"/>
             <Button Content="Exit"  Command="{Binding QuitAppCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"  Margin="0 10" />
         </StackPanel>
+       <!-- End Region -->
+        
+        <!-- App Info Region -->
         <TextBlock Grid.Row="2" VerticalAlignment="Bottom">GameFetcher by Jan Malawski. Using API from Twitch and IGDB.</TextBlock>
+        <!-- End  Region -->
     </Grid>
 </Window>

@@ -18,8 +18,10 @@ namespace DesktopUI_Logic
         public SqlConnectionInjector(ISqlQueries<T> sql) => Sql = sql;
         public SqlConnectionInjector()
         {
+
             IUnityContainer container = new UnityContainer();
             UnityRegister.Register(container);
+            //Plugs in Sql Queries depending on T type
             Sql = container.Resolve<ISqlQueries<T>>();
 
         }
@@ -33,8 +35,6 @@ namespace DesktopUI_Logic
         public void DeleteAll() => Sql.DeleteAll();
 
         public void InsertAll(List<T> models) => Sql.InsertAll(models);
-
-        //public List<T> GetUpcomingGames() => Sql.ReadCommand().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
 
         public void UpdateGame(T model) => Sql.Update(model);
 

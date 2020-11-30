@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
-        mc:Ignorable="d"
-        Title="GameDetails" Height="450" Width="500">
+        mc:Ignorable="d" ResizeMode="CanResize"
+        Title="Game Info"  Height="400"
+        Width="398.367">
     <Window.DataContext>
         <local1:GameDetailsViewModel/>
     </Window.DataContext>
@@ -15,32 +16,31 @@
     <Grid DataContext="{Binding Source={StaticResource GameDetailsViewModel}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-           
-            
-         
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-           
 
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Column="0"
-                    Grid.Row="1" Margin="20 0">
-            <TextBlock Text="Title:" Margin="0 20 0 20"/>
-            <TextBlock Text="Release Date:" Margin="0 20 0 20"/>
-            <TextBlock Text="Summary:" Margin="0 20 0 20"/>
+        <!-- TEXT LABELS -->
+        <StackPanel  Orientation="Vertical" Grid.Column="0"
+                    Grid.Row="0" Margin="20 0">
+            <TextBlock FontWeight="UltraBold"  Text="Title:" Margin="0 20 0 20"/>
+            <TextBlock FontWeight="UltraBold" Text="Release Date:" Margin="0 20 0 20"/>
+            <TextBlock FontWeight="UltraBold" Text="Summary:" Margin="0 20 0 20"/>
         </StackPanel>
+
+        <!-- MODEL VIEW -->
         <StackPanel Orientation="Vertical" Grid.Column="1"
-                    Grid.Row="1" Margin="20 0">
+                    Grid.Row="0" Margin="20 0">
             <TextBlock Text="{Binding Game.Name, Mode =OneWay}"  Margin="0 20 0 20"/>
             <TextBlock Text="{Binding Game.ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
             <TextBlock TextWrapping="Wrap" MaxWidth ="300" Text="{Binding Game.Summary, Mode =OneWay}"  Margin="0 20 0 20"/>
-        </StackPanel>
 
-        <Button VerticalAlignment="Center" HorizontalAlignment="Center" Content="Ok" Grid.Column="1" Grid.Row="2" Click="Button_Click"></Button>
+        </StackPanel>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Ok" Grid.Column="1" Click="Button_Click" Margin="70,0,184,-25"/>
+
+
     </Grid>
 </Window>

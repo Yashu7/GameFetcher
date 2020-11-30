@@ -19,9 +19,12 @@ namespace GameFetcherUI.ViewModel
 {
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged, IView
     {
-        #region fields,properties, lists
+        #region Fields,properties, lists
+        // SQL Interface for Unity Container
         readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
+        // SQL Interface for Unity Container
         readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
+        // Unity Container
         private IUnityContainer container;
         private string _searchString = "Insert Game Title";
         public string SearchString 
@@ -37,13 +40,14 @@ namespace GameFetcherUI.ViewModel
             }
             
         }
+        // List of games taken from API
         private ObservableCollection<IGameDetailsModel> _Games = new ObservableCollection<IGameDetailsModel>();
         public ObservableCollection<IGameDetailsModel> Games
         {
             get { return _Games; }
             set { _Games = value; NotifyPropertyChanged("Games"); }
         }
-
+        // List of platforms taken from database
         private ObservableCollection<IPlatformModel> _Platforms = new ObservableCollection<IPlatformModel>();
         public ObservableCollection<IPlatformModel> Platforms
         {
@@ -52,45 +56,43 @@ namespace GameFetcherUI.ViewModel
         }
         #endregion
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
+        #region Constructor
         public AddGamePageViewModel()
         {
+            //Unity Initialization
              container = new UnityContainer();
             UnityRegister.Register(container);
             GameSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
             PlatformSource = container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
-           
 
+            //Command Initialization
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
             AddCommand = new RelayCommand(new Action<object>(AddGame));
             SearchCommand = new RelayCommand(new Action<object>(SearchGames));
-           
-            Platforms = new ObservableCollection<IPlatformModel>(PlatformSource.SelectAll());
-            DataContext = this;
-            
-        }
 
-      
-        /// <summary>
-        /// INotifyPropertyChanged Methods
-        /// </summary>
+            //Assign Platforms
+            Platforms = new ObservableCollection<IPlatformModel>(PlatformSource.SelectAll());
+
+            DataContext = this;
+        }
+        #endregion
+
+        #region INotifyProperty
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
         {
             if (PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
+        #endregion
 
-        /// <summary>
-        /// ICommands
-        /// </summary>
+        #region ICommands declaration
         public ICommand DetailsCommand { get; private set; }
         public ICommand AddCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
-
-        #region methods
+        #endregion
+     
+        #region Methods
         /// <summary>
         /// Opens window with details about picked game.
         /// </summary>
@@ -131,6 +133,7 @@ namespace GameFetcherUI.ViewModel
             Games = gameList;
         }
 
+        //Reset form fields
         public void EmptyOutFields()
         {
             Games = null;

@@ -28,10 +28,18 @@ namespace DesktopUI_Logic.ApiServices
 
         public async Task<List<DiscountedSwitchGames>> GetByValue(string value, int value2)
         {
-            var apiClient = container.Resolve<IApiClient<string>>("EshopScraperCall");
-            List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetByValue(value).ConfigureAwait(false));
-            List<DiscountedSwitchGames> games = discountedGames.Where(x => x.Title.Contains(value)).ToList();
-            return games;
+            List<DiscountedSwitchGames> games = new List<DiscountedSwitchGames>();
+            try
+            {
+                var apiClient = container.Resolve<IApiClient<string>>("EshopScraperCall");
+                List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetByValue(value).ConfigureAwait(false));
+                games = discountedGames.Where(x => x.Title.Contains(value)).ToList();
+                return games;
+            }
+            catch(NullReferenceException ex)
+            {
+                return null;
+            }
         }
     }
 }
