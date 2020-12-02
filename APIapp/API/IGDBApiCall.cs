@@ -14,9 +14,11 @@ namespace APIapp.API
         public async Task<HttpClient> Connect()
         {
             //Get bearer token
-            TwitchApiCalls twitchCall = new TwitchApiCalls();
-            TwitchAuth bearer = await twitchCall.GetAuth().ConfigureAwait(false);
+
+            TwitchAuth bearer = await TwitchApiCalls.GetAuth("3yo2gt2qjjburcphl30wfyt0e64vxx", "w8jz4hiu4lqgzkgt7huvxcd62893my").ConfigureAwait(false);
             //call address
+            
+            
             var apiCall = new HttpClient
             {
                 BaseAddress = new Uri("https://api.igdb.com/v4/games")
@@ -24,10 +26,13 @@ namespace APIapp.API
             apiCall.DefaultRequestHeaders.Accept.Clear();
             apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             apiCall.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
-            apiCall.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearer.Token);
+            apiCall.DefaultRequestHeaders.Add("Authorization", "Bearer "+bearer.Token);
             return apiCall;
         }
+        public void Geeee()
+        {
 
+        }
         public Task<string> GetAll()
         {
             throw new NotImplementedException();

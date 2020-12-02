@@ -12,8 +12,8 @@ namespace APIapp.API
     {
         public async Task<HttpClient> Connect()
         {
-            TwitchApiCalls twitchCall = new TwitchApiCalls();
-            TwitchAuth bearer = await twitchCall.GetAuth().ConfigureAwait(false);
+            
+            TwitchAuth bearer = await TwitchApiCalls.GetAuth("a","b").ConfigureAwait(false);
             var apiCall = new HttpClient
             {
                 BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels")
@@ -39,7 +39,7 @@ namespace APIapp.API
 
             HttpResponseMessage response = await call.GetAsync(call.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
-            return output; ;
+            return output;
         }
     }
 }
