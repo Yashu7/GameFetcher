@@ -17,7 +17,8 @@ namespace APIapp
             var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await client.PostAsync("https://id.twitch.tv/oauth2/token?client_id="+clientId+"&client_secret="+clientSecret+"&grant_type=client_credentials", null).ConfigureAwait(false);
+            var response = await client.PostAsync("https://id.twitch.tv/oauth2/token?client_id=3yo2gt2qjjburcphl30wfyt0e64vxx&client_secret=hushpsrjlwb37log7vpjcux79mje3x&grant_type=client_credentials", null).ConfigureAwait(false);
+            /** metoda nie powinna raczej zwracać czegoś i jednocześnie zmieniać stanu obiektu - po prostu zwróć bearer i nie utrzymój stanu **/
             bearer = await response.Content.ReadAsAsync<TwitchAuth>().ConfigureAwait(false);
             return bearer;
         }
