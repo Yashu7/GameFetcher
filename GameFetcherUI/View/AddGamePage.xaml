@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        Title="AddGamePage" Height="357.591" Width="487.442">
+        Title="AddGamePage" Height="306.213" Width="487.442">
     <Window.DataContext>
         <local1:AddGamePageViewModel/>
     </Window.DataContext>
@@ -16,30 +16,30 @@
 
 
         <Grid.RowDefinitions>
+            <RowDefinition Height = "130" />
+            <RowDefinition Height = "60" />
             <RowDefinition Height = "auto" />
-            <RowDefinition Height = "auto" />
-            <RowDefinition Height = "auto" />
-            <RowDefinition Height = "*" />
+           
         </Grid.RowDefinitions>
 
 
-        <StackPanel Margin="20" Grid.Row="4">
-            <ComboBox x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="120 0 0 0" Grid.Row="1">
+            <ComboBox Width="300" x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
 
         <Button Command="{Binding DetailsCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Details" Grid.Row="1" 
-                Height="20" Margin="89,29,257,22" Width="50"/>
+                Height="20" Margin="0 0 400 40" Width="50"/>
         <Button  Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Add"
-                 Grid.Row="1" Height="20" Margin="264,29,82,22" Width="50"/>
-        <Button  Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=PlatformBox,Path=SelectedItem}" MinHeight="20" Grid.Row = "3" Grid.Column = "0"  
-         HorizontalAlignment = "Center" VerticalAlignment = "Center" Width = "100" 
-            Content="Find Game"  Margin="80,-80">
+                 Grid.Row="1" Height="20"  Margin="0 10 400 0" Width="50"/>
+        <Button  Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=PlatformBox,Path=SelectedItem}" MinHeight="20" Grid.Row = "2" Grid.Column = "0"  
+          VerticalAlignment = "Center" Margin="100 0" Width = "100" 
+            Content="Find Game" >
 
         </Button>
         
-        <TextBox Text="{Binding SearchString}" MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  HorizontalAlignment="Center" TextWrapping="Wrap"
-                     Name="GameTitleString"  Grid.Row = "2" Grid.Column = "0" />
+        <TextBox Text="{Binding SearchString}" MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  TextWrapping="Wrap"
+                    Margin="0 50 0 10" Name="GameTitleString"  Grid.Row = "2" Grid.Column = "0" />
         <ScrollViewer MinHeight="100" MaxHeight="150" Grid.Row="0">
             <ListView ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="0" Margin="10" Name="GameList">
                 <ListView.ItemTemplate>
