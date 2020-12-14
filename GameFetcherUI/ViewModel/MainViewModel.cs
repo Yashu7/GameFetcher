@@ -155,8 +155,9 @@ namespace GameFetcherUI.ViewModel
             
             if (sender == null) return;
             GamesSource.Delete(sender as IGameDetailsModel);
-           
-          
+            Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
+
+
         }
         //Gamelist updated depending on list option change
         public void ChooseList(object sender)
