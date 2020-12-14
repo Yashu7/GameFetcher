@@ -1,5 +1,6 @@
 ﻿using DesktopUI_Logic;
 using DesktopUI_Logic.Models;
+using GameFetcherUI.Interfaces;
 using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace GameFetcherUI
     /// <summary>
     /// Interaction logic for GameStatus.xaml
     /// </summary>
-    public partial class GameStatus : Window, IView
+    public partial class GameStatus : Window, IView, ICloseable
     {
         private List<int> ratingList = new List<int>() {1,2,3,4,5,6,7,8,9,10};
        
@@ -36,5 +37,6 @@ namespace GameFetcherUI
             Rating.Items.Add("None");
            
         }
+       
     }
 }

@@ -197,7 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\SearchGameConverter.cs" />
+    <Compile Include="Interfaces\ICloseable.cs" />
+    <Compile Include="MultiRelayCommand.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="StaticData.cs" />
     <Compile Include="Unity\UnityResolver.cs" />

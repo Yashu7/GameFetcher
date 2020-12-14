@@ -20,7 +20,7 @@ namespace DesktopUI_Logic.SqlServices
 
         public void Insert(IPlatformModel model)
         {
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -39,7 +39,7 @@ namespace DesktopUI_Logic.SqlServices
         {
             foreach (IPlatformModel model in models)
             {
-                using (SQLiteConnection cnn = Connect())
+                using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
                 {
                     SQLiteCommand comm;
                     cnn.Open();
@@ -58,7 +58,7 @@ namespace DesktopUI_Logic.SqlServices
         public List<IPlatformModel> SelectAll()
         {
             List<IPlatformModel> models = new List<IPlatformModel>();
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -92,12 +92,6 @@ namespace DesktopUI_Logic.SqlServices
             throw new NotImplementedException();
         }
 
-        private static SQLiteConnection Connect()
-        {
-            SQLiteConnection cnn = new SQLiteConnection();
-            string connectionString = "Data Source=.\\GameFetcherDBlite222.db;";
-            cnn = new SQLiteConnection(connectionString);
-            return (SQLiteConnection)cnn;
-        }
+        
     }
 }

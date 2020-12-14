@@ -10,7 +10,7 @@ namespace DesktopUI_Logic.SqlServices
     {
         public void Delete(IDiscountedGamesModel model)
         {
-            using (var cnn = Connect())
+            using (var cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand command;
                 cnn.Open();
@@ -24,7 +24,7 @@ namespace DesktopUI_Logic.SqlServices
 
         public void DeleteAll()
         {
-            using (var cnn = Connect())
+            using (var cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand command;
                 cnn.Open();
@@ -38,7 +38,7 @@ namespace DesktopUI_Logic.SqlServices
 
         public void Insert(IDiscountedGamesModel model)
         {
-            using(var cnn = Connect())
+            using(var cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand command;
                 cnn.Open();
@@ -59,7 +59,7 @@ namespace DesktopUI_Logic.SqlServices
             if (models == null) return;
             foreach (IDiscountedGamesModel game in models)
             {
-                using (SQLiteConnection cnn = Connect())
+                using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
                 {
                     SQLiteCommand comm;
                     cnn.Open();
@@ -87,7 +87,7 @@ namespace DesktopUI_Logic.SqlServices
         public IDiscountedGamesModel SelectBy(IDiscountedGamesModel model)
         {
             IDiscountedGamesModel foundModel = new DiscountedSwitchGames();
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -112,12 +112,6 @@ namespace DesktopUI_Logic.SqlServices
             throw new NotImplementedException();
         }
 
-        private static SQLiteConnection Connect()
-        {
-            SQLiteConnection cnn = new SQLiteConnection();
-            string connectionString = "Data Source=.\\GameFetcherDBlite222.db;";
-            cnn = new SQLiteConnection(connectionString);
-            return (SQLiteConnection)cnn;
-        }
+      
     }
 }

@@ -8,16 +8,10 @@ namespace DesktopUI_Logic.SqlServices
 {
     internal class GameQueries : ISqlQueries<IGameDetailsModel>
     {
-        private static SQLiteConnection Connect()
-        {
-            SQLiteConnection cnn = new SQLiteConnection();
-            string connectionString = "Data Source=.\\GameFetcherDBlite222.db;";
-            cnn = new SQLiteConnection(connectionString);
-            return (SQLiteConnection)cnn;
-        }
+        
         public void Delete(IGameDetailsModel model)
         {
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -32,7 +26,7 @@ namespace DesktopUI_Logic.SqlServices
 
         public void Insert(IGameDetailsModel model)
         {
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -48,7 +42,7 @@ namespace DesktopUI_Logic.SqlServices
                 cnn.Close();
                 foreach (int a in model.Platforms)
                 {
-                    using (SQLiteConnection cnn2 = Connect())
+                    using (SQLiteConnection cnn2 = SqlConnectionInstance.GetSQLiteConnection())
                     {
                         cnn2.Open();
                         //comm = new SQLiteCommand("GamePlatformJunction", cnn);
@@ -68,7 +62,7 @@ namespace DesktopUI_Logic.SqlServices
         public List<IGameDetailsModel> SelectAll()
         {
             List<IGameDetailsModel> models = new List<IGameDetailsModel>();
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -105,7 +99,7 @@ namespace DesktopUI_Logic.SqlServices
 
         public void Update(IGameDetailsModel model)
         {
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();
@@ -128,7 +122,7 @@ namespace DesktopUI_Logic.SqlServices
         //Bind Platforms to Games's Platform IDs.
         private static List<IGameDetailsModel> AddPlatformsToGames(List<IGameDetailsModel> games)
         {
-            using (SQLiteConnection cnn = Connect())
+            using (SQLiteConnection cnn = SqlConnectionInstance.GetSQLiteConnection())
             {
                 SQLiteCommand comm;
                 cnn.Open();

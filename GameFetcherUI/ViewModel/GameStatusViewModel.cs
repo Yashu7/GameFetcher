@@ -1,12 +1,14 @@
 ﻿using DesktopUI_Logic;
 using DesktopUI_Logic.Models;
 using DesktopUI_Logic.Unity;
+using GameFetcherUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Unity;
@@ -46,8 +48,12 @@ namespace GameFetcherUI.ViewModel
         #region Methods
         private void UpdateGame(object obj)
         {
+            var values = (object[])obj;
+            MessageBox.Show(values[1].ToString());
             UnityRegister.Register(container);
-            container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(obj as IGameDetailsModel);
+            container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
+            ICloseable closable = (ICloseable)values[1];
+            closable.Close();
            
         }
         #endregion

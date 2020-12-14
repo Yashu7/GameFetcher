@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
+        xmlns:converter="clr-namespace:GameFetcherUI.Converters"  
         Title="{Binding Game.Name}" Height="300" Width="400"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" x:Name="myWindow">
     
     <Window.DataContext>
         <local1:GameStatusViewModel/>
@@ -14,6 +15,7 @@
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
         <local1:GameStatusViewModel x:Key="GameStatusViewModel"/>
+        <converter:MultiParametersConverter x:Key="multiParametersConverter" />
     </Window.Resources>
     
     <Grid DataContext="{Binding Source={StaticResource GameStatusViewModel}}">
@@ -57,7 +59,16 @@
         </StackPanel>
         
         <!-- SAVE BUTTON -->
-        <Button Grid.Column="1" VerticalAlignment="Center"  Command="{Binding UpdateCommand}" CommandParameter="{Binding Game}"
-                HorizontalAlignment="Center" Grid.Row="1"  Content="Apply Changes" ></Button>
+        <Button Grid.Column="1" VerticalAlignment="Center"  
+                Command="{Binding UpdateCommand}" 
+                HorizontalAlignment="Center" Grid.Row="1"
+                Content="Apply Changes" >
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource multiParametersConverter}">
+                    <Binding Path="Game"/>
+                    <Binding ElementName="myWindow" />
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
     </Grid>
 </Window>
