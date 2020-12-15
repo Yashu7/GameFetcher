@@ -49,7 +49,6 @@ namespace GameFetcherUI.ViewModel
         private void UpdateGame(object obj)
         {
             var values = (object[])obj;
-            MessageBox.Show(values[1].ToString());
             UnityRegister.Register(container);
             container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
             ICloseable closable = (ICloseable)values[1];

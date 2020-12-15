@@ -154,8 +154,12 @@ namespace GameFetcherUI.ViewModel
         {
             
             if (sender == null) return;
-            GamesSource.Delete(sender as IGameDetailsModel);
-            Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
+            var canDelete = MessageBox.Show("Do you want delete this game from your list?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (canDelete == MessageBoxResult.Yes)
+            {
+                GamesSource.Delete(sender as IGameDetailsModel);
+                Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
+            }
 
 
         }

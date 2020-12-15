@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
         Title="AddGamePage" Height="306.213" Width="487.442">
+   
     <Window.DataContext>
         <local1:AddGamePageViewModel/>
     </Window.DataContext>
+    
     <Window.Resources>
         <local1:AddGamePageViewModel x:Key="AddGamePageViewModel"/>
     </Window.Resources>
@@ -26,20 +28,21 @@
         <StackPanel Margin="120 0 0 0" Grid.Row="1">
             <ComboBox Width="300" x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-
-
+        
         <Button Command="{Binding DetailsCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Details" Grid.Row="1" 
                 Height="20" Margin="0 0 400 40" Width="50"/>
+        
         <Button  Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Add"
                  Grid.Row="1" Height="20"  Margin="0 10 400 0" Width="50"/>
+        
         <Button  Command="{Binding SearchCommand}" CommandParameter="{Binding ElementName=PlatformBox,Path=SelectedItem}" MinHeight="20" Grid.Row = "2" Grid.Column = "0"  
           VerticalAlignment = "Center" Margin="100 0" Width = "100" 
             Content="Find Game" >
-
         </Button>
         
         <TextBox Text="{Binding SearchString}" MinHeight="20" MaxHeight="20" MinWidth="200" MaxWidth="200"  TextWrapping="Wrap"
                     Margin="0 50 0 10" Name="GameTitleString"  Grid.Row = "2" Grid.Column = "0" />
+       
         <ScrollViewer MinHeight="100" MaxHeight="150" Grid.Row="0">
             <ListView ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Grid.Row="0" Margin="10" Name="GameList">
                 <ListView.ItemTemplate>
@@ -50,11 +53,11 @@
                             <TextBlock Margin="2 4" Text=", " />
                             <TextBlock Margin="2 4" Text="Release Date: " />
                             <TextBlock Margin="2 4" Text="{Binding ReleaseDate}" FontWeight="Bold" />
-
                         </WrapPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
+        
     </Grid>
 </Window>
