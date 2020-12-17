@@ -32,7 +32,7 @@
             <TextBlock FontWeight="UltraBold" Text="Release Date:" Margin="0 20 0 20"/>
            
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0">
+        <StackPanel Grid.Row="1" Grid.Column="0"  Margin="20 0">
             <TextBlock FontWeight="UltraBold" Text="Summary:" Margin="0 20 0 20"/>
         </StackPanel>
 
@@ -49,7 +49,7 @@
                 <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200"  Text="{Binding Game.Summary, Mode =OneWay}" />
             </ListView>
         </ScrollViewer>
-        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Ok" Click="Button_Click" />
+        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Margin="100 0 100 25"  Content="Ok" Click="Button_Click" />
         
 
 
