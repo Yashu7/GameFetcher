@@ -18,7 +18,11 @@ namespace DesktopUI_Logic.ApiServices
         {
             container = new UnityContainer();
             UnityRegister.Register(container);
-        }       
+        }
+        /// <summary>
+        /// Return all found discounted games from Nintendo website by accessing outside API.
+        /// </summary>
+        /// <returns>List of DiscountedSwitchGames models</returns>
         public async Task<List<DiscountedSwitchGames>> GetAll()
         {
             var apiClient = container.Resolve<IApiClient<string>>("EshopScraperCall");
@@ -26,6 +30,11 @@ namespace DesktopUI_Logic.ApiServices
             return discountedGames;
         }
 
+        /// <summary>
+        /// Checks by title if game is discounted at Nintendo website. Uses outside API.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>DiscountSwitchGames model</returns>
         public async Task<List<DiscountedSwitchGames>> GetByValue(string value, int value2)
         {
             List<DiscountedSwitchGames> games = new List<DiscountedSwitchGames>();

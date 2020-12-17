@@ -14,10 +14,11 @@ using DesktopUI_Logic.SerializationServices;
 using System.Collections.Generic;
 using Microsoft.Win32;
 using System.IO;
+using GameFetcherUI.Interfaces;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class MainViewModel : ViewModelBase, IView
+    public class MainViewModel : ViewModelBase, IView, IUnitySetup, IViewCommandSetter
     {
 
         #region fields and properties
@@ -75,23 +76,13 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public MainViewModel()
         {
-          
+
             //Unity Injection.
-             container = new UnityContainer();
-            UnityRegister.Register(container);
-            viewContainer = new UnityContainer();
-            UnityResolver.Register(viewContainer);
-            GamesSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>(); 
-            SalesChecker s = new SalesChecker();
+            InstantiateUnity();
+            InstantiateCommands();
+            GamesSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
-            SalesCommand = new RelayCommand(new Action<object>(ShowSales));
-            SearchCommand = new RelayCommand(new Action<object>(SearchGame));
-            QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
-            GameDetailsCommand = new RelayCommand(new Action<object>(ShowGameDetails));
-            DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
-            MoveItemRightCommand = new RelayCommand(new Action<object>(ShowGameDetails));
-            EnterCommand = new RelayCommand(new Action<object>(ShowGameDetails));
-            ExportList = new RelayCommand(new Action<object>(ExportGameList));
+           
             DataContext = this;
            
            
@@ -199,6 +190,27 @@ namespace GameFetcherUI.ViewModel
                     MessageBox.Show("Pick List");
                     break;
             }
+        }
+
+        public void InstantiateUnity()
+        {
+            container = new UnityContainer();
+            UnityRegister.Register(container);
+            viewContainer = new UnityContainer();
+            UnityResolver.Register(viewContainer);
+           
+        }
+
+        public void InstantiateCommands()
+        {
+            SalesCommand = new RelayCommand(new Action<object>(ShowSales));
+            SearchCommand = new RelayCommand(new Action<object>(SearchGame));
+            QuitAppCommand = new RelayCommand(new Action<object>(QuitApp));
+            GameDetailsCommand = new RelayCommand(new Action<object>(ShowGameDetails));
+            DeleteGameCommand = new RelayCommand(new Action<object>(DeleteGame));
+            MoveItemRightCommand = new RelayCommand(new Action<object>(ShowGameDetails));
+            EnterCommand = new RelayCommand(new Action<object>(ShowGameDetails));
+            ExportList = new RelayCommand(new Action<object>(ExportGameList));
         }
         #endregion
     }

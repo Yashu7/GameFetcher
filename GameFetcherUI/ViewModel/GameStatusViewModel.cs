@@ -15,7 +15,7 @@ using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView
+    public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView, IUnitySetup, IViewCommandSetter
     {
         #region Properties, fields
         private IUnityContainer container;
@@ -39,9 +39,8 @@ namespace GameFetcherUI.ViewModel
         {
             DataContext = this;
             Game = StaticData.Instance.Model;
-            container = new UnityContainer();
-            UpdateCommand = new RelayCommand(new Action<object>(UpdateGame));
-            
+            InstantiateCommands();
+            InstantiateUnity();
         }
         #endregion
 
@@ -49,16 +48,27 @@ namespace GameFetcherUI.ViewModel
         private void UpdateGame(object obj)
         {
             var values = (object[])obj;
-            UnityRegister.Register(container);
+           
             container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
             ICloseable closable = (ICloseable)values[1];
             closable.Close();
            
         }
+        public void InstantiateUnity()
+        {
+            container = new UnityContainer();
+            UnityRegister.Register(container);
+        }
+
         #endregion
 
         #region ICommands
         public ICommand UpdateCommand { get; private set; }
+
+        public void InstantiateCommands()
+        {
+            UpdateCommand = new RelayCommand(new Action<object>(UpdateGame));
+        }
         #endregion
 
         #region INotifyProperties
@@ -68,6 +78,9 @@ namespace GameFetcherUI.ViewModel
             if (PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
+
+       
+        
         #endregion
     }
 }
