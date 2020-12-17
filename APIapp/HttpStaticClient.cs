@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace APIapp
 {
-    class Program
+    public static class HttpStaticClient
     {
-         static void Main(string[] args)
-        {
-            
-        }
+       
+        public static HttpClient httpClient = new HttpClient();
+        
     }
 }

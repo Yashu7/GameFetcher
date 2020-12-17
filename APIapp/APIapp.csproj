@@ -117,6 +117,7 @@
     <Compile Include="API\IApiClient.cs" />
     <Compile Include="API\IGDBApiCall.cs" />
     <Compile Include="GameModel.cs" />
+    <Compile Include="HttpStaticClient.cs" />
     <Compile Include="PlatformModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,7 +9,7 @@ namespace APIapp.API
 {
      public interface IApiClient<T>
      {
-        Task<HttpClient> Connect();
+        
         Task<T> GetByValue(T value);
         Task<T> GetAll();
 

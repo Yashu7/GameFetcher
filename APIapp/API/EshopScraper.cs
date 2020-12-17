@@ -10,34 +10,27 @@ namespace APIapp.API
 {
     public class EshopScraper : IApiClient<string>
     {
-        public async Task<HttpClient> Connect()
+       
+        public void Connect()
         {
-            
-            TwitchAuth bearer = await TwitchApiCalls.GetAuth("a","b").ConfigureAwait(false);
-            var apiCall = new HttpClient
-            {
-                BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels")
-            };
-            apiCall.DefaultRequestHeaders.Accept.Clear();
-            apiCall.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            
-            return apiCall;
+            HttpStaticClient.httpClient.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+           
         }
 
         public async Task<string> GetAll()
         {
-            HttpClient call = await Connect().ConfigureAwait(false);
-
-            HttpResponseMessage response = await call.GetAsync(call.BaseAddress).ConfigureAwait(false);
+            Connect();
+            HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;
         }
 
         public async Task<string> GetByValue(string value)
         {
-            HttpClient call = await Connect().ConfigureAwait(false);
-
-            HttpResponseMessage response = await call.GetAsync(call.BaseAddress).ConfigureAwait(false);
+            Connect();
+            HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;
         }

@@ -200,6 +200,8 @@
     <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\SearchGameConverter.cs" />
     <Compile Include="Interfaces\ICloseable.cs" />
+    <Compile Include="Interfaces\IUnitySetup.cs" />
+    <Compile Include="Interfaces\IViewCommandSetter.cs" />
     <Compile Include="MultiRelayCommand.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="StaticData.cs" />
