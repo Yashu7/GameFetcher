@@ -12,6 +12,7 @@ namespace APIapp.API
     public class IGDBApiCall : IApiClient<string>
     {
         private TwitchAuth bearer;
+        private string address;
 
         public Task<string> GetAll()
         {
@@ -30,13 +31,13 @@ namespace APIapp.API
 
             #region HttpClient Settings
           
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearer.Token);
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpStaticClient.Instance.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
+            HttpStaticClient.Instance.DefaultRequestHeaders.Add("Authorization", "Bearer " + bearer.Token);
             HttpContent requestMessage = null;
-            string address = "https://api.igdb.com/v4/games";
+            address = "https://api.igdb.com/v4/games";
 
             #endregion
 
@@ -50,12 +51,10 @@ namespace APIapp.API
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
             try
             {
-                HttpResponseMessage response = await HttpStaticClient.httpClient.PostAsync(address, requestMessage).ConfigureAwait(false);
-                var result = await HttpStaticClient.httpClient.PostAsync(address, null).ConfigureAwait(false);
-                List<GameModel> game = new List<GameModel>();
-                var a = response.Content.ReadAsStringAsync().Result;
-             
-                return a;
+                HttpResponseMessage response = await HttpStaticClient.Instance.PostAsync(address, requestMessage).ConfigureAwait(false);
+                var result = await HttpStaticClient.Instance.PostAsync(address, null).ConfigureAwait(false);
+                var game = response.Content.ReadAsStringAsync().Result;
+                return game;
             }
             catch (HttpRequestException)
             {

@@ -7,10 +7,30 @@ using System.Threading.Tasks;
 
 namespace APIapp
 {
-    public static class HttpStaticClient
+    public sealed class HttpStaticClient
     {
-       
-        public static HttpClient httpClient = new HttpClient();
+
         
+        private static volatile HttpClient instance;
+        private static object syncRoot = new Object();
+
+        private HttpStaticClient() { }
+
+        public static HttpClient Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new HttpClient();
+                    }
+                }
+
+                return instance;
+            }
+        }
     }
 }

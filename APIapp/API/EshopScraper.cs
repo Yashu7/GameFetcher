@@ -16,11 +16,11 @@ namespace APIapp.API
         /// <returns></returns>
         public async Task<string> GetAll()
         {
-            HttpStaticClient.httpClient.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
+            HttpStaticClient.Instance.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await HttpStaticClient.Instance.GetAsync(HttpStaticClient.Instance.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;
         }
@@ -31,11 +31,11 @@ namespace APIapp.API
         /// <returns></returns>
         public async Task<string> GetByValue(string value)
         {
-            HttpStaticClient.httpClient.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Clear();
-            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
+            HttpStaticClient.Instance.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Clear();
+            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = await HttpStaticClient.Instance.GetAsync(HttpStaticClient.Instance.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;
         }
