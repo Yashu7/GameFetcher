@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:GameFetcherUI"
         xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
         mc:Ignorable="d"
-        Title="Game Fetcher" Height="550" Width="500"
+        Title="Game Fetcher" Height="600" Width="750"
         ResizeMode="CanResize" Background="#FFA1B2EA" 
         >
     <Window.DataContext>
@@ -32,11 +32,11 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <!-- End Region -->
-        
-       
-        <!-- Game Lists Region 
+
+
+        <!-- Game Lists Region  -->
         <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
-        -->
+       
         <StackPanel  Margin="100,0,0,0" Grid.Row="0" Grid.Column="0" >
 
             <ComboBox Grid.Column="1"  SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" 
@@ -51,12 +51,32 @@
             
          <!-- Display Games Region -->
             <Label  Name="ListsLabel" Grid.Row="1" Grid.Column="0" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
-            <ListView  SelectedItem="{Binding SelectedGame}" ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="300" MinWidth="200" MinHeight="100"
-                       Grid.Row="0"  MaxHeight="150" Grid.Column="0"  Height="148">
+            <ListView  SelectedItem="{Binding SelectedGame}" ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="601" MinWidth="200" MinHeight="100"
+                       Grid.Row="0"  MaxHeight="250" Grid.Column="0"  Height="250">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock TextWrapping="Wrap"
+                        <Border  BorderThickness="2.5" BorderBrush="Black"
+                            Background="AliceBlue" >
+                            <WrapPanel  MaxWidth="160"  MaxHeight="200">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75" />
+                                        <ColumnDefinition Width="75" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock TextWrapping="Wrap"
+                                      Grid.Row="0" Grid.Column="0" MaxWidth="100" Margin="2 4" Text="Title: " FontWeight="Bold"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap"
                                       MaxWidth="100" Margin="2 4"  Text="{Binding Name}"    FontWeight="ExtraBold">
                                 <TextBlock.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding DataContext.MoveItemRightCommand,
@@ -69,20 +89,23 @@
                                       CommandParameter="{Binding .}"/>
                                 </TextBlock.InputBindings>
                             </TextBlock>
-                            <TextBlock Text=" "/>
+                           
                             <TextBlock TextWrapping="Wrap"
-                                       MaxWidth="100" Margin="2 4" Text="My Platform: " FontWeight="Bold"/>
+                                      Grid.Row="1" Grid.Column="0" MaxWidth="100" Margin="2 4" Text="My Platform: " FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap"
-                                       MaxWidth="100" Margin="2 4" Text="{Binding PlatformPlaying}"/>
+                                      Grid.Row="1" Grid.Column="1" MaxWidth="100" Margin="2 4" Text="{Binding PlatformPlaying}"/>
                             <TextBlock TextWrapping="Wrap"
-                                       MaxWidth="100" Margin="2 4" Text="My Score: " FontWeight="Bold"/>
+                                      Grid.Row="2" Grid.Column="0" MaxWidth="100" Margin="2 4" Text="My Score: " FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap"
-                                       MaxWidth="100" Margin="2 4" Text="{Binding MyScore}"/>
+                                      Grid.Row="2" Grid.Column="1" MaxWidth="100" Margin="2 4" Text="{Binding MyScore}"/>
                             <TextBlock TextWrapping="Wrap"
-                                        MaxWidth="100" Margin="2 4" Text="Release Date: " FontWeight="Bold"/>
+                                       Grid.Row="3" Grid.Column="0" MaxWidth="100" Margin="2 4" Text="Release Date: " FontWeight="Bold"/>
                             <TextBlock TextWrapping="Wrap"
-                                        MaxWidth="100" Margin="2 4" Text="{Binding ReleaseDate}"/>
-                        </WrapPanel>
+                                       Grid.Row="3" Grid.Column="1" MaxWidth="100" Margin="2 4" Text="{Binding ReleaseDate}"/>
+
+                                </Grid>
+                            </WrapPanel>
+                        </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
