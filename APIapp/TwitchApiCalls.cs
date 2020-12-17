@@ -25,10 +25,7 @@ namespace APIapp
             {
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                
-                
-                    var response = await client.PostAsync(new Uri("https://id.twitch.tv/oauth2/token?client_id=") + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials", null).ConfigureAwait(false);
-                
+                var response = await client.PostAsync(new Uri("https://id.twitch.tv/oauth2/token?client_id=") + clientId + "&client_secret=" + clientSecret + "&grant_type=client_credentials", null).ConfigureAwait(false);
                 bearer = await response.Content.ReadAsAsync<TwitchAuth>().ConfigureAwait(true);
             }
             return bearer;

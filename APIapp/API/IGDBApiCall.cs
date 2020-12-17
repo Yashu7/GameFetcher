@@ -11,13 +11,17 @@ namespace APIapp.API
 {
     public class IGDBApiCall : IApiClient<string>
     {
-        public TwitchAuth bearer;
+        private TwitchAuth bearer;
 
         public Task<string> GetAll()
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Find games by title
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public async Task<string> GetByValue(string title)
         {
             #region Twitch Token
@@ -36,10 +40,7 @@ namespace APIapp.API
 
             #endregion
 
-            #region String converter
             string queryName = StringFormatter(title);
-
-            #endregion
 
             #region Call
             requestMessage = new StringContent(($"fields id,name,first_release_date,summary,platforms; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
@@ -64,6 +65,7 @@ namespace APIapp.API
            
             #endregion
         }
+
         /// <summary>
         /// Formats string to specific format needed for IGDB search query
         /// </summary>

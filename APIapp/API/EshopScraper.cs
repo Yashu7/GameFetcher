@@ -10,26 +10,31 @@ namespace APIapp.API
 {
     public class EshopScraper : IApiClient<string>
     {
-       
-        public void Connect()
+        /// <summary>
+        /// Get all discounts for Nintendo Switch games from API.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetAll()
         {
             HttpStaticClient.httpClient.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
             HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Clear();
             HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-           
-        }
-
-        public async Task<string> GetAll()
-        {
-            Connect();
             HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;
         }
 
+        /// <summary>
+        /// Check if specific game is on discount.
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GetByValue(string value)
         {
-            Connect();
+            HttpStaticClient.httpClient.BaseAddress = new Uri("http://eshopfetcher.aspnet.pl/api/gamemodels");
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Clear();
+            HttpStaticClient.httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await HttpStaticClient.httpClient.GetAsync(HttpStaticClient.httpClient.BaseAddress).ConfigureAwait(false);
             var output = response.Content.ReadAsStringAsync().Result;
             return output;

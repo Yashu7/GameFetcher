@@ -18,7 +18,7 @@ namespace DesktopUI_Logic
     public class SalesChecker
     {
         //Steam page webscraper
-        //TODO: REWORK WHOLE CLASS, DONE VERY EARLY AS WEBSCRAPING/SELENIUM TRAINING.
+        //TODO: REWORK WHOLE CLASS, DONE VERY EARLY AS WEBSCRAPING/SELENIUM TRAINING. NOT USED AT THE MOMENT
         public string CheckSteamSale(IGameDetailsModel game)
         {
            
@@ -45,11 +45,7 @@ namespace DesktopUI_Logic
                             outputPrice = p.InnerText;
                         }
                     }
-
-
-
                     
-                  
                     string pattern = "ł";
                     string sentence = outputPrice;
                     List<int> indexes = new List<int>();
@@ -58,19 +54,11 @@ namespace DesktopUI_Logic
                         indexes.Add(match.Index);
                            
                     }
-
-                    
                     string discountPrice = outputPrice.Substring((indexes[0]+1),((indexes[1] - indexes[0])+1));
 
-
-
-                   
                     return discountPrice;
-
-
                 }
             }
-
             return "No sale";
 
         }
@@ -101,17 +89,10 @@ namespace DesktopUI_Logic
 
              using (var browser = new ChromeDriver(service, chromeOptions))
             {
-
                 string allGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81";
                 string discountedGamesUrl = "https://www.nintendo.co.uk/Search/Search-299117.html?f=147394-5-81-6956";
                 browser.Url = discountedGamesUrl;
-
-
-
-
                 browser.FindElementByXPath("//a[@class='pla-btn pla-btn--region-store pla-btn--block plo-cookie-overlay__accept-btn']").Click();
-
-
 
                 Thread.Sleep(2000);
                 var goodList = browser.FindElementsByXPath("//div[@class='search-result-txt col-xs-9 col-sm-10']//p[@class='page-title']");
@@ -148,10 +129,6 @@ namespace DesktopUI_Logic
                             _discountedPrice = null;
 
                         }
-
-
-
-
                         titles.Add(new DiscountedSwitchGames
                         {
                             Title = _name.Text,
@@ -159,10 +136,6 @@ namespace DesktopUI_Logic
                             DiscountPrice = dcPrice
 
                         }) ;
-                       
-
-
-
                     }
 
                     var buttons = browser.FindElementsByXPath("//button[@class='btn btn-primary']");
@@ -174,7 +147,6 @@ namespace DesktopUI_Logic
             }
 
             List<IDiscountedGamesModel> m = titles.ToList<IDiscountedGamesModel>();
-
 
             return m;
             }
