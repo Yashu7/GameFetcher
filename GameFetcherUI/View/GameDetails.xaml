@@ -20,6 +20,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
 
@@ -28,18 +30,28 @@
                     Grid.Row="0" Margin="20 0">
             <TextBlock FontWeight="UltraBold"  Text="Title:" Margin="0 20 0 20"/>
             <TextBlock FontWeight="UltraBold" Text="Release Date:" Margin="0 20 0 20"/>
+           
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0">
             <TextBlock FontWeight="UltraBold" Text="Summary:" Margin="0 20 0 20"/>
         </StackPanel>
 
         <!-- MODEL VIEW -->
         <StackPanel Orientation="Vertical" Grid.Column="1"
                     Grid.Row="0" Margin="20 0">
-            <TextBlock Text="{Binding Game.Name, Mode =OneWay}"  Margin="0 20 0 20"/>
-            <TextBlock Text="{Binding Game.ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
-            <TextBlock TextWrapping="Wrap" MaxWidth ="300" Text="{Binding Game.Summary, Mode =OneWay}"  Margin="0 20 0 20"/>
-
+            
+            <TextBlock Background="Beige" Text="{Binding Game.Name, Mode =OneWay}"  Margin="0 20 0 20"/>
+            <TextBlock Background="Beige" Text="{Binding Game.ReleaseDate, Mode =OneWay}"  Margin="0 20 0 20"/>
+           
         </StackPanel>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Ok" Grid.Column="1" Click="Button_Click" Margin="70,0,184,-25"/>
+        <ScrollViewer  MaxWidth="250" MaxHeight="200" Grid.Row="1" Grid.Column="1" >
+            <ListView Background="Beige">
+                <TextBlock TextWrapping="Wrap" MinWidth="100" MaxWidth ="200"  Text="{Binding Game.Summary, Mode =OneWay}" />
+            </ListView>
+        </ScrollViewer>
+        <Button Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Ok" Click="Button_Click" />
+        
+
 
 
     </Grid>
