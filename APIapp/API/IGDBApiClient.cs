@@ -10,16 +10,26 @@ using System.Threading.Tasks;
 
 namespace APIapp.API
 {
-    public class IGDBApiCall : IApiClient<string>
+    /// <summary>
+    /// IGDB uses APIcalypse Query Language. https://apicalypse.io/
+    /// <para>For more information about IGDB API visit: https://api-docs.igdb.com/#about </para>
+    /// </summary>
+    public sealed class IGDBApiClient : IApiClient<string>
     {
         
-        private string address;
-        private IFormatter<string> formatter;
-       
+        private Uri _address;
+        private IFormatter<string> _formatter;
+
+        public IGDBApiClient()
+        {
+            _formatter = new StringFormatter();
+        }
+
         public Task<string> GetAll()
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// Find games by title
         /// </summary>
@@ -27,23 +37,25 @@ namespace APIapp.API
         /// <returns></returns>
         public async Task<string> GetByValue(string title)
         {
+            _address = new Uri("https://api.igdb.com/v4/games");
+            string queryName = _formatter.ReturnFormattedValue(title);
 
-            
             #region HttpClient Settings
-
-            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Clear();
-            HttpStaticClient.Instance.DefaultRequestHeaders.Clear();
-            HttpStaticClient.Instance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpStaticClient.Instance.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
-            HttpStaticClient.Instance.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthManager.GetToken("TwitchAuthClient"));
+            
+            //Clear HttpClient
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Accept.Clear();
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Clear();
+           
+            //Set HttpClient
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthManager.GetToken("TwitchAuthClient"));
             HttpContent requestMessage = null;
-            address = "https://api.igdb.com/v4/games";
-
+            
             #endregion
-            formatter = new StringFormatter();
-            string queryName = formatter.ReturnFormattedValue(title);
 
-            #region Call
+            #region Api Call
+            
             requestMessage = new StringContent(($"fields id,name,first_release_date,summary,platforms; where name ~ *\"{queryName}\"* & version_parent = null; limit 500; sort name asc;"), Encoding.UTF8, "application/json");
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
@@ -51,8 +63,8 @@ namespace APIapp.API
             ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
             try
             {
-                HttpResponseMessage response = await HttpStaticClient.Instance.PostAsync(address, requestMessage).ConfigureAwait(false);
-                var result = await HttpStaticClient.Instance.PostAsync(address, null).ConfigureAwait(false);
+                HttpResponseMessage response = await HttpStaticClient.GetInstance.PostAsync(_address, requestMessage).ConfigureAwait(false);
+                var result = await HttpStaticClient.GetInstance.PostAsync(_address, null).ConfigureAwait(false);
                 var game = response.Content.ReadAsStringAsync().Result;
                 return game;
             }

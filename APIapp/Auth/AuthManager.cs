@@ -9,12 +9,12 @@ namespace APIapp.Auth
 {
     public static class AuthManager
     {
-        private static IAuthClient authClient;
-        private static Factory factory;
+        private static IAuthClient AuthClient;
+        private readonly static Factory Factory;
 
         static AuthManager()
         {
-            factory = new AuthClientFactory();
+            Factory = new AuthClientFactory();
         }
         /// <summary>
         /// Provide name of IAuthClient Class as a parameter to recieve access token for it.
@@ -28,15 +28,15 @@ namespace APIapp.Auth
 
             if (authClientName == "TwitchAuthClient")
             {
-                authClient = GetClientInstance(authClientName);
-                return authClient.ReturnToken();
+                AuthClient = GetClientInstance(authClientName);
+                return AuthClient.ReturnToken();
             }
 
             return null;
         }
         private static IAuthClient GetClientInstance(string authClientName)
         {
-            return (IAuthClient)factory.ReturnObject(authClientName);
+            return (IAuthClient)Factory.ReturnObject(authClientName);
         }
        
     }

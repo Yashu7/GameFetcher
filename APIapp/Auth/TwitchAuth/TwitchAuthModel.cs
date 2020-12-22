@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace APIapp
 {
-    public class TwitchAuth : IAuthModel
+    public sealed class TwitchAuth : IAuthModel
     
     {
         [JsonProperty("access_token")]

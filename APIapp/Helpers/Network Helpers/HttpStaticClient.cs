@@ -9,27 +9,25 @@ namespace APIapp
 {
     public sealed class HttpStaticClient
     {
-
-        
-        private static volatile HttpClient instance;
-        private static object syncRoot = new Object();
+        private static volatile HttpClient Instance;
+        private static readonly object SyncRoot = new object();
 
         private HttpStaticClient() { }
 
-        public static HttpClient Instance
+        public static HttpClient GetInstance
         {
             get
             {
-                if (instance == null)
+                if (Instance == null)
                 {
-                    lock (syncRoot)
+                    lock (SyncRoot)
                     {
-                        if (instance == null)
-                            instance = new HttpClient();
+                        if (Instance == null)
+                            Instance = new HttpClient();
                     }
                 }
 
-                return instance;
+                return Instance;
             }
         }
     }

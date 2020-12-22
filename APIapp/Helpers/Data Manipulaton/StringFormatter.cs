@@ -23,9 +23,6 @@ namespace APIapp.Helpers
             }
             return queryName = queryName.Remove(queryName.Length - 1);
         }
-        public void Caller()
-        {
-            Console.WriteLine("AA");
-        }
+        
     }
 }

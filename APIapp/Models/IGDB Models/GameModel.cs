@@ -17,7 +17,6 @@ namespace APIapp
 
         public enum Status { NotPlayed, Played, Playing };
         public Status playingStatus = Status.NotPlayed;
-        
 
         [JsonProperty("age_ratings")]
         public List<long> AgeRatings { get; set; }
@@ -31,8 +30,6 @@ namespace APIapp
         [JsonProperty("category")]
         public long Category { get; set; }
 
-
-
         [JsonProperty("created_at")]
         public long CreatedAt { get; set; }
 
@@ -42,12 +39,8 @@ namespace APIapp
         [JsonProperty("expansions")]
         public List<long> Expansions { get; set; }
 
-
-
         [JsonProperty("first_release_date")]
         public long FirstReleaseDate { get; set; }
-
-
 
         [JsonProperty("franchises")]
         public List<long> Franchises { get; set; }
@@ -76,22 +69,14 @@ namespace APIapp
         [JsonProperty("platforms")]
         public List<long> Platforms { get; set; }
 
-
-
         [JsonProperty("rating")]
         public double Rating { get; set; }
-
-
 
         [JsonProperty("release_dates")]
         public List<long> ReleaseDates { get; set; }
 
-
-
         [JsonProperty("similar_games")]
         public List<long> SimilarGames { get; set; }
-
-
 
         [JsonProperty("storyline")]
         public string Storyline { get; set; }

@@ -128,24 +128,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\EshopScraper.cs" />
-    <Compile Include="API\IApiClient.cs" />
-    <Compile Include="API\IGDBApiCall.cs" />
+    <Compile Include="API\EshopScraperApiClient.cs" />
+    <Compile Include="API\Api Interfaces\IApiClient.cs" />
+    <Compile Include="API\IGDBApiClient.cs" />
     <Compile Include="Auth\AuthManager.cs" />
-    <Compile Include="Auth\IAuthModel.cs" />
-    <Compile Include="Auth\IAuthClient.cs" />
+    <Compile Include="Auth\Auth Interfaces\IAuthModel.cs" />
+    <Compile Include="Auth\Auth Interfaces\IAuthClient.cs" />
     <Compile Include="Factories\Factory.cs" />
     <Compile Include="Factories\AuthClientFactory.cs" />
-    <Compile Include="GameModel.cs" />
-    <Compile Include="Helpers\IFormatter.cs" />
-    <Compile Include="Helpers\StringFormatter.cs" />
-    <Compile Include="HttpStaticClient.cs" />
-    <Compile Include="IObject.cs" />
-    <Compile Include="PlatformModel.cs" />
+    <Compile Include="Models\IGDB Models\GameModel.cs" />
+    <Compile Include="Helpers\Interfaces\IFormatter.cs" />
+    <Compile Include="Helpers\Data Manipulaton\StringFormatter.cs" />
+    <Compile Include="Helpers\Network Helpers\HttpStaticClient.cs" />
+    <Compile Include="Helpers\Interfaces\IObject.cs" />
+    <Compile Include="Models\IGDB Models\PlatformModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Auth\TwitchAuthClient.cs" />
-    <Compile Include="Auth\TwitchAuthModel.cs" />
+    <Compile Include="Auth\TwitchAuth\TwitchAuthClient.cs" />
+    <Compile Include="Auth\TwitchAuth\TwitchAuthModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
