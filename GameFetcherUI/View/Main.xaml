@@ -55,7 +55,7 @@
                        Grid.Row="0"  MaxHeight="250" Grid.Column="0"  Height="250">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" />
+                        <UniformGrid Columns="2" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>

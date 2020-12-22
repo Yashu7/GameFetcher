@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using APIapp.Auth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace APIapp
 {
-    public class TwitchAuth
-    /** do czego jest ta struktura danych? **/
+    public class TwitchAuth : IAuthModel
+    
     {
         [JsonProperty("access_token")]
-        public string Token { get; set; }
-       
+        public string Token { get; private set; }
 
         public TwitchAuth(string id)
-        /** metody powinny być czasownikami nie rzeczownikami - metody coś robią **/
         {
             Token = id;
         }
