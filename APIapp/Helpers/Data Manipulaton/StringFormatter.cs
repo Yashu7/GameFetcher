@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace APIapp.Helpers
 {
-    class StringFormatter : IFormatter<string>
+    class StringFormatter
     {
         /// <summary>
         /// Formats string to specific format needed for IGDB search query
         /// </summary>
         /// <returns>Formatted string for query</returns>
-        public string ReturnFormattedValue(string title)
+        public static string ReturnFormattedValue(string title)
         {
             if (title == null) return String.Empty;
             String[] separator = title.Split(' ');

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DesktopUI_Logic.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,30 +14,25 @@ namespace DesktopUI_Logic.Models
     public class GameDetailsModel : INotifyPropertyChanged, IGameDetailsModel
     {
         [JsonConstructor]
-        public GameDetailsModel(int _id,string _name,long _firstReleaseDate,string _summary,List<long> _platforms)
+        public GameDetailsModel(int id, string name, long firstReleaseDate, string summary, List<long> platforms)
         {
-            Id = _id;
-            Name = _name;
-            FirstReleaseDate = _firstReleaseDate;
-            Summary = _summary;
-            Platforms = _platforms;
+            Id = id;
+            Name = name;
+            FirstReleaseDate = firstReleaseDate;
+            Summary = summary;
+            Platforms = platforms;
         }
         public GameDetailsModel()
         {
 
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public void NotifyPropertyChanged(string propName)
         {
             if (PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
-        public string ConvertTime(long time)
-        {
-            if (time <= 0) return "Release Date Unknown";
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(time).ToLocalTime();
-            return dtDateTime.ToString("dd/MM/yyyy");
         }
 
         [JsonProperty("id")]
@@ -76,9 +72,7 @@ namespace DesktopUI_Logic.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public List<string> AllPlatforms { get; set; } = new List<string>();
+        public List<string> AllPlatforms { get; set; } = new List<string>() { "No Platform Available" };
         public string PlatformsGames { get; set; }
         private string _platformPlaying;
         public string PlatformPlaying
@@ -133,18 +127,18 @@ namespace DesktopUI_Logic.Models
 
 
         [JsonProperty("first_release_date")]
-        public long FirstReleaseDate { get; set; }
+        public long FirstReleaseDate { get; set; } = 0;
 
         public string ReleaseDate
         {
             get
             {
-                return ConvertTime(FirstReleaseDate);
+                return EpochToDateConverter.ConvertTime(FirstReleaseDate);
             }
 
             set
             {
-                ReleaseDate = ConvertTime(FirstReleaseDate);
+                ReleaseDate = EpochToDateConverter.ConvertTime(FirstReleaseDate);
             }
         }
 
@@ -204,7 +198,7 @@ namespace DesktopUI_Logic.Models
         [JsonProperty("storyline")]
         public string Storyline { get; set; }
 
-        private string _summary;
+        private string _summary = "No summary";
         [JsonProperty("summary")]
         public string Summary
         {
@@ -214,6 +208,7 @@ namespace DesktopUI_Logic.Models
             }
             set
             {
+                if (value == null) return;
                 _summary = value;
                 NotifyPropertyChanged("Summary");
 

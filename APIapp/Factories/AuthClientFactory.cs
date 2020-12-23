@@ -15,7 +15,7 @@ namespace APIapp.Factories
         {
             if (objectName == string.Empty) return null;
 
-            if(objectName == "TwitchAuthClient")
+            if(objectName == nameof(TwitchAuthClient))
             {
                 return TwitchAuthClient.GetInstance();
             }

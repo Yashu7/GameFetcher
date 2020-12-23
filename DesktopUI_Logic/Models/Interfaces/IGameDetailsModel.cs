@@ -42,7 +42,7 @@ namespace DesktopUI_Logic.Models
 
         event PropertyChangedEventHandler PropertyChanged;
 
-        string ConvertTime(long time);
+        
         void NotifyPropertyChanged(string propName);
     }
 }

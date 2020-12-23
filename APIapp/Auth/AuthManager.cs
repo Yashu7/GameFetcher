@@ -18,7 +18,7 @@ namespace APIapp.Auth
         }
         /// <summary>
         /// Provide name of IAuthClient Class as a parameter to recieve access token for it.
-        /// <para>For example: GetToken("TwitchAuthClient") returns token from TwitchAuthClient instance.</para>
+        /// <para>For example: GetToken("TwitchAuthClient") or GetToken(nameof(TwitchAuthClient)) returns token from TwitchAuthClient instance.</para>
         /// </summary>
         /// <param name="authClientName"></param>
         /// <returns>Returns token for authorization client</returns>
@@ -26,7 +26,7 @@ namespace APIapp.Auth
         {
             if (authClientName == String.Empty) return null;
 
-            if (authClientName == "TwitchAuthClient")
+            if (authClientName == nameof(TwitchAuthClient))
             {
                 AuthClient = GetClientInstance(authClientName);
                 return AuthClient.ReturnToken();

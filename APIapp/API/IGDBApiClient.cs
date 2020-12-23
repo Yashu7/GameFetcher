@@ -18,11 +18,10 @@ namespace APIapp.API
     {
         
         private Uri _address;
-        private IFormatter<string> _formatter;
 
         public IGDBApiClient()
         {
-            _formatter = new StringFormatter();
+           
         }
 
         public Task<string> GetAll()
@@ -38,7 +37,7 @@ namespace APIapp.API
         public async Task<string> GetByValue(string title)
         {
             _address = new Uri("https://api.igdb.com/v4/games");
-            string queryName = _formatter.ReturnFormattedValue(title);
+            string queryName = StringFormatter.ReturnFormattedValue(title);
 
             #region HttpClient Settings
             
@@ -49,7 +48,7 @@ namespace APIapp.API
             //Set HttpClient
             HttpStaticClient.GetInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpStaticClient.GetInstance.DefaultRequestHeaders.Add("Client-ID", "3yo2gt2qjjburcphl30wfyt0e64vxx");
-            HttpStaticClient.GetInstance.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthManager.GetToken("TwitchAuthClient"));
+            HttpStaticClient.GetInstance.DefaultRequestHeaders.Add("Authorization", "Bearer " + AuthManager.GetToken(nameof(TwitchAuthClient)));
             HttpContent requestMessage = null;
             
             #endregion

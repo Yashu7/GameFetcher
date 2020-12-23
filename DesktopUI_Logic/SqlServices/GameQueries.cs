@@ -30,30 +30,32 @@ namespace DesktopUI_Logic.SqlServices
             {
                 SQLiteCommand comm;
                 cnn.Open();
-                //comm = new SQLiteCommand("InsertGame", cnn);
-                //comm.CommandType = CommandType.StoredProcedure;
                 string query = "INSERT INTO Games(Title,ReleaseDate,Summary)VALUES(@title,@date,@summary)";
                 comm = new SQLiteCommand(query, cnn);
                 comm.Parameters.Add(new SQLiteParameter("@title", model.Name));
                 comm.Parameters.Add(new SQLiteParameter("@date", model.FirstReleaseDate));
+
                 comm.Parameters.Add(new SQLiteParameter("@summary", model.Summary));
                 comm.ExecuteReader();
                 comm.Dispose();
                 cnn.Close();
-                foreach (int a in model.Platforms)
+                if (model.Platforms != null)
                 {
-                    using (SQLiteConnection cnn2 = SqlConnectionInstance.GetSQLiteConnection())
+                    foreach (int a in model.Platforms)
                     {
-                        cnn2.Open();
-                        //comm = new SQLiteCommand("GamePlatformJunction", cnn);
-                        //comm.CommandType = CommandType.StoredProcedure;
-                        string secondQuery = "INSERT INTO GamePlatforms(GameId,PlatformId)VALUES((SELECT MAX(Id) FROM Games),@platformID)";
-                        comm = new SQLiteCommand(secondQuery, cnn2);
-                        comm.Parameters.Add(new SQLiteParameter("@gameID", 1));
-                        comm.Parameters.Add(new SQLiteParameter("@platformID", a));
-                        comm.ExecuteReader();
-                        comm.Dispose();
-                        cnn2.Close();
+                        using (SQLiteConnection cnn2 = SqlConnectionInstance.GetSQLiteConnection())
+                        {
+                            cnn2.Open();
+                            //comm = new SQLiteCommand("GamePlatformJunction", cnn);
+                            //comm.CommandType = CommandType.StoredProcedure;
+                            string secondQuery = "INSERT INTO GamePlatforms(GameId,PlatformId)VALUES((SELECT MAX(Id) FROM Games),@platformID)";
+                            comm = new SQLiteCommand(secondQuery, cnn2);
+                            comm.Parameters.Add(new SQLiteParameter("@gameID", 1));
+                            comm.Parameters.Add(new SQLiteParameter("@platformID", a));
+                            comm.ExecuteReader();
+                            comm.Dispose();
+                            cnn2.Close();
+                        }
                     }
                 }
             }
@@ -72,14 +74,19 @@ namespace DesktopUI_Logic.SqlServices
                 reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    IGameDetailsModel model = new GameDetailsModel()
+                    long firstReleaseDate = 0;
+                    if (reader.GetInt64(2) != null)
                     {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        FirstReleaseDate = reader.GetInt32(2),
-                        Summary = reader.GetString(3),
-                        MyScore = reader.GetInt32(4)
-                    };
+                        firstReleaseDate = reader.GetInt64(2);
+                    }
+
+                    IGameDetailsModel model = new GameDetailsModel();
+
+                    model.Id = reader.GetInt32(0);
+                    model.Name = reader.GetString(1);
+                    model.FirstReleaseDate = firstReleaseDate;
+                    model.Summary = reader.GetString(3);
+                    model.MyScore = reader.GetInt32(4);
                     if (reader.GetString(5) != null)
                     {
                         model.PlatformPlaying = reader.GetString(5);

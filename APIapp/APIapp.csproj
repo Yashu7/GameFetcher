@@ -137,7 +137,6 @@
     <Compile Include="Factories\Factory.cs" />
     <Compile Include="Factories\AuthClientFactory.cs" />
     <Compile Include="Models\IGDB Models\GameModel.cs" />
-    <Compile Include="Helpers\Interfaces\IFormatter.cs" />
     <Compile Include="Helpers\Data Manipulaton\StringFormatter.cs" />
     <Compile Include="Helpers\Network Helpers\HttpStaticClient.cs" />
     <Compile Include="Helpers\Interfaces\IObject.cs" />
