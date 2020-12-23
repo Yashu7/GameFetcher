@@ -24,8 +24,7 @@ namespace GameFetcherUI.ViewModel
         readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
         // SQL Interface for Unity Container
         readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
-        // Unity Container
-        private IUnityContainer container;
+        
         private string _searchString = "Insert Game Title";
         public string SearchString 
         {
@@ -60,10 +59,9 @@ namespace GameFetcherUI.ViewModel
         public AddGamePageViewModel()
         {
             //Unity Initialization
-             container = new UnityContainer();
-            UnityRegister.Register(container);
-            GameSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
-            PlatformSource = container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
+            
+            GameSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
+            PlatformSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
 
             //Command Initialization
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
@@ -102,9 +100,7 @@ namespace GameFetcherUI.ViewModel
             IGameDetailsModel game = sender as IGameDetailsModel;
             if (game == null) return;
             StaticData.Instance.Model = game;
-            IUnityContainer viewContainer = new UnityContainer();
-            UnityResolver.Register(viewContainer);
-            viewContainer.Resolve<GameDetails>().Show();
+            UnityResolver.Container.Resolve<GameDetails>().Show();
            
         }
         /// <summary>
@@ -125,7 +121,7 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
-            var dataReciever = container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
+            var dataReciever = UnityRegister.Container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
             ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await dataReciever.GetByValue(SearchString, platform.platformId).ConfigureAwait(false));

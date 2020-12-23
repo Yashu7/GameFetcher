@@ -13,11 +13,10 @@ namespace GameFetcherLogic.ApiServices
 {
     public class EshopSalesReciever : IDataReciever<DiscountedSwitchGames, string, int>, IDisposable
     {
-        IUnityContainer container;
+    
         public EshopSalesReciever()
         {
-            container = new UnityContainer();
-            UnityRegister.Register(container);
+            
         }
         /// <summary>
         /// Return all found discounted games from Nintendo website by accessing outside API.
@@ -25,7 +24,7 @@ namespace GameFetcherLogic.ApiServices
         /// <returns>List of DiscountedSwitchGames models</returns>
         public async Task<List<DiscountedSwitchGames>> GetAll()
         {
-            var apiClient = container.Resolve<IApiClient<string>>("EshopScraperCall");
+            var apiClient = UnityRegister.Container.Resolve<IApiClient<string>>("EshopScraperCall");
             List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetAll().ConfigureAwait(false));
             return discountedGames;
         }
@@ -40,7 +39,7 @@ namespace GameFetcherLogic.ApiServices
             List<DiscountedSwitchGames> games = new List<DiscountedSwitchGames>();
             try
             {
-                var apiClient = container.Resolve<IApiClient<string>>("EshopScraperCall");
+                var apiClient = UnityRegister.Container.Resolve<IApiClient<string>>("EshopScraperCall");
                 List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetByValue(value).ConfigureAwait(false));
                 games = discountedGames.Where(x => x.Title.Contains(value)).ToList();
                 return games;

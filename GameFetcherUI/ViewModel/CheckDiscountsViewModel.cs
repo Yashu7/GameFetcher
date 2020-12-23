@@ -5,18 +5,15 @@ using GameFetcherUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class CheckDiscountsViewModel : ViewModelBase, INotifyPropertyChanged, IView, IUnitySetup
-    {
+    public class CheckDiscountsViewModel : ViewModelBase, INotifyPropertyChanged, IView
+    { 
         #region Properties, fields
-        IUnityContainer container;
+        
         private string _eshopDiscountPrice = "No sale";
         public string EshopDiscountPrice
         {
@@ -63,7 +60,6 @@ namespace GameFetcherUI.ViewModel
         {
             Game = StaticData.Instance.Model;
             DataContext = this;
-            InstantiateUnity();
             GetDiscountPrices();
         }
         #endregion
@@ -76,7 +72,7 @@ namespace GameFetcherUI.ViewModel
         public async void GetDiscountPrices()
         {
             //Nintendo Eshop Discounts
-            var eshop = container.Resolve<IDataReciever<DiscountedSwitchGames, string, int>>("EshopDealsReciever");
+            var eshop = UnityRegister.Container.Resolve<IDataReciever<DiscountedSwitchGames, string, int>>("EshopDealsReciever");
             try
             {
                 List<DiscountedSwitchGames> list = await eshop.GetByValue(Game.Name, 1).ConfigureAwait(false);
@@ -92,11 +88,8 @@ namespace GameFetcherUI.ViewModel
             }
         }
 
-        public void InstantiateUnity()
-        {
-            container = new UnityContainer();
-            UnityRegister.Register(container);
-        }
+         
+
         #endregion
 
     }

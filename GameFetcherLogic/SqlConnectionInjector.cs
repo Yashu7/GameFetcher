@@ -19,10 +19,9 @@ namespace GameFetcherLogic
         public SqlConnectionInjector()
         {
 
-            IUnityContainer container = new UnityContainer();
-            UnityRegister.Register(container);
+            
             //Plugs in Sql Queries depending on T type
-            Sql = container.Resolve<ISqlQueries<T>>();
+            Sql = UnityRegister.Container.Resolve<ISqlQueries<T>>();
 
         }
 

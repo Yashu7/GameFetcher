@@ -15,10 +15,9 @@ using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView, IUnitySetup, IViewCommandSetter
+    public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView, IViewCommandSetter
     {
         #region Properties, fields
-        private IUnityContainer container;
         private IGameDetailsModel _game = new GameDetailsModel();
         public IGameDetailsModel Game
         {
@@ -40,7 +39,6 @@ namespace GameFetcherUI.ViewModel
             DataContext = this;
             Game = StaticData.Instance.Model;
             InstantiateCommands();
-            InstantiateUnity();
         }
         #endregion
 
@@ -48,17 +46,13 @@ namespace GameFetcherUI.ViewModel
         private void UpdateGame(object obj)
         {
             var values = (object[])obj;
-           
-            container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
+
+            UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
             ICloseable closable = (ICloseable)values[1];
             closable.Close();
            
         }
-        public void InstantiateUnity()
-        {
-            container = new UnityContainer();
-            UnityRegister.Register(container);
-        }
+        
 
         #endregion
 

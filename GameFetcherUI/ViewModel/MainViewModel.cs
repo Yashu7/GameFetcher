@@ -18,12 +18,11 @@ using GameFetcherUI.Interfaces;
 
 namespace GameFetcherUI.ViewModel
 {
-    public class MainViewModel : ViewModelBase, IView, IUnitySetup, IViewCommandSetter
+    public class MainViewModel : ViewModelBase, IView, IViewCommandSetter
     {
 
         #region fields and properties
-        IUnityContainer viewContainer;
-        IUnityContainer container;
+        
         private ObservableCollection<IGameDetailsModel> _games = new ObservableCollection<IGameDetailsModel>();
         public ObservableCollection<IGameDetailsModel> Games 
         {
@@ -78,9 +77,9 @@ namespace GameFetcherUI.ViewModel
         {
 
             //Unity Injection.
-            InstantiateUnity();
+           
             InstantiateCommands();
-            GamesSource = container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
+            GamesSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
             Games = new ObservableCollection<IGameDetailsModel>(GamesSource.SelectAll());
            
             DataContext = this;
@@ -109,20 +108,20 @@ namespace GameFetcherUI.ViewModel
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 path = saveFileDialog.FileName;
-            container.Resolve<ISerializer<IGameDetailsModel>>().SerializeList(Games.ToList(),path);
+            UnityRegister.Container.Resolve<ISerializer<IGameDetailsModel>>().SerializeList(Games.ToList(),path);
 
         }
         //Open new window
         private void SearchGame(object sender)
         {
-            viewContainer.Resolve<AddGamePage>("AddGame").Show();
+            UnityResolver.Container.Resolve<AddGamePage>("AddGame").Show();
         }
         //Open new window
         private void ShowSales(object sender)
         {
             if (sender == null) return;
             StaticData.Instance.Model = sender as IGameDetailsModel;
-            viewContainer.Resolve<CheckDiscounts>().Show();
+            UnityResolver.Container.Resolve<CheckDiscounts>().Show();
         }
         //Close app
         private void QuitApp(object sender)
@@ -137,7 +136,7 @@ namespace GameFetcherUI.ViewModel
             if (sender == null) return;
             
             StaticData.Instance.Model = sender as IGameDetailsModel;
-            viewContainer.Resolve<GameStatus>().Show();
+            UnityResolver.Container.Resolve<GameStatus>().Show();
            
         }
         
@@ -192,14 +191,7 @@ namespace GameFetcherUI.ViewModel
             }
         }
 
-        public void InstantiateUnity()
-        {
-            container = new UnityContainer();
-            UnityRegister.Register(container);
-            viewContainer = new UnityContainer();
-            UnityResolver.Register(viewContainer);
-           
-        }
+      
 
         public void InstantiateCommands()
         {

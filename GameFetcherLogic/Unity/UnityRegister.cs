@@ -13,8 +13,19 @@ namespace GameFetcherLogic.Unity
 {
     public static class UnityRegister
     {
-       
-        public static void Register(IUnityContainer container)
+        private static UnityContainer _container = new UnityContainer(); 
+        public static UnityContainer Container
+        {
+            get
+            {
+                return _container;
+            }
+            private set
+            {
+                _container = value;
+            }
+        }
+        static void Register(IUnityContainer container)
         {
             container.RegisterType<ISqlQueries<IGameDetailsModel>, GameQueries>();
             container.RegisterType<ISqlQueries<IPlatformModel>, PlatformQueries>();
@@ -29,11 +40,10 @@ namespace GameFetcherLogic.Unity
             container.RegisterType<ISerializer<IGameDetailsModel>, GameDetailsModelToXmlSerializer>();
             IDataReciever<DiscountedSwitchGames, string, int> Reciever;
         
-            
-            
-
-
-
+        }
+        static UnityRegister()
+        {
+            Register(Container);
         }
         
     }

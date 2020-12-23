@@ -15,9 +15,8 @@ namespace GameFetcherLogic.ApiServices
         public IApiClient<string> apiClient;
         public GameModelsReciever()
         {
-            IUnityContainer container = new UnityContainer();
-            UnityRegister.Register(container);
-            apiClient = container.Resolve<IApiClient<string>>("IGDBcall");
+            
+            apiClient = UnityRegister.Container.Resolve<IApiClient<string>>("IGDBcall");
 
         }
         public async Task<List<GameDetailsModel>> GetAll()

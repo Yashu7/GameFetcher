@@ -9,9 +9,21 @@ using Unity;
 
 namespace GameFetcherUI.Unity
 {
-    public static class UnityResolver
+     static class UnityResolver
     {
-        public static void Register(IUnityContainer container)
+        private static UnityContainer _container = new UnityContainer();
+        public static UnityContainer Container
+        {
+            get
+            {
+                return _container;
+            }
+            private set
+            {
+                _container = value;
+            }
+        }
+        private static void Register(IUnityContainer container)
         {
             container.RegisterType<IView, GameStatus>();
             container.RegisterType<IView, GameStatusViewModel>();
@@ -24,6 +36,10 @@ namespace GameFetcherUI.Unity
 
             container.RegisterType<IView, CheckDiscounts>("CheckDiscount");
             container.RegisterType<IView, CheckDiscountsViewModel>("CheckDiscount");
+        }
+        static UnityResolver()
+        {
+            Register(Container);
         }
     }
 }
