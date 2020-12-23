@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIapp", "APIapp\APIapp.csproj", "{11829E24-D9B8-4758-B3AF-3B679E581075}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFetcherUI", "GameFetcherUI\GameFetcherUI.csproj", "{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_ViewModels_Test", "UI_ViewModels_Test\UI_ViewModels_Test.csproj", "{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}"
@@ -24,14 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Debug|x86.ActiveCfg = Debug|x86
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Debug|x86.Build.0 = Debug|x86
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Release|x86.ActiveCfg = Release|x86
-		{11829E24-D9B8-4758-B3AF-3B679E581075}.Release|x86.Build.0 = Release|x86
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Debug|x86.ActiveCfg = Debug|x86

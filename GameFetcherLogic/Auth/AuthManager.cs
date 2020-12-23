@@ -1,11 +1,12 @@
-﻿using APIapp.Factories;
+﻿
+using GameFetcherLogic.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIapp.Auth
+namespace GameFetcherLogic.Auth
 {
     public static class AuthManager
     {

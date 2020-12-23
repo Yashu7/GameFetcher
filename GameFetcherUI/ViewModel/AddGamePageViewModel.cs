@@ -124,6 +124,7 @@ namespace GameFetcherUI.ViewModel
             var dataReciever = UnityRegister.Container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
             PlatformModel selectedPlatform = sender as PlatformModel;
             PlatformModel platform = selectedPlatform;
+            
             ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await dataReciever.GetByValue(SearchString, platform.platformId).ConfigureAwait(false));
 
             Games = gameList;

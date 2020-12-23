@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIapp
+namespace GameFetcherLogic.Auth
 {
-    public interface IObject
+    public interface IAuthClient : IObject
     {
+        string ReturnToken();
+        Task GetAuth();
     }
 }

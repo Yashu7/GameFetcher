@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIapp
+namespace GameFetcherLogic.Auth
 {
-    class Program
+    interface IAuthModel
     {
-         static void Main()
-        {
-            
-        }
     }
 }

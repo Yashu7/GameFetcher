@@ -1,12 +1,4 @@
-﻿using APIapp.Auth;
-using APIapp.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace APIapp.Factories
+﻿namespace GameFetcherLogic.Factories
 {
     public class AuthClientFactory : Factory
     {

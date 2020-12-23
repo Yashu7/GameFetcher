@@ -1,4 +1,5 @@
-﻿using APIapp.Auth;
+﻿
+using GameFetcherLogic.Auth;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APIapp
+namespace GameFetcherLogic
 {
     public sealed class TwitchAuth : IAuthModel
     

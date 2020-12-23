@@ -1,4 +1,5 @@
-﻿using APIapp.API;
+﻿
+using GameFetcherLogic.ApiClients.Interfaces;
 using GameFetcherLogic.Models;
 using GameFetcherLogic.Unity;
 using Newtonsoft.Json;
@@ -25,7 +26,7 @@ namespace GameFetcherLogic.ApiServices
         public async Task<List<DiscountedSwitchGames>> GetAll()
         {
             var apiClient = UnityRegister.Container.Resolve<IApiClient<string>>("EshopScraperCall");
-            List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetAll().ConfigureAwait(false));
+            List<DiscountedSwitchGames> discountedGames = new List<DiscountedSwitchGames>((IEnumerable<DiscountedSwitchGames>)await apiClient.GetAll().ConfigureAwait(false));
             return discountedGames;
         }
 
@@ -40,7 +41,7 @@ namespace GameFetcherLogic.ApiServices
             try
             {
                 var apiClient = UnityRegister.Container.Resolve<IApiClient<string>>("EshopScraperCall");
-                List<DiscountedSwitchGames> discountedGames = JsonConvert.DeserializeObject<List<DiscountedSwitchGames>>(await apiClient.GetByValue(value).ConfigureAwait(false));
+                List<DiscountedSwitchGames> discountedGames = new List<DiscountedSwitchGames>((IEnumerable<DiscountedSwitchGames>)await apiClient.Get(value).ConfigureAwait(false));
                 games = discountedGames.Where(x => x.Title.Contains(value)).ToList();
                 return games;
             }
