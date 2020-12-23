@@ -1,4 +1,4 @@
-﻿using DesktopUI_Logic.Models;
+﻿using GameFetcherLogic.Models;
 using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;

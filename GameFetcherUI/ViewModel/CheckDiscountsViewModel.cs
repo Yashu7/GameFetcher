@@ -1,6 +1,6 @@
-﻿using DesktopUI_Logic.ApiServices;
-using DesktopUI_Logic.Models;
-using DesktopUI_Logic.Unity;
+﻿using GameFetcherLogic.ApiServices;
+using GameFetcherLogic.Models;
+using GameFetcherLogic.Unity;
 using GameFetcherUI.Interfaces;
 using System;
 using System.Collections.Generic;

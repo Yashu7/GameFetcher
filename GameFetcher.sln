@@ -7,9 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIapp", "APIapp\APIapp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFetcherUI", "GameFetcherUI\GameFetcherUI.csproj", "{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI_Logic", "DesktopUI_Logic\DesktopUI_Logic.csproj", "{48CD19C0-778B-4283-974A-42E912EFC034}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_ViewModels_Test", "UI_ViewModels_Test\UI_ViewModels_Test.csproj", "{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B34551A0-1445-4AA2-AE88-D22E2E73C82E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameFetcherLogic", "GameFetcherLogic\GameFetcherLogic.csproj", "{1936B999-CBB7-48FA-BC44-34944D11D966}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +40,6 @@ Global
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Release|x86.ActiveCfg = Release|x86
 		{A88640A0-8296-4E8C-A8B7-DE3B6100F3DD}.Release|x86.Build.0 = Release|x86
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|x86.ActiveCfg = Debug|x86
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Debug|x86.Build.0 = Debug|x86
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|Any CPU.Build.0 = Release|Any CPU
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|x86.ActiveCfg = Release|x86
-		{48CD19C0-778B-4283-974A-42E912EFC034}.Release|x86.Build.0 = Release|x86
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -51,6 +48,14 @@ Global
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|x86.ActiveCfg = Release|Any CPU
 		{CF9B8D78-E8B2-400C-8AA5-8D00E8CD5884}.Release|x86.Build.0 = Release|Any CPU
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Debug|x86.ActiveCfg = Debug|x86
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Debug|x86.Build.0 = Debug|x86
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Release|x86.ActiveCfg = Release|x86
+		{1936B999-CBB7-48FA-BC44-34944D11D966}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

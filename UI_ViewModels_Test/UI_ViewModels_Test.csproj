@@ -64,10 +64,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DesktopUI_Logic\DesktopUI_Logic.csproj">
-      <Project>{48CD19C0-778B-4283-974A-42E912EFC034}</Project>
-      <Name>DesktopUI_Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameFetcherUI\GameFetcherUI.csproj">
       <Project>{a88640a0-8296-4e8c-a8b7-de3b6100f3dd}</Project>
       <Name>GameFetcherUI</Name>

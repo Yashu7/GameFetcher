@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using DesktopUI_Logic.Models;
-using DesktopUI_Logic;
+using GameFetcherLogic.Models;
+using GameFetcherLogic;
 using System.Windows.Controls;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using DesktopUI_Logic.Unity;
+using GameFetcherLogic.Unity;
 using Unity;
-using DesktopUI_Logic.ApiServices;
+using GameFetcherLogic.ApiServices;
 using GameFetcherUI.Unity;
 
 namespace GameFetcherUI.ViewModel

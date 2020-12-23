@@ -1,6 +1,6 @@
-﻿using DesktopUI_Logic;
-using DesktopUI_Logic.Models;
-using DesktopUI_Logic.Unity;
+﻿using GameFetcherLogic;
+using GameFetcherLogic.Models;
+using GameFetcherLogic.Unity;
 using GameFetcherUI.Interfaces;
 using System;
 using System.Collections.Generic;

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:GameFetcherUI"
-        xmlns:s ="clr-namespace:DesktopUI_Logic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
+        xmlns:s ="clr-namespace:GameFetcherLogic;assembly=DesktopUI_Logic" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
         mc:Ignorable="d"
         Title="Game Fetcher" Height="600" Width="750"
         ResizeMode="CanResize" Background="#FFA1B2EA" 
