@@ -37,7 +37,7 @@ namespace GameFetcherUI.ViewModel
         public GameStatusViewModel()
         {
             DataContext = this;
-            Game = StaticData.Instance.Model;
+            Game = PickedGameSingleton.Instance.Model;
             InstantiateCommands();
         }
         #endregion

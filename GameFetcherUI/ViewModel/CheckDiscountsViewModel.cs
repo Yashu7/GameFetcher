@@ -58,7 +58,7 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public CheckDiscountsViewModel()
         {
-            Game = StaticData.Instance.Model;
+            Game = PickedGameSingleton.Instance.Model;
             DataContext = this;
             GetDiscountPrices();
         }

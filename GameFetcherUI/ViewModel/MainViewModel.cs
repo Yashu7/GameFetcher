@@ -8,12 +8,9 @@ using System.Collections.ObjectModel;
 using GameFetcherUI.View;
 using Unity;
 using GameFetcherLogic.Unity;
-using System.ComponentModel;
 using GameFetcherUI.Unity;
 using GameFetcherLogic.SerializationServices;
-using System.Collections.Generic;
 using Microsoft.Win32;
-using System.IO;
 using GameFetcherUI.Interfaces;
 
 namespace GameFetcherUI.ViewModel
@@ -120,7 +117,7 @@ namespace GameFetcherUI.ViewModel
         private void ShowSales(object sender)
         {
             if (sender == null) return;
-            StaticData.Instance.Model = sender as IGameDetailsModel;
+            PickedGameSingleton.Instance.Model = sender as IGameDetailsModel;
             UnityResolver.Container.Resolve<CheckDiscounts>().Show();
         }
         //Close app
@@ -135,7 +132,7 @@ namespace GameFetcherUI.ViewModel
         {
             if (sender == null) return;
             
-            StaticData.Instance.Model = sender as IGameDetailsModel;
+            PickedGameSingleton.Instance.Model = sender as IGameDetailsModel;
             UnityResolver.Container.Resolve<GameStatus>().Show();
            
         }

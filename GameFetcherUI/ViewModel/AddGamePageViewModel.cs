@@ -99,7 +99,7 @@ namespace GameFetcherUI.ViewModel
         {
             IGameDetailsModel game = sender as IGameDetailsModel;
             if (game == null) return;
-            StaticData.Instance.Model = game;
+            PickedGameSingleton.Instance.Model = game;
             UnityResolver.Container.Resolve<GameDetails>().Show();
            
         }

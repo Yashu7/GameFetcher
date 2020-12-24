@@ -100,6 +100,9 @@
     <ApplicationIcon>puzzle_expansion_icon_153871.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -203,7 +206,7 @@
     <Compile Include="Interfaces\IViewCommandSetter.cs" />
     <Compile Include="Commands\MultiRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="StaticData.cs" />
+    <Compile Include="Helpers\PickedGameSingleton.cs" />
     <Compile Include="Unity\UnityResolver.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\CheckDiscountsViewModel.cs" />
@@ -287,6 +290,9 @@
       <Project>{1936b999-cbb7-48fa-bc44-34944d11d966}</Project>
       <Name>GameFetcherLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />

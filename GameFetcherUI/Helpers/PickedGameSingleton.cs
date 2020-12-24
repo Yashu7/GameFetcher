@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace GameFetcherUI
 {
-    public sealed class StaticData
+    public sealed class PickedGameSingleton
     {
-       //Static Singleton class that holds one game at a time.
-       //TODO: Later change for more proper way to pass game instance.
+       
         public IGameDetailsModel Model { get; set; }
-        StaticData()
+        PickedGameSingleton()
         {
             
         }
         private static readonly object padlock = new object();
-        private static StaticData _instance;
-        public static StaticData Instance
+        private static PickedGameSingleton _instance;
+        public static PickedGameSingleton Instance
         {
             get
             {
@@ -27,7 +26,7 @@ namespace GameFetcherUI
                 {
                     if(_instance == null)
                     {
-                        _instance = new StaticData();
+                        _instance = new PickedGameSingleton();
                     }
                     return _instance;
                 }

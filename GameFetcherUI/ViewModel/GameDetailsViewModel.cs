@@ -29,7 +29,7 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public GameDetailsViewModel()
         {
-            Game = StaticData.Instance.Model;
+            Game = PickedGameSingleton.Instance.Model;
             DataContext = this;
         }
         #endregion
