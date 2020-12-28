@@ -200,6 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Converters\EpochToDateConverter.cs" />
     <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\SearchGameConverter.cs" />
     <Compile Include="Interfaces\ICloseable.cs" />
@@ -207,6 +208,8 @@
     <Compile Include="Commands\MultiRelayCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Helpers\PickedGameSingleton.cs" />
+    <Compile Include="Models\GameModel.cs" />
+    <Compile Include="Models\PlatformModel.cs" />
     <Compile Include="Unity\UnityResolver.cs" />
     <Compile Include="ViewModel\AddGamePageViewModel.cs" />
     <Compile Include="ViewModel\CheckDiscountsViewModel.cs" />
@@ -291,9 +294,7 @@
       <Name>GameFetcherLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
