@@ -1,4 +1,5 @@
 ﻿using GameFetcherLogic.Models;
+using GameFetcherUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace GameFetcherUI.ViewModel
     public class GameDetailsViewModel : ViewModelBase, IView
     {
         #region  Fields, properites
-        private IGameDetailsModel _game;
-        public IGameDetailsModel Game
+        private GameModel _game;
+        public GameModel Game
         {
             get
             {

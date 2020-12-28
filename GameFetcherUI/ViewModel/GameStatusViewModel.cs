@@ -1,7 +1,10 @@
 ﻿using GameFetcherLogic;
 using GameFetcherLogic.Models;
 using GameFetcherLogic.Unity;
+using GameFetcherUI.DataRecievers;
+using GameFetcherUI.Factories;
 using GameFetcherUI.Interfaces;
+using GameFetcherUI.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,8 +21,9 @@ namespace GameFetcherUI.ViewModel
     public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView, IViewCommandSetter
     {
         #region Properties, fields
-        private IGameDetailsModel _game = new GameDetailsModel();
-        public IGameDetailsModel Game
+        private IDatabaseReciever<GameModel> GamesReciever { get; set; }
+        private GameModel _game = new GameModel();
+        public GameModel Game
         {
             get
             {
@@ -36,6 +40,7 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public GameStatusViewModel()
         {
+            GamesReciever = GameModelDatabaseRecieverFactory.Factory.GetInstance();
             DataContext = this;
             Game = PickedGameSingleton.Instance.Model;
             InstantiateCommands();
@@ -47,7 +52,7 @@ namespace GameFetcherUI.ViewModel
         {
             var values = (object[])obj;
 
-            UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>().UpdateGame(values[0] as IGameDetailsModel);
+            GamesReciever.Update(values[0] as GameModel);
             ICloseable closable = (ICloseable)values[1];
             closable.Close();
            

@@ -1,4 +1,5 @@
 ﻿using GameFetcherLogic.Models;
+using GameFetcherUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.DependencyResolution;
@@ -11,7 +12,7 @@ namespace GameFetcherUI
     public sealed class PickedGameSingleton
     {
        
-        public IGameDetailsModel Model { get; set; }
+        public GameModel Model { get; set; }
         PickedGameSingleton()
         {
             

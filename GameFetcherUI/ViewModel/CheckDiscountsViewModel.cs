@@ -2,6 +2,7 @@
 using GameFetcherLogic.Models;
 using GameFetcherLogic.Unity;
 using GameFetcherUI.Interfaces;
+using GameFetcherUI.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,8 +41,8 @@ namespace GameFetcherUI.ViewModel
                 NotifyPropertyChanged("EshopPrice");
             }
         }
-        private IGameDetailsModel _game;
-        public IGameDetailsModel Game
+        private GameModel _game;
+        public GameModel Game
         {
             get
             {

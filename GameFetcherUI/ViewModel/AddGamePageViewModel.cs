@@ -14,6 +14,9 @@ using GameFetcherLogic.Unity;
 using Unity;
 using GameFetcherLogic.ApiServices;
 using GameFetcherUI.Unity;
+using GameFetcherUI.Models;
+using GameFetcherUI.DataRecievers;
+using GameFetcherUI.Factories;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -24,7 +27,7 @@ namespace GameFetcherUI.ViewModel
         readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
         // SQL Interface for Unity Container
         readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
-        
+        private IDatabaseReciever<GameModel> DataReciever { get; set; }
         private string _searchString = "Insert Game Title";
         public string SearchString 
         {
@@ -58,8 +61,8 @@ namespace GameFetcherUI.ViewModel
         #region Constructor
         public AddGamePageViewModel()
         {
-            //Unity Initialization
             
+            DataReciever = GameModelDatabaseRecieverFactory.Factory.GetInstance();
             GameSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
             PlatformSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
 
@@ -97,9 +100,8 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private void ShowDetails(object sender)
         {
-            IGameDetailsModel game = sender as IGameDetailsModel;
-            if (game == null) return;
-            PickedGameSingleton.Instance.Model = game;
+            if ((GameModel)sender == null) return;
+            PickedGameSingleton.Instance.Model = (GameModel)sender;
             UnityResolver.Container.Resolve<GameDetails>().Show();
            
         }
@@ -109,8 +111,8 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private void AddGame(object sender)
         {
-            if (!(sender is IGameDetailsModel game)) return;
-            GameSource.InsertGame(game);
+            if (!(sender is GameModel game)) return;
+            DataReciever.Insert(game);
             MessageBox.Show("Game Added");
             EmptyOutFields();
             //Close this window?

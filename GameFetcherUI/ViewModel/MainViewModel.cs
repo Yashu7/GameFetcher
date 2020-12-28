@@ -15,6 +15,8 @@ using GameFetcherUI.Interfaces;
 using GameFetcherUI.Models;
 using AutoMapper;
 using System.Collections.Generic;
+using GameFetcherUI.DataRecievers;
+using GameFetcherUI.Factories;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -22,7 +24,7 @@ namespace GameFetcherUI.ViewModel
     {
 
         #region fields and properties
-        private Mapper _mapper;
+        private IDatabaseReciever<GameModel> GamesRecievier { get; set; }
         private ObservableCollection<GameModel> _games = new ObservableCollection<GameModel>();
         public ObservableCollection<GameModel> Games 
         {
@@ -76,20 +78,10 @@ namespace GameFetcherUI.ViewModel
         public MainViewModel()
         {
 
-            //Unity Injection.
-            _mapper = new Mapper(App.Config);
-            
             InstantiateCommands();
-            GamesSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
-            Games = new ObservableCollection<GameModel>();
-            List<IGameDetailsModel> l = GamesSource.SelectAll();
-            foreach (var item in l)
-            {
-                Games.Add(_mapper.Map<GameModel>(item));
-            }
+            GamesRecievier = GameModelDatabaseRecieverFactory.Factory.GetInstance();
+            Games = new ObservableCollection<GameModel>(GamesRecievier.GetAll());
             DataContext = this;
-           
-           
         }
         #endregion
 
@@ -125,7 +117,7 @@ namespace GameFetcherUI.ViewModel
         private void ShowSales(object sender)
         {
             if (sender == null) return;
-            PickedGameSingleton.Instance.Model = sender as IGameDetailsModel;
+            PickedGameSingleton.Instance.Model = sender as GameModel;
             UnityResolver.Container.Resolve<CheckDiscounts>().Show();
         }
         //Close app
@@ -140,7 +132,7 @@ namespace GameFetcherUI.ViewModel
         {
             if (sender == null) return;
             
-            PickedGameSingleton.Instance.Model = sender as IGameDetailsModel;
+            PickedGameSingleton.Instance.Model = sender as GameModel;
             UnityResolver.Container.Resolve<GameStatus>().Show();
            
         }
@@ -152,8 +144,8 @@ namespace GameFetcherUI.ViewModel
             var canDelete = MessageBox.Show("Do you want delete this game from your list?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (canDelete == MessageBoxResult.Yes)
             {
-                GamesSource.Delete(sender as IGameDetailsModel);
-                Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>,List<GameModel>>(GamesSource.SelectAll()));
+                GamesRecievier.Delete(sender as GameModel);
+                Games = new ObservableCollection<GameModel>(GamesRecievier.GetAll());
             }
 
 
@@ -166,29 +158,28 @@ namespace GameFetcherUI.ViewModel
             {
                 case "0":
                     Label = "All Games";
-                    var a = GamesSource.SelectAll();
-                    Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>, List<GameModel>>(a));
+                    Games = new ObservableCollection<GameModel>(GamesRecievier.GetAll());
                     break;
                 case "1":
                     Label = "Played Games";
-                    var b = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Played).ToList();
-                    Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>, List<GameModel>>(b));
+                    var playedGames = GamesRecievier.GetAll().Where(x => x.GetStatus == GameModel.Status.Played).ToList();
+                    Games = new ObservableCollection<GameModel>(playedGames);
 
                     break;
                 case "2":
                     Label = "Playing Games";
-                    var c = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Playing).ToList();
-                    Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>, List<GameModel>>(c));
+                    var playingGames = GamesRecievier.GetAll().Where(x => x.GetStatus == GameModel.Status.Playing).ToList();
+                    Games = new ObservableCollection<GameModel>(playingGames);
                     break;
                 case "3":
                     Label = "Not Played Games";
-                    var d = GamesSource.SelectAll().Where(x => x.GetStatus == GameDetailsModel.Status.Not_Played).ToList();
-                    Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>, List<GameModel>>(d));
+                    var notPlayedGames = GamesRecievier.GetAll().Where(x => x.GetStatus == GameModel.Status.Not_Played).ToList();
+                    Games = new ObservableCollection<GameModel>(notPlayedGames);
                     break;
                 case "4":
                     Label = "Upcoming Games";
-                    var e = GamesSource.SelectAll().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
-                    Games = new ObservableCollection<GameModel>(_mapper.Map<List<IGameDetailsModel>, List<GameModel>>(e));
+                    var upcomingGames = GamesRecievier.GetAll().Where(x => x.FirstReleaseDate >= Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds)).ToList();
+                    Games = new ObservableCollection<GameModel>(upcomingGames);
                     break;
                 default:
                     MessageBox.Show("Pick List");
