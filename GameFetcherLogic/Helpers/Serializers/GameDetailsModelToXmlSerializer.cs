@@ -19,24 +19,19 @@ namespace GameFetcherLogic.SerializationServices
         {
             throw new NotImplementedException();  
         }
-        
         public void SerializeList(List<IGameDetailsModel> objs, string path)
         {
-            List<GameDetailsModel> models = objs.Cast<GameDetailsModel>().ToList();
-            List<GameInfoModel> xmlModels = new List<GameInfoModel>(); ;
-            foreach(var m in models)
+          
+            List<GameInfoModel> xmlModels = new List<GameInfoModel>();
+            foreach(var m in objs)
             {
                 xmlModels.Add(new GameInfoModel { Title = m.Name,Platform =m.PlatformPlaying,Score =m.MyScore.ToString(),PlayingStatus =m.GetStatus.ToString() });
             }
-            XmlSerializer serializer = new XmlSerializer(typeof(List<GameInfoModel>));
-            string a = GameListCustomSerializer<GameInfoModel>.Serialize(xmlModels);
-
+            string formattedText = GameListCustomSerializer<GameInfoModel>.SerializeListToFormattedString(xmlModels);
             using (TextWriter writer = new StreamWriter(path + ".txt"))
             {
-                writer.Write(a);
-                
+                writer.Write(formattedText);
             }
-
         }
         
     }

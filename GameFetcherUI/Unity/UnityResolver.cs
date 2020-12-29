@@ -1,4 +1,6 @@
-﻿using GameFetcherUI.View;
+﻿using GameFetcherLogic.Models;
+using GameFetcherLogic.SerializationServices;
+using GameFetcherUI.View;
 using GameFetcherUI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,8 @@ namespace GameFetcherUI.Unity
 
             container.RegisterType<IView, CheckDiscounts>("CheckDiscount");
             container.RegisterType<IView, CheckDiscountsViewModel>("CheckDiscount");
+
+         
         }
         static UnityResolver()
         {

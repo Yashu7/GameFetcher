@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
-using GameFetcherLogic.Models;
-using GameFetcherLogic;
 using System.Collections.ObjectModel;
 using GameFetcherUI.View;
 using Unity;
@@ -13,10 +11,11 @@ using GameFetcherLogic.SerializationServices;
 using Microsoft.Win32;
 using GameFetcherUI.Interfaces;
 using GameFetcherUI.Models;
-using AutoMapper;
-using System.Collections.Generic;
 using GameFetcherUI.DataRecievers;
 using GameFetcherUI.Factories;
+using AutoMapper;
+using GameFetcherLogic.Models;
+using System.Collections.Generic;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -105,7 +104,7 @@ namespace GameFetcherUI.ViewModel
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             if (saveFileDialog.ShowDialog() == true)
                 path = saveFileDialog.FileName;
-            UnityRegister.Container.Resolve<ISerializer<GameModel>>().SerializeList(Games.ToList(),path);
+            UnityRegister.Container.Resolve<ISerializer<IGameDetailsModel>>().SerializeList(new Mapper(App.Config).Map<List<IGameDetailsModel>>(Games.ToList()),path);
 
         }
        

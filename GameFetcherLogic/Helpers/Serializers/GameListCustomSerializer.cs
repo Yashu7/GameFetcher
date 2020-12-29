@@ -7,7 +7,12 @@ namespace GameFetcherLogic.SerializationServices
 {
     public static class GameListCustomSerializer<T>
     {
-        public static string Serialize(List<T> obj)
+        /// <summary>
+        /// Formats list of game objects into a single string for serialization.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string SerializeListToFormattedString(List<T> obj)
         {
             try
             {
