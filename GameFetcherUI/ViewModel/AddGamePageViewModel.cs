@@ -13,17 +13,17 @@ using GameFetcherUI.Unity;
 using GameFetcherUI.Models;
 using GameFetcherUI.DataRecievers;
 using GameFetcherUI.Factories;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace GameFetcherUI.ViewModel
 {
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged, IView
     {
         #region Fields,properties, lists
-        // SQL Interface for Unity Container
-        readonly ISqlConnectionInjector<IGameDetailsModel> GameSource;
-        // SQL Interface for Unity Container
-        readonly ISqlConnectionInjector<IPlatformModel> PlatformSource;
-        private IDatabaseReciever<GameModel> DataReciever { get; set; }
+        private IDatabaseReciever<GameModel> GameModelDataReciever { get; set; }
+        private IDatabaseReciever<Models.PlatformModel> PlatformModelDataReciever { get; set; }
+
         private string _searchString = "Insert Game Title";
         public string SearchString 
         {
@@ -39,15 +39,15 @@ namespace GameFetcherUI.ViewModel
             
         }
         // List of games taken from API
-        private ObservableCollection<IGameDetailsModel> _Games = new ObservableCollection<IGameDetailsModel>();
-        public ObservableCollection<IGameDetailsModel> Games
+        private ObservableCollection<GameModel> _Games = new ObservableCollection<GameModel>();
+        public ObservableCollection<GameModel> Games
         {
             get { return _Games; }
             set { _Games = value; NotifyPropertyChanged("Games"); }
         }
         // List of platforms taken from database
-        private ObservableCollection<IPlatformModel> _Platforms = new ObservableCollection<IPlatformModel>();
-        public ObservableCollection<IPlatformModel> Platforms
+        private ObservableCollection<Models.PlatformModel> _Platforms = new ObservableCollection<Models.PlatformModel>();
+        public ObservableCollection<Models.PlatformModel> Platforms
         {
             get { return _Platforms; }
             set { _Platforms = value; NotifyPropertyChanged("Platforms"); }
@@ -58,17 +58,15 @@ namespace GameFetcherUI.ViewModel
         public AddGamePageViewModel()
         {
             
-            DataReciever = GameModelDatabaseRecieverFactory.Factory.GetInstance();
-            GameSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
-            PlatformSource = UnityRegister.Container.Resolve<ISqlConnectionInjector<IPlatformModel>>();
-
+            GameModelDataReciever = GameModelDatabaseRecieverFactory.Factory.GetInstance();
+            PlatformModelDataReciever = PlatformModelDatabaseRecieverFactory.Factory.GetInstance();
             //Command Initialization
             DetailsCommand = new RelayCommand(new Action<object>(ShowDetails));
             AddCommand = new RelayCommand(new Action<object>(AddGame));
             SearchCommand = new RelayCommand(new Action<object>(SearchGames));
 
             //Assign Platforms
-            Platforms = new ObservableCollection<IPlatformModel>(PlatformSource.SelectAll());
+            Platforms = new ObservableCollection<Models.PlatformModel>(PlatformModelDataReciever.GetAll());
 
             DataContext = this;
         }
@@ -108,7 +106,7 @@ namespace GameFetcherUI.ViewModel
         private void AddGame(object sender)
         {
             if (!(sender is GameModel game)) return;
-            DataReciever.Insert(game);
+            GameModelDataReciever.Insert(game);
             MessageBox.Show("Game Added");
             EmptyOutFields();
             //Close this window?
@@ -120,10 +118,10 @@ namespace GameFetcherUI.ViewModel
         private async void SearchGames(object sender)
         {
             var dataReciever = UnityRegister.Container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
-            PlatformModel selectedPlatform = sender as PlatformModel;
-            PlatformModel platform = selectedPlatform;
+            Models.PlatformModel selectedPlatform = sender as Models.PlatformModel;
+            Models.PlatformModel platform = selectedPlatform;
             
-            ObservableCollection<IGameDetailsModel> gameList = new ObservableCollection<IGameDetailsModel>(await dataReciever.GetByValue(SearchString, platform.platformId).ConfigureAwait(false));
+            ObservableCollection<GameModel> gameList = new ObservableCollection<GameModel>(new Mapper(App.Config).Map<List<GameModel>>(await dataReciever.GetByValue(SearchString, platform.PlatformId).ConfigureAwait(false)));
 
             Games = gameList;
         }

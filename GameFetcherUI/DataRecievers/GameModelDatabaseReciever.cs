@@ -11,12 +11,12 @@ namespace GameFetcherUI.DataRecievers
 {
     public class GameModelDatabaseReciever : IDatabaseReciever<GameModel>
     {
-        private ISqlConnectionInjector<IGameDetailsModel> sqlConn;
+        private readonly ISqlConnectionInjector<IGameDetailsModel> _sqlConn;
         private Mapper _mapper { get; set; }
         public GameModelDatabaseReciever()
         {
             _mapper = new Mapper(App.Config);
-            sqlConn = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
+            _sqlConn = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();
         }
         /// <summary>
         /// Deletes record from source database based on passed parameter.
@@ -24,7 +24,7 @@ namespace GameFetcherUI.DataRecievers
         /// <param name="name"></param>
         public void Delete(GameModel name)
         {
-            sqlConn.Delete(_mapper.Map<IGameDetailsModel>(name));
+            _sqlConn.Delete(_mapper.Map<IGameDetailsModel>(name));
         }
         /// <summary>
         /// Get list of records from the source database with the same name as paramater's name.
@@ -33,7 +33,7 @@ namespace GameFetcherUI.DataRecievers
         /// <returns></returns>
         public List<GameModel> GetBy(GameModel name)
         {
-            var gamesList = _mapper.Map<List<IGameDetailsModel>, List<GameModel>>(sqlConn.SelectAll());
+            var gamesList = _mapper.Map<List<IGameDetailsModel>, List<GameModel>>(_sqlConn.SelectAll());
             return (List<GameModel>)gamesList.Where(x => x.Name.Contains(name.Name));
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace GameFetcherUI.DataRecievers
         /// <returns></returns>
         public List<GameModel> GetAll()
         {
-            return _mapper.Map<List<IGameDetailsModel>, List<GameModel>>(sqlConn.SelectAll());
+            return _mapper.Map<List<IGameDetailsModel>, List<GameModel>>(_sqlConn.SelectAll());
         }
         /// <summary>
         /// Updates record from source database based on passed parameter.
@@ -50,7 +50,7 @@ namespace GameFetcherUI.DataRecievers
         /// <param name="name"></param>
         public void Update(GameModel name)
         {
-            sqlConn.UpdateGame(_mapper.Map<IGameDetailsModel>(name));
+            _sqlConn.UpdateGame(_mapper.Map<IGameDetailsModel>(name));
         }
         /// <summary>
         /// Inserts new record into source database.
@@ -58,7 +58,7 @@ namespace GameFetcherUI.DataRecievers
         /// <param name="name"></param>
         public void Insert(GameModel name)
         {
-            sqlConn.InsertGame(_mapper.Map<IGameDetailsModel>(name));
+            _sqlConn.InsertGame(_mapper.Map<IGameDetailsModel>(name));
         }
     }
 }

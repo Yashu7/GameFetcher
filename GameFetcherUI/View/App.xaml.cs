@@ -44,7 +44,11 @@ namespace GameFetcherUI
         }
         private void AutoMapperSettings()
         {
-            Config = new MapperConfiguration(cfg => cfg.CreateMap<IGameDetailsModel, GameModel>().ReverseMap());
+            Config = new MapperConfiguration(cfg =>
+            { 
+                cfg.CreateMap<IGameDetailsModel, GameModel>().ReverseMap();
+                cfg.CreateMap<IPlatformModel, Models.PlatformModel>().ReverseMap();
+            });
          }
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {

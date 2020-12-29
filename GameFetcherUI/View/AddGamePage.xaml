@@ -26,7 +26,7 @@
 
 
         <StackPanel Margin="120 0 0 0" Grid.Row="1">
-            <ComboBox Width="300" x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Width="300" x:Name="PlatformBox" IsSynchronizedWithCurrentItem="True" DisplayMemberPath="Name" ItemsSource="{Binding Platforms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         
         <Button Command="{Binding DetailsCommand}" CommandParameter="{Binding ElementName=GameList,Path=SelectedItem}" Content="Details" Grid.Row="1" 
