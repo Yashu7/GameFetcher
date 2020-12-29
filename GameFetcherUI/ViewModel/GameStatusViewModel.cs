@@ -1,20 +1,11 @@
-﻿using GameFetcherLogic;
-using GameFetcherLogic.Models;
-using GameFetcherLogic.Unity;
-using GameFetcherUI.DataRecievers;
+﻿using GameFetcherUI.DataRecievers;
 using GameFetcherUI.Factories;
 using GameFetcherUI.Interfaces;
 using GameFetcherUI.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Unity;
 
 namespace GameFetcherUI.ViewModel
 {
@@ -51,14 +42,10 @@ namespace GameFetcherUI.ViewModel
         private void UpdateGame(object obj)
         {
             var values = (object[])obj;
-
             GamesReciever.Update(values[0] as GameModel);
             ICloseable closable = (ICloseable)values[1];
             closable.Close();
-           
         }
-        
-
         #endregion
 
         #region ICommands

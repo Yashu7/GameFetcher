@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameFetcherUI.Models
 {
-    public class GameModel
+    public class GameModel : INotifyPropertyChanged
     {
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -33,8 +33,8 @@ namespace GameFetcherUI.ViewModel
         }
         //Game List Inumerator
         private string _choice = "0";
-        private IGameDetailsModel _selectedGame;
-        public IGameDetailsModel SelectedGame
+        private GameModel _selectedGame;
+        public GameModel SelectedGame
         {
             get { return _selectedGame; }
             set { _selectedGame = value;
@@ -71,7 +71,7 @@ namespace GameFetcherUI.ViewModel
             }
         }
 
-        private readonly ISqlConnectionInjector<IGameDetailsModel> GamesSource;
+    
         #endregion
 
         #region Constructor
@@ -108,12 +108,12 @@ namespace GameFetcherUI.ViewModel
             UnityRegister.Container.Resolve<ISerializer<GameModel>>().SerializeList(Games.ToList(),path);
 
         }
-        //Open new window
+       
         private void SearchGame(object sender)
         {
             UnityResolver.Container.Resolve<AddGamePage>("AddGame").Show();
         }
-        //Open new window
+        
         private void ShowSales(object sender)
         {
             if (sender == null) return;
@@ -127,7 +127,7 @@ namespace GameFetcherUI.ViewModel
            
             (sender as Window).Close();
         }
-        //Open new window
+        
         private void ShowGameDetails(object sender)
         {
             if (sender == null) return;

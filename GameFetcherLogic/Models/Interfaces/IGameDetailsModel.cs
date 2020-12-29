@@ -39,10 +39,6 @@ namespace GameFetcherLogic.Models
         string Summary { get; set; }
         List<long> Tags { get; set; }
         List<long> Themes { get; set; }
-
-        event PropertyChangedEventHandler PropertyChanged;
-
-        
-        void NotifyPropertyChanged(string propName);
+       
     }
 }

@@ -4,11 +4,7 @@ using GameFetcherLogic.ApiServices;
 using GameFetcherLogic.Models;
 using GameFetcherLogic.SerializationServices;
 using GameFetcherLogic.SqlServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Unity;
-using Unity.Injection;
 
 namespace GameFetcherLogic.Unity
 {

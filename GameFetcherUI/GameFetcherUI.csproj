@@ -206,7 +206,7 @@
     <Compile Include="DataRecievers\GameModelDatabaseReciever.cs" />
     <Compile Include="DataRecievers\IDatabaseReciever.cs" />
     <Compile Include="Factories\GameModelDatabaseRecieverFactory.cs" />
-    <Compile Include="Factories\BaseFactory.cs" />
+    <Compile Include="Factories\SingletonFactory.cs" />
     <Compile Include="Interfaces\ICloseable.cs" />
     <Compile Include="Interfaces\IViewCommandSetter.cs" />
     <Compile Include="Commands\MultiRelayCommand.cs" />

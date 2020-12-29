@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GameFetcherLogic.Models
 {
-    public class GameDetailsModel : INotifyPropertyChanged, IGameDetailsModel
+    public class GameDetailsModel : IGameDetailsModel
     {
         [JsonConstructor]
         public GameDetailsModel(int id, string name, long firstReleaseDate, string summary, List<long> platforms)
@@ -26,15 +26,6 @@ namespace GameFetcherLogic.Models
         {
 
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-
         [JsonProperty("id")]
         public long Id { get; set; }
 
@@ -50,7 +41,6 @@ namespace GameFetcherLogic.Models
             set
             {
                 _myScore = value;
-                NotifyPropertyChanged("MyScore");
             }
         }
 
@@ -68,7 +58,6 @@ namespace GameFetcherLogic.Models
             set
             {
                 _enums = value;
-                NotifyPropertyChanged("Enums");
             }
         }
 
@@ -84,7 +73,6 @@ namespace GameFetcherLogic.Models
             set
             {
                 _platformPlaying = value;
-                NotifyPropertyChanged("PlatformPlaying");
             }
         }
         public Status GetStatus
@@ -94,9 +82,8 @@ namespace GameFetcherLogic.Models
                 return playingStatus;
             }
             set
-            {
+            { 
                 playingStatus = value;
-                NotifyPropertyChanged("GetStatus");
             }
         }
 
@@ -171,7 +158,6 @@ namespace GameFetcherLogic.Models
             set
             {
                 _name = value;
-                NotifyPropertyChanged("Name");
             }
         }
 
@@ -210,7 +196,6 @@ namespace GameFetcherLogic.Models
             {
                 if (value == null) return;
                 _summary = value;
-                NotifyPropertyChanged("Summary");
 
             }
         }
