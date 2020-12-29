@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        xmlns:converter="clr-namespace:GameFetcherUI.Converters"  
+        xmlns:converter="clr-namespace:GameFetcherUI"
+        xmlns:converter21="clr-namespace:GameFetcherUI.Converters"
         Title="{Binding Game.Name}" Height="300" Width="400"
         ResizeMode="NoResize" x:Name="myWindow">
     
@@ -15,7 +16,8 @@
     <Window.Resources>
         <local:ListStringConverter x:Key="platformConverter"/>
         <local1:GameStatusViewModel x:Key="GameStatusViewModel"/>
-        <converter:MultiParametersConverter x:Key="multiParametersConverter" />
+        <converter:MultiParametersConverter x:Key="multiParametersConverter"/>
+        <converter21:EnumToStringConverter x:Key="enumToStringConverter"/>
     </Window.Resources>
     
     <Grid DataContext="{Binding Source={StaticResource GameStatusViewModel}}">
@@ -46,7 +48,7 @@
         <!-- GAME STATUS -->
         <StackPanel VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
             <Label>Playing Status:</Label>
-            <ComboBox SelectedItem="{Binding Game.GetStatus}" 
+            <ComboBox SelectedValue="{Binding Game.GetStatus, Converter={StaticResource enumToStringConverter}}" 
                       ItemsSource="{Binding Game.Enums, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                       IsSynchronizedWithCurrentItem="True" Height="20"/>
         </StackPanel>

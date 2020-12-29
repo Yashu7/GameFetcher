@@ -124,7 +124,6 @@ namespace GameFetcherUI.ViewModel
         private void QuitApp(object sender)
         {
             
-           
             (sender as Window).Close();
         }
         

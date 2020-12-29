@@ -200,6 +200,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Converters\EnumToStringConverter.cs" />
     <Compile Include="Converters\EpochToDateConverter.cs" />
     <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\SearchGameConverter.cs" />
