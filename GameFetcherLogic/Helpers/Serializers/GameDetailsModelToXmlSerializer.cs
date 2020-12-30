@@ -21,28 +21,38 @@ namespace GameFetcherLogic.SerializationServices
         }
         public void SerializeList(List<IGameDetailsModel> objs, string path)
         {
-          
-            List<GameInfoModel> xmlModels = new List<GameInfoModel>();
-            foreach(var m in objs)
-            {
-                xmlModels.Add(new GameInfoModel { Title = m.Name,Platform =m.PlatformPlaying,Score =m.MyScore.ToString(),PlayingStatus =m.GetStatus.ToString() });
-            }
-            string formattedText = GameListCustomSerializer<GameInfoModel>.SerializeListToFormattedString(xmlModels);
+
+            if (!CheckIfPathIsValid(path)) return;
+            List<ExportedGameModel> xmlModels = new List<ExportedGameModel>();
+            ConvertModels(objs, xmlModels);
+            string formattedText = GameListCustomSerializer<ExportedGameModel>.SerializeListToFormattedString(xmlModels);
             using (TextWriter writer = new StreamWriter(path + ".txt"))
             {
                 writer.Write(formattedText);
             }
         }
+        /// <summary>
+        /// Map IGameDetailsModel list to ExportedGameModel list.
+        /// </summary>
+        /// <param name="source">Original models</param>
+        /// <param name="output">Models formatted for serialization</param>
+        public static void ConvertModels(List<IGameDetailsModel> source, List<ExportedGameModel> output)
+        {
+            foreach (var model in source)
+            {
+                output.Add(new ExportedGameModel { Title = model.Name, Platform = model.PlatformPlaying, Score = model.MyScore.ToString(), PlayingStatus = model.GetStatus.ToString() });
+            }
+        }
+        public static bool CheckIfPathIsValid(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("Savefile path is missing", nameof(path));
+                
+            }
+            return true;
+        }
         
     }
-    public class GameInfoModel
-    {
-        public string Title { get; set; }
-        public string Platform { get; set; }
-        public string Score { get; set; }
-        public string PlayingStatus { get; set; }
-        
-    }
-     
 
 }
