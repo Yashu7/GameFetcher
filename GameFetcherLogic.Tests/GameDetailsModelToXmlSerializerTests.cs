@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,16 @@ using Xunit;
 
 namespace GameFetcherLogic.Tests
 {
+    public class NullList : IEnumerable<object[]>
+    {
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            return null;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
     public class GameDetailsModelToXmlSerializerTests
     {
         [Fact]
@@ -17,6 +28,7 @@ namespace GameFetcherLogic.Tests
         {
             Assert.Throws<ArgumentException>("path", () => GameDetailsModelToXmlSerializer.CheckIfPathIsValid(""));
         }
+
         [Theory]
         [InlineData("C:/")]
         [InlineData("C:/Users/Xyz/Documents")]
@@ -24,6 +36,14 @@ namespace GameFetcherLogic.Tests
         public void CheckIfPathIsValid_ShouldPassIfPathValid(string path)
         {
             Assert.True(GameDetailsModelToXmlSerializer.CheckIfPathIsValid(path));
+        }
+
+        [Fact]
+        public void ConvertModels_ShouldFailIfListsNull()
+        {
+            List<IGameDetailsModel> source = null;
+            List<ExportedGameModel> output = null;
+            Assert.Throws<NullReferenceException>(() => GameDetailsModelToXmlSerializer.ConvertModels(source,output));
         }
     }
 }

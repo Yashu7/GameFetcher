@@ -38,6 +38,11 @@ namespace GameFetcherLogic.SerializationServices
         /// <param name="output">Models formatted for serialization</param>
         public static void ConvertModels(List<IGameDetailsModel> source, List<ExportedGameModel> output)
         {
+            if(source == null || output == null)
+            {
+                throw new NullReferenceException("List is empty");
+            }
+           
             foreach (var model in source)
             {
                 output.Add(new ExportedGameModel { Title = model.Name, Platform = model.PlatformPlaying, Score = model.MyScore.ToString(), PlayingStatus = model.GetStatus.ToString() });
