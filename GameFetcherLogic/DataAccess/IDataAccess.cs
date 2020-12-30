@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GameFetcherLogic.ApiServices
 {
-    public interface IDataReciever<T, T2, T3>
+    public interface IDataAccess<T, T2, T3>
     {
         //Interface for classes that recieve data from APIs
 

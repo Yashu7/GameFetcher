@@ -9,10 +9,10 @@ namespace GameFetcherUI.Factories
 {
     public static class GameModelDatabaseRecieverFactory
     {
-        public static SingletonFactory<GameModelDatabaseReciever> Factory { get; private set; }
+        public static SingletonFactory<GameModelDataAccess> Factory { get; private set; }
         static GameModelDatabaseRecieverFactory()
         {
-            Factory = new SingletonFactory<GameModelDatabaseReciever>();
+            Factory = new SingletonFactory<GameModelDataAccess>();
         }
     }
 }

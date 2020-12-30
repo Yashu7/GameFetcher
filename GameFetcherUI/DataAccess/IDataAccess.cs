@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameFetcherUI.DataRecievers
 {
-    interface IDatabaseReciever<T>
+    interface IDataAccess<T>
     {
         List<T> GetAll();
         List<T> GetBy(T name);

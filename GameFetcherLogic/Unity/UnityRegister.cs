@@ -32,10 +32,10 @@ namespace GameFetcherLogic.Unity
             container.RegisterType<ISqlConnectionInjector<IDiscountedGamesModel>, SqlConnectionInjector<IDiscountedGamesModel>>();
             container.RegisterType<IApiClient<GameDetailsModel>, IGDBApiClient>("IGDBcall");
            // container.RegisterType<IApiClient<DiscountedSwitchGames>, IGDBApiClient>("EshopScraperCall");
-            container.RegisterType<IDataReciever<GameDetailsModel, string, int>, GameModelsReciever>("GameModelsReciever");
-            container.RegisterType<IDataReciever<DiscountedSwitchGames, string, int>, EshopSalesReciever>("EshopDealsReciever");
+            container.RegisterType<IDataAccess<GameDetailsModel, string, int>, GameModelsDataAccess>("GameModelsReciever");
+            container.RegisterType<IDataAccess<DiscountedSwitchGames, string, int>, EshopPricesDataAccess>("EshopDealsReciever");
             container.RegisterType<ISerializer<IGameDetailsModel>, GameDetailsModelToXmlSerializer>();
-            IDataReciever<DiscountedSwitchGames, string, int> Reciever;
+            IDataAccess<DiscountedSwitchGames, string, int> Reciever;
         
         }
         static UnityRegister()

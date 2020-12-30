@@ -9,11 +9,11 @@ using Unity;
 
 namespace GameFetcherUI.DataRecievers
 {
-    public class GameModelDatabaseReciever : IDatabaseReciever<GameModel>
+    public class GameModelDataAccess : IDataAccess<GameModel>
     {
         private readonly ISqlConnectionInjector<IGameDetailsModel> _sqlConn;
         private Mapper _mapper { get; set; }
-        public GameModelDatabaseReciever()
+        public GameModelDataAccess()
         {
             _mapper = new Mapper(App.Config);
             _sqlConn = UnityRegister.Container.Resolve<ISqlConnectionInjector<IGameDetailsModel>>();

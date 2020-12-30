@@ -204,9 +204,9 @@
     <Compile Include="Converters\EpochToDateConverter.cs" />
     <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\SearchGameConverter.cs" />
-    <Compile Include="DataRecievers\GameModelDatabaseReciever.cs" />
-    <Compile Include="DataRecievers\IDatabaseReciever.cs" />
-    <Compile Include="DataRecievers\PlatformModelDatabaseReciever.cs" />
+    <Compile Include="DataAccess\GameModelDataAccess.cs" />
+    <Compile Include="DataAccess\IDataAccess.cs" />
+    <Compile Include="DataAccess\PlatformModelDataAccess.cs" />
     <Compile Include="Factories\GameModelDatabaseRecieverFactory.cs" />
     <Compile Include="Factories\PlatformModelDatabaseRecieverFactory.cs" />
     <Compile Include="Factories\SingletonFactory.cs" />

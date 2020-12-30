@@ -12,7 +12,7 @@ namespace GameFetcherUI.ViewModel
     public class GameStatusViewModel : UserControl, INotifyPropertyChanged, IView, IViewCommandSetter
     {
         #region Properties, fields
-        private IDatabaseReciever<GameModel> GamesReciever { get; set; }
+        private IDataAccess<GameModel> GamesReciever { get; set; }
         private GameModel _game = new GameModel();
         public GameModel Game
         {

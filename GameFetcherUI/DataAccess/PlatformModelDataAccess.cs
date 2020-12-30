@@ -12,11 +12,11 @@ using Unity;
 
 namespace GameFetcherUI.DataRecievers
 {
-    public class PlatformModelDatabaseReciever : IDatabaseReciever<Models.PlatformModel>
+    public class PlatformModelDataAccess : IDataAccess<Models.PlatformModel>
     {
         private readonly ISqlConnectionInjector<IPlatformModel> _sqlConn;
         private Mapper _mapper { get; set; }
-        public PlatformModelDatabaseReciever()
+        public PlatformModelDataAccess()
         {
             _mapper = new Mapper(App.Config);
             _sqlConn = UnityRegister.Container.Resolve<ISqlConnectionInjector<IPlatformModel>>();

@@ -21,8 +21,8 @@ namespace GameFetcherUI.ViewModel
     public class AddGamePageViewModel : UserControl, INotifyPropertyChanged, IView
     {
         #region Fields,properties, lists
-        private IDatabaseReciever<GameModel> GameModelDataReciever { get; set; }
-        private IDatabaseReciever<Models.PlatformModel> PlatformModelDataReciever { get; set; }
+        private IDataAccess<GameModel> GameModelDataReciever { get; set; }
+        private IDataAccess<Models.PlatformModel> PlatformModelDataReciever { get; set; }
 
         private string _searchString = "Insert Game Title";
         public string SearchString 
@@ -117,7 +117,7 @@ namespace GameFetcherUI.ViewModel
         /// <param name="sender"></param>
         private async void SearchGames(object sender)
         {
-            var dataReciever = UnityRegister.Container.Resolve<IDataReciever<GameDetailsModel, string, int>>("GameModelsReciever");
+            var dataReciever = UnityRegister.Container.Resolve<IDataAccess<GameDetailsModel, string, int>>("GameModelsReciever");
             Models.PlatformModel selectedPlatform = sender as Models.PlatformModel;
             Models.PlatformModel platform = selectedPlatform;
             

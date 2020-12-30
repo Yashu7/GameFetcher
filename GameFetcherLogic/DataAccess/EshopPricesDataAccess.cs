@@ -12,10 +12,10 @@ using Unity;
 
 namespace GameFetcherLogic.ApiServices
 {
-    public class EshopSalesReciever : IDataReciever<DiscountedSwitchGames, string, int>, IDisposable
+    public class EshopPricesDataAccess : IDataAccess<DiscountedSwitchGames, string, int>, IDisposable
     {
     
-        public EshopSalesReciever()
+        public EshopPricesDataAccess()
         {
             
         }

@@ -11,10 +11,10 @@ using Unity;
 
 namespace GameFetcherLogic.ApiServices
 {
-    class GameModelsReciever : IDataReciever<GameDetailsModel, string, int>
+    class GameModelsDataAccess : IDataAccess<GameDetailsModel, string, int>
     {
         public IApiClient<GameDetailsModel> apiClient;
-        public GameModelsReciever()
+        public GameModelsDataAccess()
         {
             
             apiClient = UnityRegister.Container.Resolve<IApiClient<GameDetailsModel>>("IGDBcall");

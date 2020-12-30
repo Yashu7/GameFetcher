@@ -73,7 +73,7 @@ namespace GameFetcherUI.ViewModel
         public async void GetDiscountPrices()
         {
             //Nintendo Eshop Discounts
-            var eshop = UnityRegister.Container.Resolve<IDataReciever<DiscountedSwitchGames, string, int>>("EshopDealsReciever");
+            var eshop = UnityRegister.Container.Resolve<IDataAccess<DiscountedSwitchGames, string, int>>("EshopDealsReciever");
             try
             {
                 List<DiscountedSwitchGames> list = await eshop.GetByValue(Game.Name, 1).ConfigureAwait(false);

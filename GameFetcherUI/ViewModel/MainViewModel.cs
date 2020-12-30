@@ -23,7 +23,7 @@ namespace GameFetcherUI.ViewModel
     {
 
         #region fields and properties
-        private IDatabaseReciever<GameModel> GamesRecievier { get; set; }
+        private IDataAccess<GameModel> GamesRecievier { get; set; }
         private ObservableCollection<GameModel> _games = new ObservableCollection<GameModel>();
         public ObservableCollection<GameModel> Games 
         {
