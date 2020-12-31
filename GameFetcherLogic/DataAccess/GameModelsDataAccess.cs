@@ -28,6 +28,7 @@ namespace GameFetcherLogic.ApiServices
 
         public async Task<List<GameDetailsModel>> GetByValue(string title, int platId)
         {
+            if (string.IsNullOrWhiteSpace(title)) return null;
             List<GameDetailsModel> UImodel = await apiClient.Get(title).ConfigureAwait(false);
             List<GameDetailsModel> games = new List<GameDetailsModel>();
             if (platId == 0) return UImodel;

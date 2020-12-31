@@ -54,7 +54,7 @@ namespace GameFetcherLogic.ApiClients
             catch (HttpRequestException)
             {
 
-                return null;
+                throw new HttpRequestException();
             }
 
             #endregion

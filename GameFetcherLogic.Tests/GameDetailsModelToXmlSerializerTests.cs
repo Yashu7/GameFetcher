@@ -11,16 +11,7 @@ using Xunit;
 
 namespace GameFetcherLogic.Tests
 {
-    public class NullList : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            return null;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
-
+   
     public class GameDetailsModelToXmlSerializerTests
     {
         [Fact]

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GameFetcherLogic.Helpers
 {
-    sealed class EpochToDateConverter
+    public static class EpochToDateConverter
     {
         public static string ConvertTime(long time)
         {
