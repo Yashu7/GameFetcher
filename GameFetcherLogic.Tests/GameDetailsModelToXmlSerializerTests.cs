@@ -34,7 +34,7 @@ namespace GameFetcherLogic.Tests
         {
             List<IGameDetailsModel> source = null;
             List<ExportedGameModel> output = null;
-            Assert.Throws<NullReferenceException>(() => GameDetailsModelToXmlSerializer.ConvertModels(source,output));
+            Assert.Throws<NullReferenceException>(() => GameDetailsModelToXmlSerializer.MapModels(source,output));
         }
     }
 }

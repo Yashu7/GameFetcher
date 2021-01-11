@@ -8,8 +8,9 @@
         xmlns:local="clr-namespace:GameFetcherUI"
          xmlns:local1="clr-namespace:GameFetcherUI.ViewModel" 
         mc:Ignorable="d"
-        Title="Game Fetcher" Height="600" Width="750"
-        ResizeMode="CanResize" Background="#FFA1B2EA" 
+        Title="Game Fetcher" Height="600" Width="500"
+        Background="#FFA1B2EA"
+        SizeToContent="WidthAndHeight"
         >
     <Window.DataContext>
         <local1:MainViewModel/>
@@ -22,25 +23,30 @@
     <!-- Grid Deifinitions Region -->
     <Grid DataContext="{Binding Source={StaticResource MainViewModel}}">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+          
+            
+            <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <!-- End Region -->
 
 
         <!-- Game Lists Region  -->
-        <TextBlock FontStyle="Oblique" FontWeight="Bold" Margin="50,15,20,10">Pick List:</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" FontStyle="Oblique" 
+                   FontWeight="Bold" >Pick List:</TextBlock>
        
-        <StackPanel  Margin="100,0,0,0" Grid.Row="0" Grid.Column="0" >
+        <StackPanel  Grid.Row="1" Grid.Column="1" >
 
-            <ComboBox Grid.Column="1"  SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" 
-                        Margin="10 10" Name='Lists' >
+            <ComboBox Grid.Column="2"  SelectedIndex="{Binding Choice, UpdateSourceTrigger=PropertyChanged}" 
+                        Margin="100 0" Name='Lists' >
                 <ComboBoxItem>All Games</ComboBoxItem>
                 <ComboBoxItem>Played Games</ComboBoxItem>
                 <ComboBoxItem>Playing Games</ComboBoxItem>
@@ -50,9 +56,11 @@
          <!-- End Region -->
             
          <!-- Display Games Region -->
-            <Label  Name="ListsLabel" Grid.Row="1" Grid.Column="0" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
-            <ListView  SelectedItem="{Binding SelectedGame}" ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Name="AllGames" Margin="0,20,0,0" MaxWidth="601" MinWidth="200" MinHeight="100"
-                       Grid.Row="0"  MaxHeight="250" Grid.Column="0"  Height="250">
+            <Label  Name="ListsLabel" Grid.Row="2" Grid.Column="1" FontSize="30" VerticalAlignment="Top" 
+                    HorizontalAlignment="Center" Content="{Binding Label,UpdateSourceTrigger=PropertyChanged}"/>
+            <ListView  SelectedItem="{Binding SelectedGame}" ItemsSource="{Binding Games, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                       Name="AllGames" MaxWidth="400" MinWidth="200" MinHeight="100"
+                       Grid.Row="1"  MaxHeight="250" Grid.Column="1"  Height="250">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2" />
@@ -69,10 +77,11 @@
                                         <ColumnDefinition Width="75" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="40" />
                                         <RowDefinition Height="40" />
-                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="40" />
+                                        
                                     </Grid.RowDefinitions>
                                     <TextBlock TextWrapping="Wrap"
                                       Grid.Row="0" Grid.Column="0" MaxWidth="100" Margin="2 4" Text="Title: " FontWeight="Bold"/>
@@ -115,7 +124,7 @@
         <!-- End Region -->
         
         <!-- Option Buttons Region -->
-        <StackPanel Grid.Row="1"   Margin="100,30,0,0" >
+        <StackPanel Grid.Row="2" Grid.Column="1"  >
             <Button Content="Search"  Command="{Binding SearchCommand}" Margin="100 10 100 0"/>
             
             <!-- My WebAPI app is not live right now so I'm commenting this out until I put it back on the server

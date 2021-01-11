@@ -46,8 +46,6 @@ namespace GameFetcherLogic.SqlServices
                         using (SQLiteConnection cnn2 = SqlConnectionInstance.GetSQLiteConnection())
                         {
                             cnn2.Open();
-                            //comm = new SQLiteCommand("GamePlatformJunction", cnn);
-                            //comm.CommandType = CommandType.StoredProcedure;
                             string secondQuery = "INSERT INTO GamePlatforms(GameId,PlatformId)VALUES((SELECT MAX(Id) FROM Games),@platformID)";
                             comm = new SQLiteCommand(secondQuery, cnn2);
                             comm.Parameters.Add(new SQLiteParameter("@gameID", 1));
@@ -110,8 +108,6 @@ namespace GameFetcherLogic.SqlServices
             {
                 SQLiteCommand comm;
                 cnn.Open();
-                //comm = new SQLiteCommand("UpdateGameProcedure", cnn);
-                //comm.CommandType = CommandType.StoredProcedure;
                 string query = "UPDATE Games SET Title = @title, ReleaseDate = @date, Summary = @summary, Status = @status, Rating = @rating, PlatformPlaying = @PlatformPlaying WHERE Id = @id;";
                 comm = new SQLiteCommand(query, cnn);
                 comm.Parameters.Add(new SQLiteParameter("@id", model.Id));

@@ -35,7 +35,7 @@ namespace GameFetcherLogic.SerializationServices
             }
             catch(ArgumentNullException ex)
             {
-                return ex.ToString();
+                throw new ArgumentNullException(ex.Message);
             }
         }
     }

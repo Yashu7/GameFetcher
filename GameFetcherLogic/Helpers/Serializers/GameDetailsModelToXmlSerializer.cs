@@ -24,7 +24,7 @@ namespace GameFetcherLogic.SerializationServices
 
             if (!CheckIfPathIsValid(path)) return;
             List<ExportedGameModel> xmlModels = new List<ExportedGameModel>();
-            ConvertModels(objs, xmlModels);
+            MapModels(objs, xmlModels);
             string formattedText = GameListCustomSerializer<ExportedGameModel>.SerializeListToFormattedString(xmlModels);
             using (TextWriter writer = new StreamWriter(path + ".txt"))
             {
@@ -36,7 +36,7 @@ namespace GameFetcherLogic.SerializationServices
         /// </summary>
         /// <param name="source">Original models</param>
         /// <param name="output">Models formatted for serialization</param>
-        public static void ConvertModels(List<IGameDetailsModel> source, List<ExportedGameModel> output)
+        public static void MapModels(List<IGameDetailsModel> source, List<ExportedGameModel> output)
         {
             if(source == null || output == null)
             {
