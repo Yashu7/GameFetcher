@@ -10,6 +10,7 @@
         mc:Ignorable="d"
         Title="Game Fetcher" Height="600" Width="500"
         Background="#FFA1B2EA"
+        WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
         >
     <Window.DataContext>

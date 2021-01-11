@@ -8,7 +8,9 @@
         xmlns:converter="clr-namespace:GameFetcherUI"
         xmlns:converter21="clr-namespace:GameFetcherUI.Converters"
         Title="{Binding Game.Name}" Height="300" Width="400"
-        ResizeMode="NoResize" x:Name="myWindow">
+        ResizeMode="NoResize" x:Name="myWindow"
+        WindowStartupLocation="CenterScreen"
+        >
     
     <Window.DataContext>
         <local1:GameStatusViewModel/>

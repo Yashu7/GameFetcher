@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d"
-        Title="AddGamePage" Height="306.213" Width="487.442">
-   
+        Title="AddGamePage" Height="306.213" Width="487.442"
+        WindowStartupLocation="CenterScreen">
+
+
     <Window.DataContext>
         <local1:AddGamePageViewModel/>
     </Window.DataContext>

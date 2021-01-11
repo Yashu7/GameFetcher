@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:GameFetcherUI" xmlns:local1="clr-namespace:GameFetcherUI.ViewModel"
         mc:Ignorable="d" ResizeMode="CanResize"
         Title="Game Info"  Height="400"
-        Width="398.367">
+        Width="398.367"
+        WindowStartupLocation="CenterScreen"
+        >
     <Window.DataContext>
         <local1:GameDetailsViewModel/>
     </Window.DataContext>
